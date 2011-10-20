@@ -1,0 +1,2 @@
+module PublicationCatsHelper
+end

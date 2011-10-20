@@ -1,0 +1,23 @@
+<h1>Listing publication_cats</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @publication_cats.each do |publication_cat| %>
+  <tr>
+    <td><%= publication_cat.name %></td>
+    <td><%= link_to 'Show', publication_cat %></td>
+    <td><%= link_to 'Edit', edit_publication_cat_path(publication_cat) %></td>
+    <td><%= link_to 'Destroy', publication_cat, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Publication cat', new_publication_cat_path %>

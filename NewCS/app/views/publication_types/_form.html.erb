@@ -1,0 +1,9 @@
+ <%= form_for @p_types, :remote => true do |ft| %>
+
+  <%=ft.text_field :name , :class => 'submittable'%><br>
+
+  <div class="actions">
+    <%= ft.submit %>
+  </div>
+<% end %>
+

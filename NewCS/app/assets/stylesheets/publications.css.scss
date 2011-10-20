@@ -1,0 +1,26 @@
+// Place all the styles related to the Publications controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#div_publication_form{
+	width:100%;
+	float:left;
+	padding:10px;
+}
+
+
+#notification_area{
+	color:white;
+	display: none;
+	width:200px;
+	padding:10px;
+	position:absolute;
+	z-index:100;
+	-moz-border-radius:    10px;
+    	-webkit-border-radius: 10px;
+   	 border-radius:         10px;
+	opacity: 0.3;
+	background : blue; /*TODO change to cool*/		
+}
+
+

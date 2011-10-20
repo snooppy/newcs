@@ -1,0 +1,65 @@
+<div id ="div_publication_form">
+  <%= form_for(@publication  ) do |f| %>
+    <% if @publication.errors.any? %>
+      <div id="error_explanation">
+         <h2><%= pluralize(@publication.errors.count, "error") %> prohibited this publication from being saved:</h2>
+
+        <ul>
+          <% @publication.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+
+    <% end %>
+
+    <div id ="notification_area">
+
+    </div>
+
+
+    <%#= f.text_area :article, :rows => 10, :cols => 10   %>
+
+    <%#*<script type="text/javascript">%>
+      <%#*$(function() {%>
+        <%#*$('textarea').tinymce({%>
+          <%#*theme: 'advanced'%>
+        <%#*});%>
+      <%#*});%>
+
+    <%#*</script>%>
+
+    <div id="publication_subject_sel"
+         <p>Subject list </p>
+           <%Subject.all.each do |s| %>
+             <%=  check_box_tag  "publication[subject_ids][]", s.id, has_subject?(s) %> <%=s.name%>
+           <%end%>
+    </div>
+
+
+    <div id="publication_types_sel">
+      <p>Type</p>
+      <%=f.select :publication_type_id, PublicationType.all.collect {|p| [ p.name, p.id ] }, {:include_blank => 'None'}%>
+      <div id ="publication_type_notif"></div>
+    </div>
+    <br>
+    <div id="publication_cats_sel">
+      <p>Category</p>
+      <%=f.select :publication_cat_id, PublicationCat.all.collect {|p| [ p.name, p.id ] }, {:include_blank => 'None'}%>
+      <div id ="publication_cat_notif"></div>
+    </div>
+    <br>
+    <br>
+    <%=f.submit   %>
+  <% end %>
+
+
+
+</div>
+<%@p_types=PublicationType.new%>
+<%@p_cats=PublicationCat.new%>
+<div id="div_publication_type_form"><%=render :partial=>"publication_types/form", :locals=>{:p_types=>@p_types}%></div>
+<div id="div_publication_cat_form"><%=render :partial=>"publication_cats/form", :locals=>{:p_cats=>@p_cats}%></div>
+<br>
+<br>
+

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+
+  <title>File: SPELLCHECKING_PLUGIN.rdoc [tiny_mce-0.1.8 Documentation]</title>
+
+  <link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet" />
+
+  <script src="./js/jquery.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="./js/thickbox-compressed.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="./js/quicksearch.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="./js/darkfish.js" type="text/javascript"
+    charset="utf-8"></script>
+</head>
+
+<body class="file">
+  <div id="metadata">
+    <div id="home-metadata">
+      <div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="./index.html">Home</a>
+          <a href="./index.html#classes">Classes</a>
+          <a href="./index.html#methods">Methods</a>
+        </h3>
+      </div>
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Files</h3>
+        <ul>
+        
+          <li class="file"><a href="./CHANGELOG_PLUGIN_rdoc.html">CHANGELOG_PLUGIN.rdoc</a></li>
+        
+          <li class="file"><a href="./DEV_UPGRADE_NOTES_rdoc.html">DEV_UPGRADE_NOTES.rdoc</a></li>
+        
+          <li class="file"><a href="./README_rdoc.html">README.rdoc</a></li>
+        
+          <li class="file"><a href="./SPELLCHECKING_PLUGIN_rdoc.html">SPELLCHECKING_PLUGIN.rdoc</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class Index
+          <span class="search-toggle"><img src="./images/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <ul class="link-list">
+        
+          <li><a href="./TinyMCE.html">TinyMCE</a></li>
+        
+          <li><a href="./TinyMCE/Base.html">TinyMCE::Base</a></li>
+        
+          <li><a href="./TinyMCE/Base/ClassMethods.html">TinyMCE::Base::ClassMethods</a></li>
+        
+          <li><a href="./TinyMCE/Configuration.html">TinyMCE::Configuration</a></li>
+        
+          <li><a href="./TinyMCE/Helpers.html">TinyMCE::Helpers</a></li>
+        
+          <li><a href="./TinyMCE/Plugin.html">TinyMCE::Plugin</a></li>
+        
+          <li><a href="./TinyMCE/Railtie.html">TinyMCE::Railtie</a></li>
+        
+          <li><a href="./TinyMCE/SpellChecker.html">TinyMCE::SpellChecker</a></li>
+        
+          <li><a href="./TinyMCE/TinyMCEInvalidOption.html">TinyMCE::TinyMCEInvalidOption</a></li>
+        
+          <li><a href="./TinyMCE/TinyMCEInvalidOptionType.html">TinyMCE::TinyMCEInvalidOptionType</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+
+      
+    </div>
+  </div>
+
+  <div id="documentation">
+    
+<p>Note: Spell checking is not tested o regularly maintained. Use with
+caution.</p>
+
+<h1>Spellchecking in <a href="TinyMCE.html">TinyMCE</a> for Rails</h1>
+
+<p><a href="TinyMCE.html">TinyMCE</a> comes packed with a spellcheck plugin
+that relies on a server-side call to function.</p>
+
+<p>If uses_tiny_mce is called in a controller, the controller will get a
+“spellchecker” action added to it that validates text given to it with
+aspell. Right now, only aspell is supported.</p>
+
+<h2>Installing Aspell</h2>
+
+<p>If your distribution has Aspell in its package repositories, then use it.
+Some commands include (as root):</p>
+
+<pre>Debian/Ubuntu:  apt-get install aspell aspell-en
+openSUSE:       yast2 -i aspell aspell-en
+Mac OS X:       port install aspell aspell-dict-en</pre>
+
+<p>If you’re package repositories don’t have Aspell, you’ll need to compile
+from source. Whatever way you install it, make sure that you see the
+language dictionaries you plan to use when you run</p>
+
+<pre>aspell dicts</pre>
+
+<h2>Installing Spellchecker on <a href="TinyMCE.html">TinyMCE</a></h2>
+
+<p>The SpellCheck plugin is not enabled by default in <a
+href="TinyMCE.html">TinyMCE</a>. To enable it, do the following.</p>
+
+<p>Add the following to your uses_tiny_mce controller options declaration
+(edit toolbar location to suit and merge with existing settings):</p>
+
+<pre>:theme =&gt; 'advanced',
+:theme_advanced_buttons3_add =&gt; %w{ spellchecker },
+:spellchecker_languages =&gt; &quot;+English=en&quot;,
+:plugins =&gt; %w{ spellchecker },</pre>
+
+<h2>Customization</h2>
+
+<p>By default, Spellchecking calls “/controller/spellchecker”. But this won’t
+always be where the spellchecker method is accessible. But you can easily
+change where it should call by supplying the following setting to the
+options hash on the uses_tiny_mce declaration in the controller.</p>
+
+<pre>:spellchecker_rpc_url =&gt; '/blog/posts/spellchecker'</pre>
+
+<p>Also, if you want to have other languages spellchecked, make sure they’re
+installed for Aspell to use and then add to the comma delimited value of
+:spellchecker_languages in the format of</p>
+
+<pre>FriendlyName=code</pre>
+
+<p>So the value for English, French, German and Spanish would look like this
+for example</p>
+
+<pre>:spellchecker_languages =&gt; &quot;+English=en,French=fr,German=de,Spanish=es&quot;,</pre>
+
+<p>The + sign in front of a friendly name indicates the default option for
+spellchecking.</p>
+
+<h1>Credits</h1>
+
+<p>Spellchecking functionality created by Akhil Bansal ( <a
+href="http://webonrails.com/2008/08/08/configuring-tinymce-spellchecker-with-rails-application/">webonrails.com/2008/08/08/configuring-tinymce-spellchecker-with-rails-application/</a>
+)</p>
+
+<p>Spellchecking functionality integrated into plugin by Terry Heath</p>
+
+  </div>
+
+  <div id="validator-badges">
+    <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+    <p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+      Rdoc Generator</a> 2</small>.</p>
+  </div>
+</body>
+</html>
+

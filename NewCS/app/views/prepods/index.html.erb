@@ -1,0 +1,21 @@
+<h1>Listing prepods</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @prepods.each do |prepod| %>
+  <tr>
+    <td><%= link_to 'Show', prepod %></td>
+    <td><%= link_to 'Edit', edit_prepod_path(prepod) %></td>
+    <td><%= link_to 'Destroy', prepod, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Prepod', new_prepod_path %>

@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+
+  <title>Module: TinyMCE::SpellChecker</title>
+
+  <link rel="stylesheet" href="../rdoc.css" type="text/css" media="screen" />
+
+  <script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/thickbox-compressed.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/quicksearch.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/darkfish.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+<body id="top" class="module">
+
+  <div id="metadata">
+    <div id="home-metadata">
+      <div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../index.html">Home</a>
+          <a href="../index.html#classes">Classes</a>
+          <a href="../index.html#methods">Methods</a>
+        </h3>
+      </div>
+    </div>
+
+    <div id="file-metadata">
+      <div id="file-list-section" class="section">
+        <h3 class="section-header">In Files</h3>
+        <div class="section-body">
+          <ul>
+          
+            <li><a href="../lib/tiny_mce/spell_checker_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/tiny_mce/spell_checker.rb">lib/tiny_mce/spell_checker.rb</a></li>
+          
+          </ul>
+        </div>
+      </div>
+
+      
+    </div>
+
+    <div id="class-metadata">
+      
+
+      
+
+      
+
+      
+      <!-- Method Quickref -->
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+          <li><a href="#method-i-spellchecker">#spellchecker</a></li>
+          
+        </ul>
+      </div>
+      
+
+      
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Files</h3>
+        <ul>
+        
+          <li class="file"><a href="../CHANGELOG_PLUGIN_rdoc.html">CHANGELOG_PLUGIN.rdoc</a></li>
+        
+          <li class="file"><a href="../DEV_UPGRADE_NOTES_rdoc.html">DEV_UPGRADE_NOTES.rdoc</a></li>
+        
+          <li class="file"><a href="../README_rdoc.html">README.rdoc</a></li>
+        
+          <li class="file"><a href="../SPELLCHECKING_PLUGIN_rdoc.html">SPELLCHECKING_PLUGIN.rdoc</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class/Module Index
+          <span class="search-toggle"><img src="../images/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <ul class="link-list">
+        
+          <li><a href="../TinyMCE.html">TinyMCE</a></li>
+        
+          <li><a href="../TinyMCE/Base.html">TinyMCE::Base</a></li>
+        
+          <li><a href="../TinyMCE/Base/ClassMethods.html">TinyMCE::Base::ClassMethods</a></li>
+        
+          <li><a href="../TinyMCE/Configuration.html">TinyMCE::Configuration</a></li>
+        
+          <li><a href="../TinyMCE/Helpers.html">TinyMCE::Helpers</a></li>
+        
+          <li><a href="../TinyMCE/Plugin.html">TinyMCE::Plugin</a></li>
+        
+          <li><a href="../TinyMCE/Railtie.html">TinyMCE::Railtie</a></li>
+        
+          <li><a href="../TinyMCE/SpellChecker.html">TinyMCE::SpellChecker</a></li>
+        
+          <li><a href="../TinyMCE/TinyMCEInvalidOption.html">TinyMCE::TinyMCEInvalidOption</a></li>
+        
+          <li><a href="../TinyMCE/TinyMCEInvalidOptionType.html">TinyMCE::TinyMCEInvalidOptionType</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+
+      
+    </div>
+  </div>
+
+  <div id="documentation">
+    <h1 class="module">TinyMCE::SpellChecker</h1>
+
+    <div id="description" class="description">
+      
+<p>Provides Spell checking capability to tiny_mce plugin Note: this may not
+always be up to date. Please supply patches if this isn’t working</p>
+
+    </div><!-- description -->
+
+    
+    
+    
+    <div id="5Buntitled-5D" class="documentation-section">
+      
+
+      
+
+      
+      <!-- Constants -->
+      <div id="constants-list" class="section">
+        <h3 class="section-header">Constants</h3>
+        <dl>
+        
+          <dt><a name="ASPELL_PATH">ASPELL_PATH</a></dt>
+          
+          <dd class="description"></dd>
+          
+        
+          <dt><a name="ASPELL_WORD_DATA_REGEX">ASPELL_WORD_DATA_REGEX</a></dt>
+          
+          <dd class="description"></dd>
+          
+        
+        </dl>
+      </div>
+      
+
+      
+
+      <!-- Methods -->
+      
+      <div id="public-instance-method-details" class="method-section section">
+        <h3 class="section-header">Public Instance Methods</h3>
+
+      
+        <div id="spellchecker-method" class="method-detail ">
+          <a name="method-i-spellchecker"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">spellchecker</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>The method called via AJAX request by the Spellchecking plugin in <a
+href="../TinyMCE.html">TinyMCE</a>. Passes in various params (language,
+words, and method) Return a JSON object required by the Spellchecking
+plugin</p>
+            
+
+            
+            <div class="method-source-code" id="spellchecker-source">
+<pre>
+<span class="ruby-comment"># File lib/tiny_mce/spell_checker.rb, line 30</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">spellchecker</span>
+  <span class="ruby-identifier">language</span>, <span class="ruby-identifier">words</span>, <span class="ruby-identifier">method</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:params</span>][<span class="ruby-value">0</span>], <span class="ruby-identifier">params</span>[<span class="ruby-value">:params</span>][<span class="ruby-value">1</span>], <span class="ruby-identifier">params</span>[<span class="ruby-value">:method</span>] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:params</span>].<span class="ruby-identifier">blank?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">render</span>(<span class="ruby-value">:nothing</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">language</span>.<span class="ruby-identifier">blank?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">words</span>.<span class="ruby-identifier">blank?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">method</span>.<span class="ruby-identifier">blank?</span>
+  <span class="ruby-identifier">headers</span>[<span class="ruby-string">&quot;Content-Type&quot;</span>] = <span class="ruby-string">&quot;text/plain&quot;</span>
+  <span class="ruby-identifier">headers</span>[<span class="ruby-string">&quot;charset&quot;</span>] = <span class="ruby-string">&quot;utf-8&quot;</span>
+  <span class="ruby-identifier">suggestions</span> = <span class="ruby-identifier">check_spelling</span>(<span class="ruby-identifier">words</span>, <span class="ruby-identifier">method</span>, <span class="ruby-identifier">language</span>)
+  <span class="ruby-identifier">results</span> = {<span class="ruby-string">&quot;id&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>, <span class="ruby-string">&quot;result&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">suggestions</span>, <span class="ruby-string">&quot;error&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>}
+  <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">results</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- spellchecker-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- spellchecker-method -->
+
+      
+      </div><!-- public-instance-method-details -->
+    
+    </div><!-- 5Buntitled-5D -->
+  
+
+  </div><!-- documentation -->
+
+  <div id="validator-badges">
+    <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+    <p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+      Rdoc Generator</a> 2</small>.</p>
+  </div>
+
+</body>
+</html>
+

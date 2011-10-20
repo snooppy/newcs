@@ -1,0 +1,21 @@
+<h1>Listing publication_types</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @publication_types.each do |publication_type| %>
+  <tr>
+    <td><%= link_to 'Show', publication_type %></td>
+    <td><%= link_to 'Edit', edit_publication_type_path(publication_type) %></td>
+    <td><%= link_to 'Destroy', publication_type, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Publication type', new_publication_type_path %>

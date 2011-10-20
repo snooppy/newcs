@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Week:</b>
+  <%= @shedule.week %>
+</p>
+
+<p>
+  <b>Day:</b>
+  <%= @shedule.day %>
+</p>
+
+<p>
+  <b>Hour:</b>
+  <%= @shedule.hour %>
+</p>
+
+<p>
+  <b>Classroom:</b>
+  <%= @shedule.classroom %>
+</p>
+
+<p>
+  <b>Sub group2:</b>
+  <%= @shedule.sub_group2 %>
+</p>
+
+<p>
+  <b>Sub group3:</b>
+  <%= @shedule.sub_group3 %>
+</p>
+
+
+<%= link_to 'Edit', edit_shedule_path(@shedule) %> |
+<%= link_to 'Back', shedules_path %>

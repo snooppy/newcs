@@ -1,0 +1,33 @@
+<h1>Listing shedules</h1>
+
+<table>
+  <tr>
+    <th>Week</th>
+    <th>Day</th>
+    <th>Hour</th>
+    <th>Classroom</th>
+    <th>Sub group2</th>
+    <th>Sub group3</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @shedules.each do |shedule| %>
+  <tr>
+    <td><%= shedule.week %></td>
+    <td><%= shedule.day %></td>
+    <td><%= shedule.hour %></td>
+    <td><%= shedule.classroom %></td>
+    <td><%= shedule.sub_group2 %></td>
+    <td><%= shedule.sub_group3 %></td>
+    <td><%= link_to 'Show', shedule %></td>
+    <td><%= link_to 'Edit', edit_shedule_path(shedule) %></td>
+    <td><%= link_to 'Destroy', shedule, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Shedule', new_shedule_path %>
