@@ -1,17 +1,31 @@
-$("#publication_publication_type_id").replaceWith('<select id="publication_publication_type_id" name="publication[publication_type_id]"><%PublicationType.all.each do |p_t|%><option value="<%=p_t.id%>"> <%=p_t.name%></option><%end%></select>');
-$("#notification_area").replaceWith('<div id ="notification_area"><p id="notification" class="notification">Publication Type "<%= @publication_type.name%>" was seccesfully added</p></div>')
-$("#publication_type_notif").replaceWith('<div id ="publication_type_notif"><img src="/media/img/added.png">"<%= @publication_type.name%>"was added!</div>')
+// returned from create publication_types_controller
+// for publication form
 
-
-
-
+$("#publication_type_form").fadeOut();
 
 <% if @publication_type.errors.any? %>
-   $("#publication_type_notif").replaceWith('<div id ="publication_type_notif"><ul><% @publication_type.errors.full_messages.each do |msg| %><li><%= msg %></li><% end %></ul><%=@publication_type.errors.full_messages.count%></div>') 
+  $("#publication_type_notif").replaceWith('<div id ="publication_type_notif"><% @publication_type.errors.full_messages.each do |msg| %><p><%= msg %></p><% end %> <%=@publication_type.errors.full_messages.count%></div>') 
+  $("#notification_area").replaceWith('<div id ="notification_area"><p id="notification" class="notification">Publication Type "<%= @publication_type.name%>" inserting was faild</p></div>')
+  $("#publication_type_notif").addClass("notif_error");
+  $("#notification_area").addClass("notif_error");
+<%else%>
+  $("#publication_publication_type_id").replaceWith('<select id="publication_publication_type_id" name="publication[publication_type_id]"><%PublicationType.all.each do |p_t|%><option value="<%=p_t.id%>"> <%=p_t.name%></option><%end%></select>');
+  
+  $("#publication_type_notif").replaceWith('<div id ="publication_type_notif"><img src="/media/img/added.png">"<%= @publication_type.name%>"was added!</div>')
+  $("#notification_area").replaceWith('<div id ="notification_area"><p id="notification" class="notification">Publication Type "<%= @publication_type.name%>" was seccesfully added</p></div>')
+  $("#publication_type_notif").addClass("notif_success");
+  $("#notification_area").addClass("notif_success");
+
 <% end %>
 
-$("#publication_type_notif").fadeOut(5000);
-//$("#notification_area").css('visibility','visible');
+var t_off = $("#publication_type_sel").offset();
+$("#publication_type_notif").offset( { left: t_off.left, top: t_off.top } );
+
+ 
+$("#notification_area").offset( { left: 0, top: 0 } );
+
+
 $("#notification_area").show('slow');
-$("#notification_area").css({"top": $("#publication_type_sel").offset.top,"left": $("#publication_type_sel").offset.left);
 $("#notification_area").fadeOut(6000);
+$("#publication_type_notif").show('slow');
+$("#publication_type_notif").fadeOut(5000);

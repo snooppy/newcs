@@ -1,0 +1,11 @@
+<div id ="popup_message">  
+  <div id="popup_message_head">
+    <%=link_to "Mark readed", {:controller=>"messages",:action=>"read",:id=>@message.id},:remote=>true%>
+  </div>
+  <div id="popup_message_body">
+    <p>from <%=User.find(@message.userfrom_id).login%></p>
+    <p><%= @message.text%></p>
+
+  </div>
+</div>
+

@@ -1,0 +1,13 @@
+
+<% if @message.errors.any? %>
+  $("#notification_area").replaceWith('<div id ="notification_area"><ul><%@message.errors.full_messages.each do |msg| %><li><%= msg %></li><% end %></ul><%=@message.errors.full_messages.count%></div>');
+  $("#notification_area").addClass("notif_error");
+<%else%>
+  $("#notification_area").replaceWith('<div id ="notification_area"><p id="notification" class="notification">Message "<%= @message.text%>" to user <%= User.find(@message.userto_id).login%> was seccesfully sended</p></div>');
+  $("#notification_area").addClass("notif_success");
+<% end %>
+  $("#notification_area").offset( { left: 0, top: 0 } );
+
+
+$("#notification_area").show('fast');
+$("#notification_area").fadeOut(6000);

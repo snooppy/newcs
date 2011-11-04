@@ -2,22 +2,77 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.json
   def index
-    @messages = Message.all
-
+    @message = Message.all.last(1) 
+    
+  end
+  
+  def dialogs
+    # TODO add if users send mess to smb and havn`t ask
+    @messages = Message.find(:all, :select => "*", :group => "userfrom_id", :order => "created_at")
     respond_to do |format|
-      format.html # index.html.erb
+      format.html # dialogs.html.erb
       format.json { render json: @messages }
+      format.js
     end
   end
-
-  # GET /messages/1
-  # GET /messages/1.json
+  
+  def dialog
+    user_from = params[:id]
+    @messages = Message.find(:all, :select => "*", :order => "created_at", :conditions => [ 
+        "(userfrom_id = (?) and userto_id = (?)) or userfrom_id = (?) and userto_id = (?)", 
+        user_from, 
+        session[:user], 
+        session[:user], 
+        user_from,
+      ])
+    @info = {:user_from => user_from, :user_to => session[:user] }
+    @dialog_info = {:messages => @messages, :info => @info}
+    respond_to do |format|
+      format.html # dialogs.html.erb
+      format.json { render json: @dialog_info }
+      format.js
+    end
+  end
+  
+  def get_new_message
+    if !session[:user].nil?
+      @message = Message.find_last_by_readed_and_userto_id(false,session[:user].id)
+      if !@message.nil?
+        @message.update_attribute("showed_popup",true)
+        render :partial =>"get_new_message"
+      else
+        render :nothing => true
+      end
+    end   
+  end
+  
+  def get_new_dialog
+    user_from = params[:user_from]
+    if !session[:user].nil?
+      @message = Message.find_last_by_readed_and_userto_id_and_userfrom_id(false, session[:user].id,user_from);
+      if !@message.nil? 
+        @message.update_attribute("showed_dialog",true)
+        render :partial =>"get_new_dialog"
+      else 
+        render :nothing => true
+      end   
+    end
+  end
+ 
   def show
     @message = Message.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @message }
+    end
+  end
+
+  def read
+    @message = Message.find(params[:id])
+    @message.update_attribute("readed", true)
+    respond_to do |format|
+      format.html
     end
   end
 
@@ -40,15 +95,18 @@ class MessagesController < ApplicationController
   # POST /messages
   # POST /messages.json
   def create
+    params[:message][:userfrom_id]=session[:user].id
     @message = Message.new(params[:message])
-
+    
     respond_to do |format|
       if @message.save
-        format.html { redirect_to @message, notice: 'Message was successfully created.' }
+        format.html  
         format.json { render json: @message, status: :created, location: @message }
+        format.js
       else
-        format.html { render action: "new" }
+        format.html 
         format.json { render json: @message.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -80,4 +138,6 @@ class MessagesController < ApplicationController
       format.json { head :ok }
     end
   end
+  
+  
 end

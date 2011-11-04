@@ -2,25 +2,94 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#div_publication_form{
-	width:100%;
+#publication_form{
+	width:500px;
 	float:left;
 	padding:10px;
 }
 
+.notif_error{
+    background-color:#ff4444;
+}
 
-#notification_area{
-	color:white;
+.notif_success{
+    background-color:#a2aaff;
+}
+
+
+
+
+#publication_type_notif{
+        color:black;
 	display: none;
 	width:200px;
-	padding:10px;
 	position:absolute;
+        padding:10px;
+	z-index:100;
+	-moz-border-radius:    10px;
+    	-webkit-border-radius: 10px;
+   	 border-radius:         10px;
+	opacity: 0.6;
+}
+
+#publication_type_notif p{
+    opacity: 1;
+    z-index:200;
+}
+
+#publication_type_form{
+    display:none;
+    position:absolute;
+    width:300px;
+}
+
+#publication_type_sel{
+    float:left;
+    width: 500px;
+    padding:10px;
+}
+
+
+#publication_cat_notif{
+        color:black;
+	display: none;
+	width:200px;
+	position:absolute;
+        padding:10px;
 	z-index:100;
 	-moz-border-radius:    10px;
     	-webkit-border-radius: 10px;
    	 border-radius:         10px;
 	opacity: 0.3;
-	background : blue; /*TODO change to cool*/		
+}
+
+ #publication_cat_notif p{
+    opacity: 1;
+    z-index:200;
+}
+
+#publication_cat_form{
+    display:none;
+    position:absolute;
+    width:300px;
+}
+
+#publication_cat_sel{
+    float:left;
+    width: 500px;
+    padding:10px;
+}
+
+.check_box_subject{
+    width: 90px;
+    float:left;
+    padding:10px;
+}
+
+#publication_subject_sel{
+    float:left;
+    width: 500px;
+    padding:10px;
 }
 
 

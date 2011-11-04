@@ -1,0 +1,8 @@
+  
+<div class="dialog_message">
+  <p><%= User.find(@message.userfrom_id).login%></p>
+  <p><%= User.find(@message.userto_id).login %></p>
+  <p><%= @message.text %></p>
+  <p><%= @message.created_at %></p>
+</div>
+

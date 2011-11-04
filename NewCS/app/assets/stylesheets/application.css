@@ -5,3 +5,24 @@
  *= require_self
  *= require_tree . 
 */
+
+* {
+    padding: 0;
+    margin: 0;
+    text-indent: 0; 
+}
+
+
+#notification_area{
+	color:white;
+	display: none;
+	width:200px;
+	padding:10px;
+	position:absolute;
+	z-index:100;
+	-moz-border-radius:    10px;
+    	-webkit-border-radius: 10px;
+   	 border-radius:         10px;
+	opacity: 0.3;		
+}
+

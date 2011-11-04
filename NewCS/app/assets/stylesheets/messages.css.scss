@@ -1,3 +1,37 @@
 // Place all the styles related to the Messages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+#popup_message{
+    position: absolute;
+    top: 0;
+    left: 700px;
+    width: 200px;
+    background-color: #55ff55;
+    opacity: 0.5;
+    float: left;
+    padding: 10px;
+    display:none;
+}
+
+#popup_message_body{
+    color:black;
+    background-color: white;
+    opacity: 0.9;
+}
+
+#dialog_messages{
+    float:left;
+    height:300px;
+    width:400px;
+    overflow:auto;
+    background-color: #ddddff;
+}
+
+.dialog_message{
+    width:380px;
+    float:left;
+    margin:5px;
+    background-color: #ffffff;
+}

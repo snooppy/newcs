@@ -1,6 +1,29 @@
- 
-$("#publication_cats_sel").replaceWith('<select id="publication_publication_cat_id" name="publication[publication_cat_id]"><%PublicationCat.all.each do |p_t|%><option value="<%=p_t.id%>"> <%=p_t.name%></option><%end%></select>');
-$("#notification_area").replaceWith('<div id ="notification_area"><p id="notification" class="notification">Publication cat "<%= @publication_cat.name%>" was seccesfully added</p></div>')
-$("#publication_cat_notif").replaceWith('<div id ="publication_cat_notif"><img src="/media/img/added.png">"<%= @publication_cat.name%>"was added!</div>')
-$("#notification_area").fadeOut(6000);
+// returned from create publication_cat_controller
+// for publication form
+
+
+
+<% if @publication_cat.errors.any? %>
+  $("#publication_cat_notif").replaceWith('<div id ="publication_cat_notif"><ul><% @publication_cat.errors.full_messages.each do |msg| %><li><%= msg %></li><% end %></ul><%=@publication_cat.errors.full_messages.count%></div>') 
+  $("#notification_area").replaceWith('<div id ="notification_area"><p id="notification" class="notification">Publication cat "<%= @publication_cat.name%>" inserting was faild</p></div>')
+  $("#publication_cat_notif").addClass("notif_error");
+  $("#notification_area").addClass("notif_error");
+<%else%>
+  $("#publication_publication_cat_id").replaceWith('<select id="publication_publication_cat_id" name="publication[publication_cat_id]"><%PublicationCat.all.each do |p_t|%><option value="<%=p_t.id%>"> <%=p_t.name%></option><%end%></select>');
+  
+  $("#publication_cat_notif").replaceWith('<div id ="publication_cat_notif"><img src="/media/img/added.png">"<%= @publication_cat.name%>"was added!</div>')
+  $("#notification_area").replaceWith('<div id ="notification_area"><p id="notification" class="notification">Publication cat "<%= @publication_cat.name%>" was seccesfully added</p></div>')
+  $("#publication_cat_notif").addClass("notif_success");
+  $("#notification_area").addClass("notif_success");
+
+<% end %>
+
+var t_off = $("#publication_cat_sel").offset();
+$("#publication_cat_notif").offset( { left: t_off.left, top: t_off.top } );
+
+$("#notification_area").offset( { left: 0, top: 0 } );
+
+$("#notification_area").show('slow');
+$("#publication_cat_notif").show('slow');
 $("#publication_cat_notif").fadeOut(5000);
+$("#notification_area").fadeOut(6000);

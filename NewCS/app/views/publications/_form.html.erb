@@ -1,8 +1,24 @@
-<div id ="div_publication_form">
+
+<div id ="publication_form">
+  <script type="text/javascript">
+    function show_form(what){
+      var t_off = $('#publication_'+what+'_sel').offset();
+      $('#publication_'+what+'_form').offset({ left : t_off.left , top : t_off.top});
+      $('#publication_'+what+'_form').fadeToggle();
+    } 
+    
+    function show_type_form(){
+      var t_off = $('#publication_types_sel').offset();
+      $('#publication_type_form').offset({ left : t_off.left , top : t_off.top});
+      $('#publication_type_form').fadeToggle();
+    } 
+    
+  </script>
+
   <%= form_for(@publication  ) do |f| %>
     <% if @publication.errors.any? %>
       <div id="error_explanation">
-         <h2><%= pluralize(@publication.errors.count, "error") %> prohibited this publication from being saved:</h2>
+        <h2><%= pluralize(@publication.errors.count, "error") %> prohibited this publication from being saved:</h2>
 
         <ul>
           <% @publication.errors.full_messages.each do |msg| %>
@@ -13,38 +29,38 @@
 
     <% end %>
 
-    <div id ="notification_area">
-
-    </div>
 
 
-    <%#= f.text_area :article, :rows => 10, :cols => 10   %>
 
-    <%#*<script type="text/javascript">%>
-      <%#*$(function() {%>
-        <%#*$('textarea').tinymce({%>
-          <%#*theme: 'advanced'%>
-        <%#*});%>
-      <%#*});%>
+  <%#= f.text_area :article, :rows => 10, :cols => 10   %>
 
-    <%#*</script>%>
+  <%#*<script type="text/javascript">%>
+  <%#*$(function() {%>
+  <%#*$('textarea').tinymce({%>
+  <%#*theme: 'advanced'%>
+  <%#*});%>
+  <%#*});%>
+
+  <%#*</script>%>
 
     <div id="publication_subject_sel"
          <p>Subject list </p>
            <%Subject.all.each do |s| %>
-             <%=  check_box_tag  "publication[subject_ids][]", s.id, has_subject?(s) %> <%=s.name%>
-           <%end%>
+        <div class ="check_box_subject"><%=  check_box_tag  "publication[subject_ids][]", s.id, has_subject?(s) %> <%=f.label s.name%></div>
+      <%end%>
     </div>
 
 
-    <div id="publication_types_sel">
-      <p>Type</p>
+    <div id="publication_type_sel">
+      <p>Type</p><br>
+      <p onclick="show_form('type')">create new</p>
       <%=f.select :publication_type_id, PublicationType.all.collect {|p| [ p.name, p.id ] }, {:include_blank => 'None'}%>
       <div id ="publication_type_notif"></div>
     </div>
     <br>
-    <div id="publication_cats_sel">
-      <p>Category</p>
+    <div id="publication_cat_sel">
+      <p>Category</p><br>
+      <p onclick="show_form('cat')">create new</p>
       <%=f.select :publication_cat_id, PublicationCat.all.collect {|p| [ p.name, p.id ] }, {:include_blank => 'None'}%>
       <div id ="publication_cat_notif"></div>
     </div>
@@ -58,8 +74,12 @@
 </div>
 <%@p_types=PublicationType.new%>
 <%@p_cats=PublicationCat.new%>
-<div id="div_publication_type_form"><%=render :partial=>"publication_types/form", :locals=>{:p_types=>@p_types}%></div>
-<div id="div_publication_cat_form"><%=render :partial=>"publication_cats/form", :locals=>{:p_cats=>@p_cats}%></div>
+<div id="publication_type_form">
+  <%=render :partial=>"publication_types/form", :locals=>{:p_types=>@p_types}%>
+</div>
+<div id="publication_cat_form">
+  <%=render :partial=>"publication_cats/form", :locals=>{:p_cats=>@p_cats}%>
+</div>
 <br>
 <br>
 

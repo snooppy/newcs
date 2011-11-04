@@ -1,7 +1,17 @@
 NewCS::Application.routes.draw do  
 
-  resources :messages
-
+  # messages 
+  match 'messages/get_new_message' => 'messages#get_new_message', :via=>[:get]
+  match 'messages/get_new_dialog/:user_from' => 'messages#get_new_dialog', :via=>[:get]
+  match 'messages/read/:id' => 'messages#read', :via=>[:post]  
+  match 'messages/dialog/:id' => 'messages#dialog', :via=>[:get]
+  match 'messages/dialogs' => 'messages#dialogs', :via=>[:get]
+  match 'messages/create' => 'messages#create', :via=>[:post]
+  match 'messages' => 'messages#new', :as => :messages
+  
+  # events
+  match 'events/scan' => 'events#scan', :via=>[:get] 
+  
   resources :documents
 
   resources :publications_types
@@ -12,7 +22,8 @@ NewCS::Application.routes.draw do
 
   resources :publication_types
 
-  resources :users
+  match 'users/sign_in' => 'users#sign_in', :via=>[:get]
+  match 'users/sign_out' => 'users#sign_out', :via=>[:get]  
 
   resources :subjects
 

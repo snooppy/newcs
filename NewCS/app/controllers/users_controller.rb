@@ -1,4 +1,24 @@
 class UsersController < ApplicationController
+  
+  def sign_in
+    @user = User.find_all_by_login_and_password(params[:user][:login],params[:user][:password])
+    respond_to do |format|
+      if ! @user.empty?
+        session[:user] = @user[0]
+        format.js
+        format.json { render json: @user, status: :created, location: @user }
+      else
+        format.js
+        @errors="error"
+        format.json { render json: @errors, status: ":unprocessable_entity" }
+      end
+    end
+  end
+  
+  def sign_out
+    session[:user] = nil
+  end
+  
   # GET /users
   # GET /users.json
   def index

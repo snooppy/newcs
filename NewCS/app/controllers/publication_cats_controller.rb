@@ -45,9 +45,11 @@ class PublicationCatsController < ApplicationController
     respond_to do |format|
       if @publication_cat.save
         format.html { redirect_to @publication_cat, notice: 'Publication cat was successfully created.' }
-        format.json { render json: @publication_cat, status: :created, location: @publication_cat }
+        format.js
+        format.json { render json: @publication_cat  }
       else
         format.html { render action: "new" }
+        format.js
         format.json { render json: @publication_cat.errors, status: :unprocessable_entity }
       end
     end
