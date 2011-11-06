@@ -8,7 +8,24 @@ class MessagesController < ApplicationController
   
   def dialogs
     # TODO add if users send mess to smb and havn`t ask
-    @messages = Message.find(:all, :select => "*", :group => "userfrom_id", :order => "created_at")
+    @messages = Message.find(:all,
+      :select => "*", 
+      :group => "userfrom_id, userto_id", 
+      :having => ["userfrom_id = 17 or userto_id = 17",
+        session[:user], 
+        session[:user]
+      ]
+    )   
+    @dialog_info = []
+    @messages.each do |m|
+      if m.userfrom_id != session[:user].id
+        user_from = m.userfrom_id
+      else
+        user_from = m.userto_id
+      end
+      @info = {:user_from => user_from, :user_to => session[:user].id }
+      @dialog_info << {:message => m, :info => @info}
+    end
     respond_to do |format|
       format.html # dialogs.html.erb
       format.json { render json: @messages }
@@ -18,14 +35,18 @@ class MessagesController < ApplicationController
   
   def dialog
     user_from = params[:id]
-    @messages = Message.find(:all, :select => "*", :order => "created_at", :conditions => [ 
+    @messages = Message.find(
+      :all, 
+      :select => "*", 
+      :order => "created_at", 
+      :conditions => [ 
         "(userfrom_id = (?) and userto_id = (?)) or userfrom_id = (?) and userto_id = (?)", 
         user_from, 
-        session[:user], 
-        session[:user], 
+        session[:user].id, 
+        session[:user].id, 
         user_from,
       ])
-    @info = {:user_from => user_from, :user_to => session[:user] }
+    @info = {:user_from => user_from, :user_to => session[:user].id }
     @dialog_info = {:messages => @messages, :info => @info}
     respond_to do |format|
       format.html # dialogs.html.erb
@@ -36,12 +57,20 @@ class MessagesController < ApplicationController
   
   def get_new_message
     if !session[:user].nil?
-      @message = Message.find_last_by_readed_and_userto_id(false,session[:user].id)
+      @message = Message.find(
+        :first,
+        :select=>"*",
+        :order => "created_at",
+        :conditions => [
+          "userto_id = (?) and readed = 0 and showed_popup = 0",
+          session[:user].id
+        ]
+      )   
       if !@message.nil?
-        @message.update_attribute("showed_popup",true)
         render :partial =>"get_new_message"
+        @message.update_attribute("showed_popup",true)
       else
-        render :nothing => true
+        render :inline => "<div id =\"popup_message\"></div>" 
       end
     end   
   end
@@ -49,10 +78,19 @@ class MessagesController < ApplicationController
   def get_new_dialog
     user_from = params[:user_from]
     if !session[:user].nil?
-      @message = Message.find_last_by_readed_and_userto_id_and_userfrom_id(false, session[:user].id,user_from);
+      @message = Message.find(
+        :first,
+        :select=>"*",
+        :order => "created_at",
+        :conditions => [
+          "userfrom_id = (?) and userto_id = (?) and readed = 0 and showed_dialog = 0",
+          user_from, 
+          session[:user].id
+        ]
+      )   
       if !@message.nil? 
-        @message.update_attribute("showed_dialog",true)
         render :partial =>"get_new_dialog"
+        @message.update_attribute("showed_dialog",true)
       else 
         render :nothing => true
       end   
@@ -71,9 +109,7 @@ class MessagesController < ApplicationController
   def read
     @message = Message.find(params[:id])
     @message.update_attribute("readed", true)
-    respond_to do |format|
-      format.html
-    end
+    render :nothing => true
   end
 
   # GET /messages/new

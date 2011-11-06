@@ -2,9 +2,12 @@
 
 
 
-<% @messages.each do |message| %>
+<% @dialog_info.each do |di| %>
+  <%  message = di[:message] %>
+  <%  @info = di[:info] %>
   <div class = "dialogs_dialog">
-    <p> <%=User.find(message.userfrom_id).login%></p>
+    <%=link_to "open dialog", dialog_path(@info[:user_from])%>
+    <p> <%=User.find(@info[:user_from]).login%></p>
     <p> <%=message.text%></p>
     <p> <%=message.created_at%></p>
   </div>

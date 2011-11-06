@@ -1,3 +1,23 @@
+<script type="text/javascript">
+  function get_dialog(){
+    $.ajax({
+        type: 'GET',
+        url: '/messages/get_new_dialog/<%=@info[:user_from]%>',
+        dataType: "html",
+//        error: function(request,error) 
+//        {
+//            alert ( " Can't do because: " + error );
+//        },
+        success: function (data){
+            $("#dialog_messages").append(data);
+            $("#dialog_messages.dialog_message").last().show(1000);
+            $("#dialog_messages").scrollTop($("#dialog_messages").height()+1000);
+        } 
+    });
+     $("#dialog_messages").scrollTop($("#dialog_messages").height()+1000);
+}
+</script>
+
 <%  @messages = @dialog_info[:messages] %>
 <%  @info = @dialog_info[:info] %>
 <h1>Dialog between <%=  User.find(@info[:user_from]).login %> and <%=User.find(@info[:user_to]).login%></h1>

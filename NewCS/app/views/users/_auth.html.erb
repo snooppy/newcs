@@ -9,6 +9,7 @@
     <%= f.password_field :password %><br />
   </div>
   <div class="actions">
+    <%  if !session[:user].nil? %><%=session[:user].login%><%=session[:user].id%><%end%>
     <%= f.submit "sign_in"%>
     <%=link_to "sign out", {:controller=>"users",:action=>"sign_out",:id=>1},:remote=>true%>
   </div>

@@ -40,27 +40,12 @@ function get_message(){
         success: function (data){
             $("#popup_message").replaceWith(data);
             $("#popup_message").show(1000);
-            $("#popup_message").fadeOut(10000);
+            $("#popup_message").fadeOut(1000);
         } 
     });
 }
 
-function get_dialog(){
-    $.ajax({
-        type: 'GET',
-        url: '/messages/get_new_dialog/2',
-        dataType: "html",
-//        error: function(request,error) 
-//        {
-//            alert ( " Can't do because: " + error );
-//        },
-        success: function (data){
-            $("#dialog_messages").append(data);
-            $("#dialog_messages.dialog_message").last().show(1000);
-            $("#dialog_messages").scrollTop($("#dialog_messages").height()+100);
-        } 
-    });
-}
+
 
 function event_success(data){
     var datas = data.split(";");
@@ -92,6 +77,8 @@ $(document).ready(
         setInterval(function (){
             event_scan();
         }, 10000);
+        
+        $("#new_message").draggable();
     });
   
 ///////////end global events//////
