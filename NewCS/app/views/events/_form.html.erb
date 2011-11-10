@@ -1,0 +1,40 @@
+<%= form_for(@prepod ) do |f| %>
+  <% if @prepod.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@prepod.errors.count, "error") %> prohibited this prepod from being saved:</h2>
+
+      <ul>
+      <% @prepod.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+ <%=render :partial =>"/subs/user_form", :locals=> {:form => f} %>
+
+<br>
+<%Subject.all.each do |s| %>
+<%=  check_box_tag  "prepod[subject_ids][]", s.id,has_subject?(s) %> <%=s.name%>
+<%end%>
+<br>
+<bR>
+<br>
+<%= form_for(Document.new, :remotipart => true) do |f_u| %>
+  <div class="field">
+    <%= f_u.label :name %><br />
+    <%= f_u.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f_u.label :title %><br />
+    <%= f_u.text_field :title %>
+  </div>
+ 
+  <div class="actions">
+    <%= f_u.submit %>
+  </div>
+<% end %>
+<%=f.submit   %>
+ 
+  </div>
+<% end %>
