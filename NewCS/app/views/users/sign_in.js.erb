@@ -1,0 +1,12 @@
+<% if ! @errors.nil? %>
+  $("#notification_area").replaceWith('<div id ="notification_area"><p><%=@errors%></p> </div>');
+  $("#notification_area").addClass("notif_error");
+<%else%>
+  $("#notification_area").replaceWith('<div id ="notification_area"><p id="notification" class="notification">User "<%= @user[0][:login]%>  " was seccesfully signing in!</p></div>');
+  $("#notification_area").addClass("notif_success");
+<% end %>
+  $("#notification_area").offset( { left: 500, top: 0 } );
+
+
+$("#notification_area").show('fast');
+$("#notification_area").fadeOut(10000);
