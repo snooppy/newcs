@@ -1,7 +1,7 @@
 <%@user=User.new%>
 <%= form_for(@user, :remote=>true, :method => :get , :url => { :action => "sign_in", :controller=>"users" }) do |f| %>
 
-
+<h1>Auth user</h1>
   <div class="field">
     <%= f.label :login %>
     <%= f.text_field :login %><br />
