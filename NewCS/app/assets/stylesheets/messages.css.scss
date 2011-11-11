@@ -3,7 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
-#popup_message{
+/*#popup_message{
     position: absolute;
     top: 0;
     left: 700px;
@@ -20,6 +20,7 @@
     background-color: white;
     opacity: 0.9;
 }
+*/
 
 #dialog_messages{
     float:left;
@@ -34,4 +35,70 @@
     float:left;
     margin:5px;
     background-color: #ffffff;
+}
+
+
+#popup_message{	
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 13px #FFFFFF;
+    -moz-box-shadow: 0px 0px 13px #FFFFFF;
+    box-shadow: 0px 0px 13px #FFFFFF;
+    box-shadow: 0px 0px 13px #FFFFFF;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 11px;
+    text-align: justify;
+    color: #FFFFFF;
+    width:350px;
+    display:none;
+    left: 50px;
+    top:100px;
+    line-height:normal;
+    position: absolute;
+}
+
+
+a.link_popup_message{
+    color:#87CEEB; 
+    float:left; 
+    font-weight: bold;
+}
+
+a.link_popup_message:hover{
+    text-decoration:underline;
+}
+
+
+/* IMG radius */
+.b-img-radius {
+    /*zoom: 1;
+    position: relative;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;*/
+    margin-right: 10px;  
+    display: inline-block;
+   /* padding:2px;
+    background-color: #87CEEB;
+    border:1px solid #ccc;  */
+}
+
+/*.b-img-radius img {
+    display: block;
+    visibility: hidden;
+  }*/
+/* ----------- */
+
+.img_popup_message_new_info { /* Изображение для всплывающего сообщения */
+    border: 0 none;
+    float: left;
+    margin: -20px 0 0 -24px;   
+}
+
+.img_popup_message_new_close { /* Изображение для всплывающего сообщения */
+    border: 0 none;
+    margin: 0 0 0 330px;   
 }

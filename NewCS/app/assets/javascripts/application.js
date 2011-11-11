@@ -39,8 +39,8 @@ function get_message(){
 //        },
         success: function (data){
             $("#popup_message").replaceWith(data);
-            $("#popup_message").show(1000);
-            $("#popup_message").fadeOut(1000);
+            $("#popup_message").fadeIn(1000);
+            $("#popup_message").fadeOut(10000);
         } 
     });
 }

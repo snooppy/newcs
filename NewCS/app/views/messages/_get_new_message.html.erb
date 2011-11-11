@@ -1,11 +1,36 @@
-<div id ="popup_message">  
+<!--div id ="popup_message">  
   <div id="popup_message_head">
-    <%=link_to "Mark readed", {:controller=>"messages",:action=>"read",:id=>@message.id},:remote=>true%>
+<%=link_to "Mark readed", {:controller=>"messages",:action=>"read",:id=>@message.id},:remote=>true%>
   </div>
   <div id="popup_message_body">
     <p>from <%=User.find(@message.userfrom_id).login%></p>
     <p><%= @message.text%></p>
 
+  </div>
+</div-->
+
+
+<div id="popup_message" onclick="location.href='/messages';" style="cursor: pointer;">
+  <%=  image_tag "notice.png" , :class=> "img_popup_message_new_info", :alt => "test"%>
+  <div >
+    <div style="float:left;">
+      <strong style="font-size: 13px;">Новое сообщение</strong>			
+    </div>	
+    <div class="img_popup_message_new_close">
+      <a href="/"><%=  image_tag "close.gif";%></a>		
+    </div>	
+  </div>
+  <div  style="float:left;   margin-top: 3px; ">
+    <div class="b-img-radius" style="background-color: #87CEEB">
+      <%=  image_tag "face.png", :width=>"64", :height=>"64", :alt => ""%>
+    </div>
+  </div>
+  <div>
+    <a  class="link_popup_message" href="/users"> <%=User.find(@message.userfrom_id).login%></a>
+    <div style="color: #87CEEB; font-weight: bold; float:left;">:&nbsp;</div>
+    <div>
+      <%= @message.text%>
+    </div>
   </div>
 </div>
 
