@@ -60,7 +60,6 @@
     position: absolute;
 }
 
-
 a.link_popup_message{
     color:#87CEEB; 
     float:left; 
@@ -71,26 +70,15 @@ a.link_popup_message:hover{
     text-decoration:underline;
 }
 
-
-/* IMG radius */
-.b-img-radius {
-    /*zoom: 1;
-    position: relative;
-    -webkit-border-radius: 4px;
+.img_photo_radius {
+    width: 64px;
+    height: 64px;
+    margin-right: 8px;
+    overflow: hidden;
     -moz-border-radius: 4px;
-    border-radius: 4px;*/
-    margin-right: 10px;  
-    display: inline-block;
-   /* padding:2px;
-    background-color: #87CEEB;
-    border:1px solid #ccc;  */
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
 }
-
-/*.b-img-radius img {
-    display: block;
-    visibility: hidden;
-  }*/
-/* ----------- */
 
 .img_popup_message_new_info { /* Изображение для всплывающего сообщения */
     border: 0 none;
