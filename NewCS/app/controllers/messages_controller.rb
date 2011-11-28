@@ -11,7 +11,7 @@ class MessagesController < ApplicationController
     @messages = Message.find(:all,
       :select => "*", 
       :group => "userfrom_id, userto_id", 
-      :having => ["userfrom_id = 17 or userto_id = 17",
+      :having => ["userfrom_id = (?) or userto_id = (?)",
         session[:user], 
         session[:user]
       ]
