@@ -113,6 +113,29 @@ a.link_popup_message:hover{
 /*----------------------------------------------------------------------------*/
 
 /*--------------------------------Dialog message------------------------------*/
+.dialog_message{
+    min-height:44px;
+    padding:6px;
+    border:1px solid #FFFFFF;
+    padding:3px 6px 4px 47px;
+    position:relative;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.dialog_message_to{             /*my message*/
+    background-color: #bed3e8;
+    margin-left: 60px;
+    margin-right: 10px;   
+     
+}
+
+.dialog_message_from{           /*message to me*/
+    background-color: #dfdfdf;
+    margin-right: 60px;  
+    margin-left: 10px;     
+}
+
 .dialog_message_text{
     color:#444444;
     display:inline-block;
@@ -130,12 +153,13 @@ a.link_popup_message:hover{
     top:7px;
 }
 
-.dialog_message_status{
+.dialog_message_checkmark{
     left:485px;
     top: 30px;
     position:absolute;
     width: 21px;
     height: 12px;
+    display: none;
 }
 
 
@@ -161,49 +185,10 @@ a.link_popup_message:hover{
 }
 /*----------------------------------------------------------------------------*/
 
-/*--------------------------------Dialog message from-------------------------*/
-.dialog_message_from{
-    background-color: #dfdfdf;
-    min-height:44px;
-    padding:6px;
-    border:1px solid #FFFFFF;
-    padding:3px 6px 4px 47px;
-    position:relative;
-    margin-bottom: 10px;
-    margin-right: 60px;
-    cursor: pointer;
-}
-	
-.dialog_message_from:hover{
-    background-color: #bed3e8;
-}
-/*----------------------------------------------------------------------------*/
-	
-/*---------------------------------Dialog message to me-----------------------*/
-.dialog_message{
-    background-color: #bed3e8;
-    min-height:44px;
-    padding:6px;
-    border:1px solid #FFFFFF;
-    padding:3px 6px 4px 47px;
-    position:relative;
-    margin-bottom: 10px;
-    margin-left: 60px;
-    cursor: pointer;
-}
 
-.dialog_message:hover{
+/*----------------------------Dialog message not readed-----------------------*/
+.dialog_message_not_readed{
     background-color: #9bbde0;
-}
-
-.dialog_message .text{
-    color:#444444;
-    display:inline-block;
-    font-size:13px;
-    overflow:hidden;
-    vertical-align:top;
-    width:410px;
-    text-align: justify;
 }
 /*----------------------------------------------------------------------------*/
 
