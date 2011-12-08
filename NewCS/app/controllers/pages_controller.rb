@@ -4,4 +4,8 @@ class PagesController < ApplicationController
     
   end
   
+  def forbiden
+     "/pages/403.html.erb"
+  end
+  
 end

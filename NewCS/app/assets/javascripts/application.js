@@ -6,10 +6,12 @@
 //
 //= require jquery
 //= require jquery_ujs
+ //= require jquery.form
+//= require jquery.remotipart
 //= require_tree .
 //= require tinymce-jquery  
- 
- 
+
+
 // походу нахуй не нада 
 //jQuery.ajaxSetup({ 
 //  'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
@@ -28,15 +30,18 @@
 //})
 //jQuery.ajaxSetup({ 'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript,application/javascript,text/html")} })
 /////////// global events//////
+
+EVENTS=""; // string values, separeited by "-". example dialog-coment-foo
+
 function get_message(){
     $.ajax({
         type: 'GET',
         url: '/messages/get_new_message',
         dataType: "text",
-//        error: function(request,error) 
-//        {
-//            alert ( " Can't do because: " + error );
-//        },
+        //        error: function(request,error) 
+        //        {
+        //            alert ( " Can't do because: " + error );
+        //        },
         success: function (data){
             $("#popup_message").replaceWith(data);
             $("#popup_message").fadeIn(1000);
@@ -63,7 +68,7 @@ function event_success(data){
 function event_scan(){
     $.ajax({
         type: 'GET',
-        url: '/events/scan',
+        url: '/events/scan/'+EVENTS,
         dataType: "text",
         success: function (data){
             event_success(data); 
@@ -71,14 +76,6 @@ function event_scan(){
     });
 }
   
-$(document).ready(
-    function(){
-        event_scan();
-        setInterval(function (){
-            event_scan();
-        }, 10000);
-        
-        $("#new_message").draggable();
-    });
+
   
 ///////////end global events//////

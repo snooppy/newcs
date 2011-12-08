@@ -1,4 +1,8 @@
+<%  @messages = @dialog_info[:messages] %>
+<%  @info = @dialog_info[:info] %>
+
 <script type="text/javascript">
+  EVENTS=EVENTS+"dialog";
   function get_dialog(){
     $.ajax({
       type: 'GET',
@@ -28,8 +32,7 @@
   }
 </script>
 
-<%  @messages = @dialog_info[:messages] %>
-<%  @info = @dialog_info[:info] %>
+
 
 
 <div id="dialog_with_<%=@info[:user_from]%>" style="width:600px;background:#f4f4f4;">

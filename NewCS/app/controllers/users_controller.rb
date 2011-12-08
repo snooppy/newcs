@@ -17,6 +17,7 @@ class UsersController < ApplicationController
   
   def sign_out
     session[:user] = nil
+    redirect_to "/"
   end
   
   # GET /users
@@ -61,7 +62,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(params[:user])
-    
+    # TODO process errors
     if @user.save
       render :partial => "/users/create"
     else

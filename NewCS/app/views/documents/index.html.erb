@@ -1,20 +1,33 @@
+
 <h1>Listing documents</h1>
+<%if @documents_info[:error].nil?%>
+  <table>
+    <tr>
+      <th></th>
+      <th></th>
+      <th><%=link_to @documents_info[:info][:folder], @documents_info[:info][:folder]%></th>
+    </tr>
+    <% @documents_info[:documents].each do |document| %>
+      <tr>
+        <td><%= document.path  %></td>
 
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-<% @documents.each do |document| %>
-  <tr>
-    <td><%= link_to 'Show', document %></td>
-    <td><%= link_to 'Edit', edit_document_path(document) %></td>
-    <td><%= link_to 'Destroy', document, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
+      </tr>
+    <% end %>
+    <tr><td></td></tr>
+    <tr>
+      <td>
+        <%@folder = @documents_info[:info][:folder] %>
+        <%=render :partial=>"form", :locals => { :folder => @folder} %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%=render :partial=>"folders/form", :locals => { :prev_folder => @folder}%>
+      </td>
+    </tr>
+  </table>
 
-<br />
-
-<%= link_to 'New Document', new_document_path %>
+  <br />
+<%else%>
+  <h2 class ="error"><%=@documents_info[:error] %></h2>
+<%end%>

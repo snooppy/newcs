@@ -5,7 +5,7 @@ gem 'rails', '3.1.0'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
- 
+ gem 'gdata_spreadsheet'
 gem 'diff-lcs'
 gem 'json'
 gem 'mysql2'
@@ -40,6 +40,7 @@ end
 gem 'remotipart' #file uploader
 gem 'coffee-script-source'
 gem 'sprockets'
+gem 'spreadsheet'
 group :test do
   gem 'rspec-rails'
   gem 'webrat','0.7.3'

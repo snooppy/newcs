@@ -5,53 +5,59 @@ class MessagesController < ApplicationController
     @message = Message.all.last(1) 
     
   end
-  
+
   def dialogs
     # TODO add if users send mess to smb and havn`t ask
-    @messages = Message.find(:all,
-      :select => "*", 
-      :group => "userfrom_id, userto_id", 
-      :having => ["userfrom_id = (?) or userto_id = (?)",
-        session[:user], 
-        session[:user]
-      ]
-    )   
-    @dialog_info = []
-    @messages.each do |m|
-      if m.userfrom_id != session[:user].id
-        user_from = m.userfrom_id
-      else
-        user_from = m.userto_id
+    if !session[:user].nil?
+      @messages = Message.find(:all,
+        :select => "*", 
+        :group => "userfrom_id, userto_id", 
+        :having => ["userfrom_id = (?) or userto_id = (?)",
+          session[:user], 
+          session[:user]
+        ]
+      )   
+      @dialog_info = []
+      @messages.each do |m|
+        if m.userfrom_id != session[:user].id
+          user_from = m.userfrom_id
+        else
+          user_from = m.userto_id
+        end
+        @info = {:user_from => user_from, :user_to => session[:user].id }
+        @dialog_info << {:message => m, :info => @info}
       end
-      @info = {:user_from => user_from, :user_to => session[:user].id }
-      @dialog_info << {:message => m, :info => @info}
-    end
-    respond_to do |format|
-      format.html # dialogs.html.erb
-      format.json { render json: @messages }
-      format.js
+      respond_to do |format|
+        format.html # dialogs.html.erb
+        format.json { render json: @dialog_info }
+        format.js
+      end
     end
   end
   
   def dialog
-    user_from = params[:id]
-    @messages = Message.find(
-      :all, 
-      :select => "*", 
-      :order => "created_at", 
-      :conditions => [ 
-        "(userfrom_id = (?) and userto_id = (?)) or userfrom_id = (?) and userto_id = (?)", 
-        user_from, 
-        session[:user].id, 
-        session[:user].id, 
-        user_from,
-      ])
-    @info = {:user_from => user_from, :user_to => session[:user].id }
-    @dialog_info = {:messages => @messages, :info => @info}
-    respond_to do |format|
-      format.html # dialogs.html.erb
-      format.json { render json: @dialog_info }
-      format.js
+    if !session[:user].nil?
+      user_from = params[:id]
+      @messages = Message.find(
+        :all, 
+        :select => "*", 
+        :order => "created_at", 
+        :conditions => [ 
+          "(userfrom_id = (?) and userto_id = (?)) or userfrom_id = (?) and userto_id = (?)", 
+          user_from, 
+          session[:user].id, 
+          session[:user].id, 
+          user_from,
+        ])
+      @info = {:user_from => user_from, :user_to => session[:user].id }
+      @dialog_info = {:messages => @messages, :info => @info}
+      respond_to do |format|
+        format.html # dialogs.html.erb
+        format.json { render json: @dialog_info }
+        format.js
+      end
+    else 
+      redirect_to "/403.html"
     end
   end
   
@@ -72,7 +78,9 @@ class MessagesController < ApplicationController
       else
         render :inline => "<div id =\"popup_message\"></div>" 
       end
-    end   
+    else 
+      render :nothing => true
+    end  
   end
   
   def get_new_dialog
@@ -94,7 +102,10 @@ class MessagesController < ApplicationController
       else 
         render :nothing => true
       end   
+    else 
+      render :nothing => true
     end
+   
   end
  
   def show

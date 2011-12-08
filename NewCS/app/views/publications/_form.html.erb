@@ -32,16 +32,16 @@
 
 
 
-  <%#= f.text_area :article, :rows => 10, :cols => 10   %>
+  <%= f.text_area :article, :rows => 10, :cols => 10   %>
 
-  <%#*<script type="text/javascript">%>
-  <%#*$(function() {%>
-  <%#*$('textarea').tinymce({%>
-  <%#*theme: 'advanced'%>
-  <%#*});%>
-  <%#*});%>
+  <script type="text/javascript">
+  $(function() {
+	$('#publication_article').tinymce({
+  	theme: 'advanced'
+	});
+  });
 
-  <%#*</script>%>
+  </script>
 
     <div id="publication_subject_sel"
          <p>Subject list </p>

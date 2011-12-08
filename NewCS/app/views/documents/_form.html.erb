@@ -1,16 +1,15 @@
-<%= form_for(@document, :remotipart => true ) do |f| %>
-  <% if @document.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@document.errors.count, "error") %> prohibited this document from being saved:</h2>
-
-      <ul>
-      <% @document.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-<%=f.text_field :name%>
+<%@document = Document.new %>
+<%= form_for @document, :html => { :multipart => true },:url => "/documents/create", :remote => true do |f| %>
+  <div class="field">
+  	<%= f.label :name%>
+  	<%= f.text_field :name%>
+    <br>
+    <%= f.label :path %>
+    <%= f.file_field :path %>
+    <br>
+    <%= hidden_field_tag "folder", @folder %>
+   
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
