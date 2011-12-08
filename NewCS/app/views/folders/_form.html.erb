@@ -1,0 +1,11 @@
+<%@folder = Folder.new()%>
+<%= form_for(@folder, :remote => true) do |f| %>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+    <%= hidden_field_tag "prev_folder", @prev_folder %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
