@@ -21,20 +21,6 @@
     background-color: white;
     opacity: 0.9;
 }
-
-
-#dialog_messages{
-    height:400px;
-    overflow:auto;
-    margin-top: 10px;
-    margin-bottom: 20px;
-}
-
-.dialog_message{
-    width:380px;
-    float:left;
-    margin:5px;
-    background-color: #ffffff;
 }-----------------------------------------------------------------------------*/
 
 /*------------------------------Popum message---------------------------------*/
@@ -164,24 +150,29 @@ a.link_popup_message:hover{
 
 
 .dialog_message_img{
-    display:block;
+    display: block;
     width: 35px;
     height: 35px;
 }
 
 .dialog_message_time{
-    position:absolute;
-    right:10px;
-    top:8px;
+    position: absolute;
+    right: 10px;
+    top: 3px;
     color: #7f9aaf;
     font-size:12px;
 }
 
-.dialog_message_author{
+a.dialog_message_author{
     font-size:13px;
     margin-left:5px;
     color: #31587a;
     font-weight: bold;
+    text-decoration:none;
+}
+
+a.dialog_message_author:hover{
+    text-decoration:underline;
 }
 /*----------------------------------------------------------------------------*/
 

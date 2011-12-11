@@ -1,23 +1,49 @@
-  
-<!--div class="dialog_message">
-  <p><%= User.find(@message.userfrom_id).login%></p>
-  <p><%= User.find(@message.userto_id).login %></p>
-  <p><%= @message.text %></p>
-  <p><%= @message.created_at %></p>
-</div-->
 
-<div class="dialog_message_from rounded">
+<!--div class="dialog_message_from rounded">
   <span class="avatar">
-    <%=  image_tag "face.png" ,:class=> "rounded"%>
+<%=  image_tag "face.png" ,:class=> "rounded"%>
   </span>
   <a href="#" class="author dialog_link"><%= User.find(message.userfrom_id).login%></a>
-  <%=  image_tag "checkmark_active.gif" ,:class=> "status"%>
+<%=  image_tag "checkmark_active.gif" ,:class=> "status"%>
   <span class="text">
-    <%= message.text %>
+<%= message.text %>
   </span>
   <span class="time">
     18:37
-    <!--%= message.created_at %-->
+    <!%= message.created_at %>
+  </span>
+</div-->
+
+<%if @info[:user_to] != message.userto_id%>
+  <% from_to_class = "dialog_message_from"%>   
+<%else%>
+  <% from_to_class = "dialog_message_to"%>
+<%end%>
+<%if message.readed %>
+  <% readed_class = "dialog_message_not_readed"%>
+<%end%>
+<div id="mess<%=message.id%>" class="<%=from_to_class %> <%=readed_class %> 
+     dialog_message  rounded" onmouseover="show_dm_checkmark('mess<%=message.id%>');"
+     onmouseout="hide_dm_checkmark('mess<%=message.id%>');">
+  <span class="dialog_message_avatar">
+    <%=  image_tag "face.png" ,:class=> "dialog_message_img rounded"%>
+  </span>
+  <div>
+    <a href="#" class="dialog_message_author"><%= User.find(message.userfrom_id).login%></a>
+  </div>
+  <%=  image_tag "checkmark_active.gif" ,:class=> "dialog_message_checkmark"%>
+  <span class="dialog_message_text">
+    <%= message.text %>
+  </span>
+  <span class="dialog_message_time">
+    <%=Time.now.strftime("%H:%M:%S")%>
+    <%if message.created_at.to_date==Time.now.to_date %>
+      <%= message.created_at.strftime("%H:%M:%S") %>
+    <%else%>
+      <%=message.created_at.to_date.strftime("%d.%m.%Y")%>  
+    <%end%>
   </span>
 </div>
+<% end %>
+
 
