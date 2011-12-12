@@ -1,0 +1,45 @@
+<%= form_for(@setting) do |f| %>
+  <% if @setting.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@setting.errors.count, "error") %> prohibited this setting from being saved:</h2>
+
+      <ul>
+      <% @setting.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :images %><br />
+    <%= f.check_box :images %>
+  </div>
+  <div class="field">
+    <%= f.label :students %><br />
+    <%= f.check_box :students %>
+  </div>
+  <div class="field">
+    <%= f.label :subjects %><br />
+    <%= f.check_box :subjects %>
+  </div>
+  <div class="field">
+    <%= f.label :shedules %><br />
+    <%= f.check_box :shedules %>
+  </div>
+  <div class="field">
+    <%= f.label :marks %><br />
+    <%= f.check_box :marks %>
+  </div>
+  <div class="field">
+    <%= f.label :files %><br />
+    <%= f.check_box :files %>
+  </div>
+  <div class="field">
+    <%= f.label :publications %><br />
+    <%= f.check_box :publications %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

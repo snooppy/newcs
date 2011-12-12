@@ -1,5 +1,34 @@
-<%#
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
+<%
+if !session[:user].nil?
+  @user_options = session[:user_options]
 %>
+  <div>
+    <!-- image -->
+    <%= image_tag "face.png" %>
+    
+    <ul >
+      <%if @user_options[:students] %>
+        <li ><%= link_to "My students", '#' %></li>
+      <%end%>
+      <%if @user_options[:subjects] %>
+        <li ><%= link_to "My subjects", '#' %></li> 
+      <%end%>
+      <%if @user_options[:shedules] %>
+        <li ><%= link_to "My shedules", '#' %></li>
+      <%end%>
+      <%if @user_options[:files] %>
+        <li ><%= link_to "My files", '#' %></li>  
+      <%end%>
+      <%if @user_options[:publications] %>
+        <li ><%= link_to "My publications", '#' %></li>
+      <%end%>
+      <%if @user_options[:marks] %>
+        <li ><%= link_to "Marks", '#' %></li>  
+      <%end%>
 
+      <li ><%= link_to "Messages", '#' %></li>
+      <li ><%= link_to "Settings", '/settings/'+session[:user][:settings_id].to_s+'/edit' %></li> 
+
+    </ul>  
+  </div>
+<%end%>

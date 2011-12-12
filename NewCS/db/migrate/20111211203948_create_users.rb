@@ -1,4 +1,14 @@
 class CreateUsers < ActiveRecord::Migration
+  
+  def change
+    begin
+      down
+      up
+    rescue
+      up
+    end
+  end
+  
   def up
     create_table :users do |t|
       t.string :first_name
@@ -14,7 +24,7 @@ class CreateUsers < ActiveRecord::Migration
       t.integer :group_id
       
       ##### Prepod
-      t.integer :prepodroom_id
+      t.integer :settings_id
       t.integer :pos
       
       t.timestamps

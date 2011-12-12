@@ -4,7 +4,8 @@ class UsersController < ApplicationController
     @user = User.find_all_by_login_and_password(params[:user][:login],params[:user][:password])
     respond_to do |format|
       if ! @user.empty?
-        session[:user] = @user[0]
+        session[:user] = @user[0]        
+        session[:user_options] = Setting.find( session[:user][:settings_id])
         format.js
         format.json { render json: @user, status: :created, location: @user }
       else

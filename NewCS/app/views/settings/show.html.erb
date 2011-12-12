@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Images:</b>
+  <%= @setting.images %>
+</p>
+
+<p>
+  <b>Students:</b>
+  <%= @setting.students %>
+</p>
+
+<p>
+  <b>Subjects:</b>
+  <%= @setting.subjects %>
+</p>
+
+<p>
+  <b>Shedules:</b>
+  <%= @setting.shedules %>
+</p>
+
+<p>
+  <b>Marks:</b>
+  <%= @setting.marks %>
+</p>
+
+<p>
+  <b>Files:</b>
+  <%= @setting.files %>
+</p>
+
+<p>
+  <b>Publications:</b>
+  <%= @setting.publications %>
+</p>
+
+
+<%= link_to 'Edit', edit_setting_path(@setting) %> |
+<%= link_to 'Back', settings_path %>

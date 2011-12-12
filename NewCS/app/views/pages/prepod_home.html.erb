@@ -1,0 +1,19 @@
+<%if !session[:user].nil? %>
+  <div>
+    <ul >
+      <li ><%= link_to "My students", '#' %></li>
+      <li ><%= link_to "My subjects", '#' %></li> 
+      <li ><%= link_to "My shedules", '#' %></li>
+      <li ><%= link_to "My files", '#' %></li>  
+      <li ><%= link_to "My publications", '#' %></li>
+      <li ><%= link_to "Marks", '#' %></li>
+      <li ><%= link_to "Messages", '#' %></li>   
+    </ul>  
+  </div>
+
+<%else %>
+  <p>NAAAAAAAAAAAAAAAAAAAAAAX</p>
+  <%
+  #Redirect 
+end
+%>

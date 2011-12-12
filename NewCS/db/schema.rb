@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111205090829) do
+ActiveRecord::Schema.define(:version => 20111211203948) do
 
   create_table "documents", :force => true do |t|
     t.string   "path"
@@ -62,6 +62,18 @@ ActiveRecord::Schema.define(:version => 20111205090829) do
     t.datetime "updated_at"
   end
 
+  create_table "prepodrooms", :force => true do |t|
+    t.boolean  "images",       :default => true
+    t.boolean  "students",     :default => true
+    t.boolean  "subjects",     :default => true
+    t.boolean  "shedules",     :default => true
+    t.boolean  "marks",        :default => true
+    t.boolean  "files",        :default => true
+    t.boolean  "publications", :default => true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "prepods_subjects", :id => false, :force => true do |t|
     t.integer "prepod_id"
     t.integer "subject_id"
@@ -102,6 +114,18 @@ ActiveRecord::Schema.define(:version => 20111205090829) do
     t.datetime "updated_at"
   end
 
+  create_table "settings", :force => true do |t|
+    t.boolean  "images",       :default => true
+    t.boolean  "students",     :default => true
+    t.boolean  "subjects",     :default => true
+    t.boolean  "shedules",     :default => true
+    t.boolean  "marks",        :default => true
+    t.boolean  "files",        :default => true
+    t.boolean  "publications", :default => true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "shedules", :force => true do |t|
     t.integer  "week"
     t.integer  "day"
@@ -129,7 +153,7 @@ ActiveRecord::Schema.define(:version => 20111205090829) do
     t.string   "sex"
     t.string   "role"
     t.integer  "group_id"
-    t.integer  "prepodroom_id"
+    t.integer  "settings_id"
     t.integer  "pos"
     t.datetime "created_at"
     t.datetime "updated_at"

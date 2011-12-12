@@ -21,17 +21,16 @@
     <%end%>
   </head>
   <body class="body">
-    <!--%=render :partial=>"messages/form"%>
-    <!--%=render :partial=>"users/auth"%>
-    <!--%=render :partial=>"layouts/right_menu"%-->
+    <!--%=render :partial=>"messages/form"%-->
+    <%=render :partial=>"users/auth"%>
+    
 
     <div id ="notification_area">
     </div>
     <div id ="popup_message">
     </div>
 
-    <%= render 'layouts/header' %>
-
+    <!--%= render 'layouts/header' %-->
     <div id="wrapper">
       <div id="content" class="box_round">
         <div id="primary_content">
@@ -43,7 +42,7 @@
         </div>
       </div>
 
-      <%= render 'layouts/footer' %>
+      <!--%= render 'layouts/footer' %-->
     </div>
 
   </body>

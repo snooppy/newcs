@@ -1,5 +1,11 @@
-NewCS::Application.routes.draw do  
-
+NewCS::Application.routes.draw do    
+  
+  match 'home/:id' => 'pages#prepod_home', :via=>[:get]
+  
+  #user menu settings
+  match 'settings/:id/edit' => 'settings#edit', :via=>[:get], :as => "setting"
+  match 'settings/:id/edit' => 'settings#update', :via=>[:put]  
+    
   resources :folders
 
   # messages 
@@ -46,6 +52,8 @@ NewCS::Application.routes.draw do
   resources :prepods
 
   resources :students
+  
+  resources :pages
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
