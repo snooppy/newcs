@@ -7,22 +7,22 @@ if !session[:user].nil?
     <%= image_tag "face.png" %>
     
     <ul >
-      <%if @user_options[:students] %>
+      <%if @user_options.nil? || @user_options[:students] %>
         <li ><%= link_to "My students", '#' %></li>
       <%end%>
-      <%if @user_options[:subjects] %>
+      <%if @user_options.nil? || @user_options[:subjects] %>
         <li ><%= link_to "My subjects", '#' %></li> 
       <%end%>
-      <%if @user_options[:shedules] %>
+      <%if @user_options.nil? || @user_options[:shedules] %>
         <li ><%= link_to "My shedules", '#' %></li>
       <%end%>
-      <%if @user_options[:files] %>
+      <%if @user_options.nil? || @user_options[:files] %>
         <li ><%= link_to "My files", '#' %></li>  
       <%end%>
-      <%if @user_options[:publications] %>
+      <%if @user_options.nil? || @user_options[:publications] %>
         <li ><%= link_to "My publications", '#' %></li>
       <%end%>
-      <%if @user_options[:marks] %>
+      <%if @user_options.nil? || @user_options[:marks] %>
         <li ><%= link_to "Marks", '#' %></li>  
       <%end%>
 
