@@ -1,1 +1,201 @@
-Сиськи!
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= stylesheet_link_tag   "index", "application" %>
+    <%= javascript_include_tag 'jquery', 'application' %>
+    <%= csrf_meta_tags %>
+    <script type="text/javascript">
+ 
+      function theRotator() {
+        // Устанавливаем прозрачность всех картинок в 0
+        $('div#rotator ul li').css({opacity: 0.0});
+ 
+        // Берем первую картинку и показываем ее (по пути включаем полную видимость)
+        $('div#rotator ul li:first').css({opacity: 1.0});
+ 
+        // Вызываем функцию rotate для запуска слайдшоу, 5000 = смена картинок происходит раз в 5 секунд
+        setInterval('rotate()',5000);
+      }
+ 
+      function rotate() {	
+        // Берем первую картинку
+        var current = ($('div#rotator ul li.show')?  $('div#rotator ul li.show') : $('div#rotator ul li:first'));
+ 
+        // Берем следующую картинку, когда дойдем до последней начинаем с начала
+        var next = ((current.next().length) ? ((current.next().hasClass('show')) ? $('div#rotator ul li:first') :current.next()) : $('div#rotator ul li:first'));	
+ 
+        // Расскомментируйте, чтобы показвать картинки в случайном порядке
+        // var sibs = current.siblings();
+        // var rndNum = Math.floor(Math.random() * sibs.length );
+        // var next = $( sibs[ rndNum ] );
+ 
+        // Подключаем эффект растворения/затухания для показа картинок, css-класс show имеет больший z-index
+        next.css({opacity: 0.0})
+        .addClass('show')
+        .animate({opacity: 1.0}, 1000);
+ 
+        // Прячем текущую картинку
+        current.animate({opacity: 0.0}, 1000)
+        .removeClass('show');
+      };
+ 
+      $(document).ready(function() {		
+        // Запускаем слайдшоу
+        theRotator();
+      });
+ 
+    </script>
+
+    <title>Главная - Кафедра ИКС</title>
+  </head>
+  <body class="body_index">
+    <div id="header_wrapper_index">
+      <div id="header_index">
+        <div class="logos_index">
+          <a href="#" > <%=  image_tag "logo.png"%></a>
+        </div>
+
+        <form id="searchbox">
+          <input id="search" type="text" placeholder="Поиск">
+          <input id="submit" type="submit" value="Найти">
+        </form>
+
+      </div>	
+    </div>
+
+    <div id="wrapper_index">
+      <div id="content_index">
+        <div id="features_panel">
+
+          <div id="photo_main">
+            <div id="rotator">
+              <ul>
+                <li class="show"><a href="#"><img src="assets/pic1.jpg"  width="658px;" height="196px;" alt="pic1" /></a></li>
+                <li><a href="#"><img src="assets/pic2.jpg"  width="658px;" height="196px;"  alt="pic2" /></a></li>
+                <li><a href="#"><img src="assets/pic3.jpg"  width="658px;" height="196px;" alt="pic3" /></a></li>
+              </ul>
+            </div>         				
+          </div>
+
+          <ul id="features_menu" style="top:196px;">
+            <li style="width:157px;">
+              <h2><a href="#" >Cиськи</a></h2>
+            </li>	
+            <li style="width:157px;">
+              <h2><a href="#" >сиськи</a></h2>
+            </li>	
+            <li style="width:157px;">
+              <h2><a href="#" >сиськи</a></h2>
+            </li>	
+            <li style="width:157px;">
+              <h2><a href="#" >сиськи</a></h2>
+            </li>	
+            <li style="width:157px;">
+              <h2><a href="#" >сиськи</a></h2>
+            </li>	
+            <li style="width:157px;">
+              <h2><a href="#" >сиськи</a></h2>
+            </li>	
+          </ul>
+
+          <div id="features_submenu" style="top: 0px;">
+            <div id="all_news_index">
+              <a href="#" > All news</a>
+            </div>
+
+            <h4 style="margin-left:10px; margin-top:10px; color:#C2D7EF;">НОВОСТИ</h4>
+            <div id="last_news_1" class="last_news_index">
+              <div style="float:right; ">
+                <img src="assets/pic1.jpg" alt="" style="margin-left:5px;" width="100px;" height="50px;" >				
+              </div>	
+              <div style="line-height:14px;">							
+                > <a href="#" >fdg dg gd d gdf df df gdf df df gjhsf hssdfsdfsdf dfs sf s fsd fs ffjszf sf sf sfdsfdsf sfs fsjdfh																				
+                </a>
+              </div>
+            </div>
+
+            <div  id="last_news_2" class="last_news_index">
+              <div style="line-height:14px;">							
+                > <a href="#" >fsd fs ffjszf sf sf sfdsfdsf sfs fsjdfh df sf  f d fsd sdf sd  s fds 																				
+                </a>
+              </div>	
+            </div>
+
+            <div  id="last_news_2" class="last_news_index">
+              <div style="line-height:14px;">							
+                > <a href="#" >fsd fs ffjszf sf sf sfdsfdsf sfs fsjdfh df sf  f d fsd sdf sd  s fds 																				
+                </a>
+              </div>	
+            </div>									
+
+          </div>
+
+        </div>
+
+        <div id="site_menu">
+          <ul>
+            <li>     
+              <h2> <a href="#" > Статьи </a></h2>
+              <ul>
+                <li><a href="#" > Visiting the University </a></li>
+                <li><a href="#" > ссылка2 </a></li>
+                <li><a href="#" > ссылка3 </a></li>
+                <li><a href="#" > ссылка4 </a></li>
+              </ul>
+            </li>
+            <li>     
+              <h2> <a href="#" >Исследования</a> </h2>
+              <ul>
+                <li><a href="#" > ссылка1 </a></li>
+                <li><a href="#" > ссылка2 </a></li>
+                <li><a href="#" > ссылка3 </a></li>
+                <li><a href="#" > ссылка4 </a></li>
+              </ul>
+            </li>
+            <li>     
+              <h2><a href="#" >Кафедра</a></h2>
+              <ul >
+                <li><a href="#" > ссылка1 </a></li>
+                <li><a href="#" > ссылка2 </a></li>
+                <li><a href="#" > ссылка3 </a></li>
+                <li><a href="#" > ссылка4 </a></li>
+              </ul>
+            </li>
+            <li>     
+              <h2><a href="#" >Публикации</a></h2>
+              <ul>
+                <li><a href="#" > ссылка1 </a></li>
+                <li><a href="#" > ссылка2 </a></li>
+                <li><a href="#" > ссылка3 </a></li>
+                <li><a href="#" > ссылка4 </a></li>
+              </ul>
+            </li>
+            <li>     
+              <h2><a href="#" >Преподаватели</a></h2>
+              <ul>
+                <li><a href="#" > ссылка1 </a></li>
+                <li><a href="#" > ссылка2 </a></li>
+                <li><a href="#" > ссылка3 </a></li>
+                <li><a href="#" > ссылка4 </a></li>
+              </ul>
+            </li>
+            <li>     
+              <h2><a href="#" >Абитуриенты</a></h2>
+              <ul>
+                <li><a href="#" > ссылка1 </a></li>
+                <li><a href="#" > ссылка2 </a></li>
+                <li><a href="#" > ссылка3 </a></li>
+                <li><a href="#" > ссылка4 </a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="footer_index">
+        Кафедра ИКС @2011
+      </div>
+
+    </div>	
+  </body>
+</html>

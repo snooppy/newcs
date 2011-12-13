@@ -1,0 +1,252 @@
+/* 
+    Document   : index
+    Created on : 13.12.2011, 13:21:40
+    Author     : dimon
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+* {
+    margin: 0;
+    padding: 0;	
+}
+
+.body_index {
+    min-width: 772px;
+    width:100%;
+    font-family: Verdana, Helvetica, Arial, sans-serif;
+    line-height:1.7em;
+    background-color: #012148;
+    color:#444;
+    text-align:center;
+    padding-bottom:20px;
+    font-size:70%;
+}
+
+
+#header_wrapper_index{
+    width:100%;
+    height: 100px;
+    text-align:left;
+    background: #012148;
+    z-index:2;
+    padding-top:20px;
+}
+
+#header_index {
+    min-width: 772px;
+    max-width:940px;
+    width: 97%;
+    text-align:left;
+    margin:  0px auto 0 auto;
+    position: relative;
+    z-index:20;
+}
+
+.logos_index{
+    float: left;
+}
+
+#wrapper_index{
+    min-width: 772px;
+    max-width:940px;
+    width: 97%;
+    text-align:left;
+    margin: 0 auto 0 auto;
+    clear:both;
+    display: block;
+}
+/*---------------------------------------------------------------*/
+
+#content_index { 
+    position:static;
+    z-index:1;
+    clear:both;
+    padding-top:5px;
+}
+
+/*--------------------------------------------------------------------------------------*/
+
+#features_panel{
+    width: 100%;
+    height: 234px;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+    background: #062B55;
+}
+
+/*----------------------------menu-------------------------------------------*/
+#features_menu {
+    position: absolute;
+    top: 185px;
+    width: 101%; /* compensate for slightly-less-than-16.6666% values which are there to prevent IE rounding errors */
+    height: 37px;
+    border-top: 1px solid #000d1d;
+    border-bottom: 1px solid #000d1d;
+    z-index: 50;
+    background: #00162f url("button_gradient.gif") top left repeat-x;
+    list-style: none;
+}
+
+#features_menu li {
+    float: left;
+    width: 16.5%;
+    text-align: center;
+    text-transform: uppercase;
+    opacity:0.99999;
+}
+
+#features_menu li a {
+    display: block;
+    padding: 10px 0;
+    height: 17px;
+    outline: none;
+    border-left: 1px solid #1f3957;
+    border-right:1px solid black;
+    text-decoration: none;
+}
+
+
+#features_menu li a:hover, #features_menu li a.current, #features_menu li a:focus {
+    background-color: #2e4c6f;
+    border-left: 1px solid #2e4c6f;
+    opacity:0.99999;
+}
+
+#features_menu li h2 {
+    margin: 0;
+}
+#features_menu li h2 a {
+    color: #C2D7EF;
+    font-size: 11px;
+    margin: 0;
+    cursor: pointer;
+}
+/*-----------------------------------------------------------------------------*/
+#photo_main{
+    float: right;
+    width: 70%;	
+}
+
+div#rotator {
+    position:relative; height:150px; margin-left: 15px;
+}
+div#rotator ul li {
+    float:left; position:absolute; list-style: none;
+}
+div#rotator ul li.show {
+    z-index:500;
+}
+
+/*--------------------------------------submenu-------------------------------*/
+
+#features_submenu {
+    float: left;
+    width: 30%;
+    color: #ffffff;
+}
+
+#features_submenu a {
+    text-decoration: none;
+    color: white;
+
+}
+
+#features_submenu a:hover {
+    text-decoration: underline;
+    color: white;
+}
+
+.last_news_index{
+    margin: 0 10px 10px 10px;
+}
+
+#all_news_index{
+    position: absolute;
+    margin: 170px 10px 10px 225px;
+}
+
+/*-----------------------------------------------------------------------------------*/
+
+/*-------------------------------------Site menu-------------------------------------*/
+#site_menu{
+    width:100%;
+}
+
+#site_menu ul {
+    clear:both;
+    list-style: none;
+}
+
+#site_menu ul h2 {
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing:0;
+}
+#site_menu ul li h2 a {
+    color: #fff;
+    margin-bottom:1px;
+    text-decoration: none;
+}
+
+#site_menu ul li h2 a:hover {
+    border-bottom: 1px solid white;
+    margin-bottom:0px;
+}
+
+#site_menu ul li {
+    float:left;
+    width: 23.5%;
+    margin-left: 9%;
+    position:relative;
+}
+
+#site_menu ul h2 {
+    height: 14px;
+    padding-right: 5px;
+    padding-bottom: 10px;
+}
+
+
+#site_menu ul ul {
+    margin-bottom:50px;
+    padding-top:2px;
+}
+
+#site_menu ul li ul li{
+    float:none;
+    width: auto;
+    background: url("chevron.gif") left 0.4em no-repeat;
+    margin: 0 0 7px 0;
+    padding:0 0 0 10px; 
+    font-size: 12px;
+    line-height: 1.3em;
+}
+
+#site_menu ul li ul li a{
+    text-decoration: none;
+    color:#C2D7EF;
+}
+
+#site_menu ul li ul li a:hover{
+    text-decoration: underline;
+    color: #fff;
+}
+/*-----------------------------------------------------------------------------------*/
+#footer_index {
+    width: 100%;
+    padding:10px;
+    color: #C2D7EF;
+    margin-top: 10px;
+    font-size: 90%;
+    height: 1%;
+    clear: both;
+    border-top: #C2D7EF dashed 1px;
+    border-bottom: #C2D7EF dashed 1px;
+    text-align: center;
+}
