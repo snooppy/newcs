@@ -254,7 +254,7 @@ nav .menu li {
     overflow: hidden;
 }
 
-#search, #submit
+#search, #submit_search
 {
     float: left;
 }
@@ -275,9 +275,8 @@ nav .menu li {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25) inset, 0 1px 0 rgba(255, 255, 255, 1);          
 }
 
-/* ----------------------- */
 
-#submit
+#submit_search
 {		
     background: #6cbb6b;
     background-image: -moz-linear-gradient(top, #012148, #094385 96%);
@@ -306,14 +305,14 @@ nav .menu li {
     text-shadow: 0 1px 0 rgba(255,255,255,0.5);
 }
 
-#submit:hover
+#submit_search:hover
 {		
     background-image: -moz-linear-gradient(top, #094385, #012148 96%);
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.00, #094385), color-stop(0.96, #012148));
     background-color: #DDDDDD;
 }	
 
-#submit:active
+#submit_search:active
 {		
     background: #094c98;
     outline: none;
@@ -323,12 +322,11 @@ nav .menu li {
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) inset;		
 }
 
-#submit::-moz-focus-inner
+#submit_search::-moz-focus-inner
 {
     border: 0;  /* Small centering fix for Firefox */
 }			
 
-/* -------------------------------------------------------------------------- */
 
 #search::-webkit-input-placeholder {
     color: #9c9c9c;
@@ -351,7 +349,7 @@ nav .menu li {
     background: #fff;
     outline: none;
 }	
-/*-------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
 
 #notification_area{
     color:white;
@@ -365,3 +363,28 @@ nav .menu li {
     border-radius:         10px;
     opacity: 0.3;		
 }
+
+/*--------------------------------Input and textarea--------------------------*/
+input[type="text"], textarea { 
+    padding: 3px;
+    border: solid 1px #E5E5E5;
+    outline: 0;
+    font: normal 13px/100% Verdana, Tahoma, sans-serif;
+    background: #FFFFFF url('bg_form.png') left top repeat-x;
+    background: -webkit-gradient(linear, left top, left 25, from(#FFFFFF), color-stop(4%, #EEEEEE), to(#FFFFFF));
+    background: -moz-linear-gradient(top, #FFFFFF, #EEEEEE 1px, #FFFFFF 25px);
+    box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+    -moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+    -webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+}
+
+textarea { 
+    line-height: 150%;
+}
+
+input[type="text"]:hover, textarea:hover,
+input[type="text"]:focus, textarea:focus { 
+    border-color: #C9C9C9; 
+    -webkit-box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 8px;
+}
+/*-----------------------------------------------------------------------------*/

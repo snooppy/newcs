@@ -1,3 +1,4 @@
+# encoding: utf-8
 class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.json
@@ -126,6 +127,7 @@ class MessagesController < ApplicationController
   # GET /messages/new
   # GET /messages/new.json
   def new
+    @title = "Отправка сообщения"
     @message = Message.new
 
     respond_to do |format|

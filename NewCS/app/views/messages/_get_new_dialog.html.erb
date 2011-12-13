@@ -36,7 +36,6 @@
     <%= message.text %>
   </span>
   <span class="dialog_message_time">
-    <%=Time.now.strftime("%H:%M:%S")%>
     <%if message.created_at.to_date==Time.now.to_date %>
       <%= message.created_at.strftime("%H:%M:%S") %>
     <%else%>

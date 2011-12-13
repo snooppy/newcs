@@ -1,8 +1,10 @@
+<!DOCTYPE html>
 <%@message = Message.new%>
 <%= form_for(@message, :remote => true, :url => "/messages/create") do |f| %>
-  <%=f.label :text%>
+  Сообщение:
   <%=f.text_field :text%>
   <br>
+  Кому:
   <%-f.label "User to"%>
   <%=f.select :userto_id, User.all.collect {|p| [ p.login, p.id ] }, {:include_blank => 'None'}%>
 
@@ -10,3 +12,12 @@
     <%= f.submit %>
   </div>
 <% end %>
+  
+
+	<p class="name">
+		<input type="text" name="name" id="name" />
+	</p>
+
+	<p class="text">
+		<textarea name="text"></textarea>
+	</p>
