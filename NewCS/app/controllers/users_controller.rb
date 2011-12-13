@@ -68,6 +68,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     # TODO process errors
+    # TODO create folder
+    # TODO create record in Folder
     if @user.save
       render :partial => "/users/create"
     else

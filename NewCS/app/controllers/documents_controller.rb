@@ -3,46 +3,81 @@ class DocumentsController < ApplicationController
   # GET /documents
   # GET /documents.json
   def index 
-    
-    # curent sign in user
-    user_id = session["user"].id
-    if !params[:user_id].nil?  
-      # some other user
-      user_id = params[:user_id]
-    end
-    
     # TODO get normal level from db
     level = 0
+    full_path = params[:folder]
+    # curent sign in user
+    user_id = session["user"].id unless session["user"].nil?
+   
+    # some other user
+    user_id = params[:user_id]  unless params[:user_id].nil?  
     
-    @folder = {:name => "/" , :parent => nil, :id => 0}
-    if !params[:folder].nil?
-      folder_string = params[:folder]
-      folder_string = folder_string.gsub(/(\$\$)/, "/")
-      if !folder_string.match(/\//)
-        @folder = {:name =>folder_string,:parent => nil, :id => 0}
+    full_path = "" if !session["user"].nil? and session["user"].id == user_id and params[:folder].nil?
+    
+    if user_id.nil? and params[:folder].nil?
+      redirect_to "/403.html" 
+      return 1
+    end
+    
+    @current_folder = {} 
+    error = ""
+    unless full_path.nil?
+      unless full_path.match(/\//)
+        if full_path == ""
+          @current_folder = Folder.find_by_user_id_and_name(user_id,"")
+        else
+          folder_root = Folder.find_by_user_id_and_name(user_id,"").id
+          @current_folder = Folder.find_by_name_and_parent(full_path,folder_root)
+        end
       else
-        sub_strs = folder_string.match(/(.*)\/(.*)$/)
-        @folder = {:name =>sub_strs[1],:parent =>sub_strs[2], :id => 0}
+        folder_names = full_path.gsub(/\//," ").split
+        # TODO add IF FOLDER EXIST
+        unless File.exist?(full_path)
+          error = "path is wrong"
+        end
+        folder_root = Folder.find_by_user_id_and_name(user_id,"").id
+        sql = folder_root.to_s()
+        folder_names.each do |f_name|
+          sql = "select id from folders where name = ('" + f_name  + "') and parent = (" + sql + ")"
+        end
+         
+        if current_folder_id = Folder.find_by_sql(sql)
+          @current_folder = Folder.find(:first,
+            :select => "*",
+            :conditions  => ["level>=(?) and id = (?)", 
+              level, current_folder_id
+            ]
+          )
+        end
       end
+    else
+      @current_folder = Folder.find_by_user_id_and_name(user_id,"")
+      full_path = ""
     end
     
     @documents_info = {}
-    
-    @f = Folder.find_by_name_and_parent_and_user_id(@folder[:name], @folder[:parent],user_id)
-    if !@f.nil?
-      @folder[:id] = @f[:id]
-
+  
+    unless @current_folder.nil?
+      
       # get documents form current folder
       @documents = Document.find(:all,
         :select => "*",
-        :conditions  => ["level>=(?) and user_id=(?) and folder = (?)", 
-          level, user_id, @folder[:id]
+        :conditions  => ["level>=(?) and folder = (?)", 
+          level, @current_folder[:id]
         ]
-      )                               
+      ) 
+      
+      # get documents form current folder
+      @folders = Folder.find(:all,
+        :select => "*",
+        :conditions  => ["level>=(?) and parent = (?)", 
+          level, @current_folder[:id]
+        ]
+      )  
       
       # create hash for the page
-      @info  = {:folder => @folder}
-      @documents_info = {:documents => @documents, :info => @info}
+      @info  = {:folder => @current_folder,:full_path => full_path}
+      @documents_info = {:documents => @documents,:folders => @folders, :info => @info}
       
     else
       # error Folder path is incorrect
@@ -86,19 +121,22 @@ class DocumentsController < ApplicationController
   # POST /documents.json
   def create
     if !session[:user].nil?
-      folder = params[:folder] # regexp!!
+      level = 0 # TODO add normal level
+      # TODO add checking own access level
+      folder_id = params[:folder]
+      full_path = params[:full_path]
+             
       # save file
       # TODO add проверка
-      file = Rails.root.join("public","files",session[:user].id.to_s(),folder,params[:document][:path].original_filename)
+      file = Rails.root.join("public","files",session[:user].id.to_s(),full_path,params[:document][:path].original_filename)
       tmp  =  params[:document][:path].tempfile  
       FileUtils.cp tmp.path, file 
 
       #TODO add some dirs
-      
-      p folder
-      folder_id = Folder.find_by_name(folder)
-      params[:document][:path] = File.join( folder, params[:document][:path].original_filename )
-      params[:document][:folder] = folder_id
+      params[:document][:path]    = params[:document][:path].original_filename 
+      params[:document][:folder]  = folder_id
+      params[:document][:user_id] = session[:user].id
+      params[:document][:level] = level
       @document = Document.new(params[:document])
       if @document.save
         render :partial => "create.js"

@@ -40,17 +40,37 @@ class FoldersController < ApplicationController
   # POST /folders
   # POST /folders.json
   def create
-    @folder = Folder.new(params[:folder])
-    # TODO create folder
-    respond_to do |format|
-      if @folder.save
-        format.js
+    unless session[:user].nil?
+      @error = ""
+      level  = 0
+      # TODO take level from form
+      params[:folder][:parent]  = params[:parent_folder]
+      full_path  = params[:full_path]
+      params[:folder][:user_id] = session[:user].id
+      params[:folder][:level]   = level
+      @folder = Folder.new(params[:folder])
+      
+      #huinya parent_path = Folder.find_by_user_id_and_id(params[:parent_folder],session[:user].id)
+      unless params[:parent_folder].nil?
+        folder_path = Rails.root.join("public","files",session[:user].id.to_s(),full_path,params[:folder][:name])
+        begin
+          Dir::mkdir(folder_path)
+          @folder.save
+        rescue
+          @error = "The directory already exists"
+        end
       else
-        format.js
+        @error = "Operation not permitted"
       end
+       
+      respond_to do |format|
+        format.js   
+        format.json{render json: @error}
+      end
+    else
+      redirect_to "/403.html"
     end
   end
-
   # PUT /folders/1
   # PUT /folders/1.json
   def update

@@ -23,10 +23,9 @@ NewCS::Application.routes.draw do
   
   match 'documents/create' => 'documents#create', :via=>[:post]
   match 'documents/new' => 'documents#new', :via=>[:get]
-  match 'documents/:user_id/:folder' => 'documents#index', :via=>[:get]
-  match 'documents/:user_id' => 'documents#index', :via=>[:get]
-  match 'my_documents/:folder' => 'documents#index', :via=>[:get]
-  match 'my_documents' => 'documents#index', :via=>[:get]
+
+  match 'documents/:user_id/*folder' => 'documents#index', :via=>[:get]
+  match 'documents/:user_id/' => 'documents#index', :via=>[:get]
   match 'documents' => 'documents#index', :via=>[:get]
 
   resources :publications_types
@@ -104,7 +103,7 @@ NewCS::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'pages#index'
+  root :to => 'index#index'
   match '403.html' => 'pages#forbiden'
   # See how all your routes lay out with "rake routes"
 

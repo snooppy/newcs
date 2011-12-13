@@ -1,14 +1,14 @@
 <%@document = Document.new %>
 <%= form_for @document, :html => { :multipart => true },:url => "/documents/create", :remote => true do |f| %>
   <div class="field">
-  	<%= f.label :name%>
-  	<%= f.text_field :name%>
+    <%= f.label :name%>
+    <%= f.text_field :name%>
     <br>
     <%= f.label :path %>
     <%= f.file_field :path %>
     <br>
-    <%= hidden_field_tag "folder", @folder %>
-   
+    <%= hidden_field_tag "folder", @folder[:id] %>
+    <%= hidden_field_tag "full_path", @full_path %>
   </div>
   <div class="actions">
     <%= f.submit %>

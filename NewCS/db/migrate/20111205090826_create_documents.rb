@@ -21,6 +21,7 @@ class CreateDocuments < ActiveRecord::Migration
       # some else 
       t.timestamps
     end
+    
   end
   def down
     drop_table :documents

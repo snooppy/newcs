@@ -1,9 +1,5 @@
 class PagesController < ApplicationController
   
-  def index
-    @title = "Home"
-  end
-  
   def prepod_home
     if !session[:user].nil?
       

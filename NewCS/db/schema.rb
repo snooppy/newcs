@@ -27,8 +27,9 @@ ActiveRecord::Schema.define(:version => 20111211203948) do
 
   create_table "folders", :force => true do |t|
     t.string   "name"
-    t.string   "parent"
+    t.integer  "parent"
     t.integer  "user_id"
+    t.integer  "level"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -58,18 +59,6 @@ ActiveRecord::Schema.define(:version => 20111211203948) do
     t.boolean  "showed_dialog", :default => false, :null => false
     t.integer  "userto_id"
     t.integer  "userfrom_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "prepodrooms", :force => true do |t|
-    t.boolean  "images",       :default => true
-    t.boolean  "students",     :default => true
-    t.boolean  "subjects",     :default => true
-    t.boolean  "shedules",     :default => true
-    t.boolean  "marks",        :default => true
-    t.boolean  "files",        :default => true
-    t.boolean  "publications", :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
