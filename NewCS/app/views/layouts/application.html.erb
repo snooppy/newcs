@@ -22,15 +22,14 @@
   </head>
   <body class="body">
     <!--%=render :partial=>"messages/form"%-->
-    <!--%=render :partial=>"users/auth"%-->
-    
 
     <div id ="notification_area">
     </div>
     <div id ="popup_message">
     </div>
 
-    <%= render 'layouts/header' %>
+    <%= render :partial=>"layouts/header" %>
+    <%=render :partial=>"users/auth"%>
     <div id="wrapper">
       <div id="content" class="box_round">
         <div id="primary_content">
