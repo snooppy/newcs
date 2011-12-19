@@ -232,6 +232,7 @@ td#im_user_holder {
     vertical-align: top;
 }
 
+/*------------------------Button for sending new message----------------------*/
 .button_send_message{
     margin-left: 10px;
     margin-top: 5px;
@@ -252,7 +253,6 @@ td#im_user_holder {
     -webkit-box-shadow: 0 0 .05em rgba(0,0,0,0.4);
 }
 
-/*------------------------Button for sending new message----------------------*/
 .button_send_message, .button_send_message span{
     -moz-border-radius: .3em;
     border-radius: .3em;

@@ -1,64 +1,67 @@
-<%@user=User.new%>
-<%= form_for(@user, :remote=>true, :method => :get , :url => { :action => "sign_in", :controller=>"users" }) do |f| %>
-
-  <!--h1>Auth user</h1-->
-  <!--div class="field">
-  <%= f.label :login %>
-  <%= f.text_field :login %><br />
-  <%= f.label :password %>
-  <%= f.password_field :password %><br />
-  </div>
-  <div class="actions">
-  <%  if !session[:user].nil? %><%=session[:user].login%><%=session[:user].id%><%end%>
-  <%= f.submit "sign_in"%>
-  <%=link_to "sign out", {:controller=>"users",:action=>"sign_out"}%>
-  </div-->
-<% end %>
-
-
-<div id="container_singin">
-  <div id="topnav" class="topnav"> Имеете аккаунт? <a href="#" class="signin"><span>Войти</span></a> </div>
-  <fieldset id="signin_menu">
-    <form method="post" id="signin" >
-      <label for="username">Логин</label>
-      <input id="username" name="username" value="" title="username" tabindex="4" type="text">
-      </p>
-      <p>
-        <label for="password">Пароль</label>
-        <input id="password" name="password" value="" title="password" tabindex="5" type="password">
-      </p>
-      <p class="remember">
-        <input id="signin_submit" value="Войти" tabindex="6" type="submit">
-        <input id="remember" name="remember_me" value="1" tabindex="7" type="checkbox">
-        <label for="remember">Запомнить</label>
-      </p>
-    </form>
-  </fieldset>
-</div>
 <script type="text/javascript">
-  $(document).ready(function() {
-
-    $(".signin").click(function(e) {          
-      e.preventDefault();
-      $("fieldset#signin_menu").toggle();
-      $(".signin").toggleClass("menu-open");
+  $(document).ready(function() {            
+    $(".signin").click(function(){
+      var display = $("fieldset#signin_menu").css("display");
+      if(display=="none"){
+        $(".signin").addClass("menu_open");
+        $("fieldset#signin_menu").slideDown("slow");
+      } else {
+        $("fieldset#signin_menu").slideUp("slow", function () {
+          $(".signin").removeClass("menu_open");
+        });
+						
+      }	
     });
 			
     $("fieldset#signin_menu").mouseup(function() {
       return false
     });
+			
     $(document).mouseup(function(e) {
-      if($(e.target).parent("a.signin").length==0) {
-        $(".signin").removeClass("menu-open");
-        $("fieldset#signin_menu").hide();
+      if($(e.target).parent("div.signin").length==0) {
+        $("fieldset#signin_menu").slideUp("slow", function () {
+          $(".signin").removeClass("menu_open");
+        });
       }
     });			
 			
   });
 </script>
 
-<script type='text/javascript'>
-  $(function() {
-    $('#forgot_username_link').tipsy({gravity: 'w'});   
-  });
-</script>
+
+<%@user=User.new%>
+
+<%  if session[:user].nil? %>
+  <div id="container_singin">
+    <div id="topnav" class="topnav"> <div style="float: left; color: #fff;">Имеете аккаунт? </div><div id="signin" class="signin"><span>Войти</span></div> </div>
+    <fieldset id="signin_menu">
+      <%= form_for(@user, :id=>"signin", :remote=>true, :method => :get , :url => { :action => "sign_in", :controller=>"users" }) do |f| %>
+        <p>  
+          <label for="username">Логин</label>
+          <%= f.text_field :login %>
+        </p>
+        <p>
+          <label for="password">Пароль</label>
+          <%= f.password_field :password %>       
+        </p>
+        <p class="remember">
+          <%= f.submit "Войти", :id=>"signin_submit", :class=>"button_blue"%>
+          
+          <input id="remember" name="remember_me" value="1" tabindex="7" type="checkbox">
+          <label for="remember">Запомнить</label>
+        </p>
+        <p class="forgot">
+          <a href="#" id="resend_password_link">Забыли пароль?</a> 
+        </p>
+        <p class="forgot-username"> 
+          <a href="#" id=forgot_username_link>Забыли логин?</a>
+        </p>
+
+      <% end %>
+    </fieldset>
+  </div>
+<%else%>
+  <div id="container_singin">
+    <%=link_to "sign out", {:controller=>"users",:action=>"sign_out"}%>
+  </div>
+<%end%>
