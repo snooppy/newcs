@@ -1,21 +1,16 @@
 <h1>Listing publications</h1>
 
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
 
-<% @publications.each do |publication| %>
-  <tr>
-    <td><%= link_to 'Show', publication %></td>
-    <td><%= link_to 'Edit', edit_publication_path(publication) %></td>
-    <td><%= link_to 'Destroy', publication, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
-
+<div id="publications_table">
+  <% @publications.each do |publication| %>
+    <div class="pub_div">
+      <%=image_tag publication.photo%>
+      <div class="title"><%=publication.title%></div>
+      <div class="prolog"><%=publication.prolog%></div>
+       
+    </div>
+  <% end %>
+</div> 
 <br />
 
 <%= link_to 'New Publication', new_publication_path %>

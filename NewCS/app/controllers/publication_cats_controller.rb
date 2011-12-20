@@ -1,4 +1,5 @@
 class PublicationCatsController < ApplicationController
+  
   # GET /publication_cats
   # GET /publication_cats.json
   def index
@@ -24,6 +25,7 @@ class PublicationCatsController < ApplicationController
   # GET /publication_cats/new
   # GET /publication_cats/new.json
   def new
+    layout "none"
     @publication_cat = PublicationCat.new
 
     respond_to do |format|

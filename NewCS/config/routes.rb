@@ -6,7 +6,9 @@ NewCS::Application.routes.draw do
   match 'settings/:id/edit' => 'settings#edit', :via=>[:get], :as => "setting"
   match 'settings/:id/edit' => 'settings#update', :via=>[:put]  
     
-  resources :folders
+  match 'folders/create' => 'folders#create', :via=>[:post]
+  match 'folders/:id'    => 'folders#destroy', :via=>[:delete]
+  match 'folders/show'    => 'folders#index', :via =>[:get]
 
   # messages 
   match 'messages/get_new_message' => 'messages#get_new_message', :via=>[:get]
@@ -24,10 +26,10 @@ NewCS::Application.routes.draw do
   
   match 'documents/create' => 'documents#create', :via=>[:post]
   match 'documents/new' => 'documents#new', :via=>[:get]
-
   match 'documents/:user_id/*folder' => 'documents#index', :via=>[:get]
   match 'documents/:user_id/' => 'documents#index', :via=>[:get]
   match 'documents' => 'documents#index', :via=>[:get]
+  match 'documents/:id'    => 'documents#destroy', :via=>[:delete]
 
   resources :publications_types
 
@@ -45,8 +47,12 @@ NewCS::Application.routes.draw do
 
   resources :subjects
 
+  match 'publications/:id' => 'publications#show_one', :via=>[:get], :constraints => { :id => /\d+/ } #show one
+  match 'publications/latest/:page' => 'publications#show_latest', :via=>[:get], :constraints => { :page => /\d+/ }
+  match 'publications/bytype/:conditions/:page' => 'publications#show_by_type', :via=>[:get], :constraints => { :page => /\d+/ }
+  match 'publications/bycat/:conditions/:page' => 'publications#show_by_cat', :via=>[:get], :constraints => { :page => /\d+/ }
   resources :publications
-
+  
   resources :groups
 
   resources :prepods

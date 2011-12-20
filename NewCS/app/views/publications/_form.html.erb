@@ -4,13 +4,13 @@
     function show_form(what){
       var t_off = $('#publication_'+what+'_sel').offset();
       $('#publication_'+what+'_form').offset({ left : t_off.left , top : t_off.top});
-      $('#publication_'+what+'_form').fadeToggle();
+      $('#publication_'+what+'_form').fadeToggle(300);
     } 
     
     function show_type_form(){
       var t_off = $('#publication_types_sel').offset();
       $('#publication_type_form').offset({ left : t_off.left , top : t_off.top});
-      $('#publication_type_form').fadeToggle();
+      $('#publication_type_form').show  ();
     } 
     
   </script>
@@ -28,21 +28,20 @@
       </div>
 
     <% end %>
+    
+    <%= f.text_area :article, :rows => 10, :cols => 10   %>
 
+    <script type="text/javascript">
+      $(function() {
+        $('#publication_article').tinymce({
+          theme: 'advanced'
+        });
+      });
 
-
-
-  <%= f.text_area :article, :rows => 10, :cols => 10   %>
-
-  <script type="text/javascript">
-  $(function() {
-	$('#publication_article').tinymce({
-  	theme: 'advanced'
-	});
-  });
-
-  </script>
-
+    </script>
+<p>title</p>
+    <%=f.text_field :title%>
+    <br>
     <div id="publication_subject_sel"
          <p>Subject list </p>
            <%Subject.all.each do |s| %>
@@ -50,7 +49,9 @@
       <%end%>
     </div>
 
-
+    <div>
+      <%=f.file_field :photo%>
+    </div>
     <div id="publication_type_sel">
       <p>Type</p><br>
       <p onclick="show_form('type')">create new</p>
@@ -63,6 +64,10 @@
       <p onclick="show_form('cat')">create new</p>
       <%=f.select :publication_cat_id, PublicationCat.all.collect {|p| [ p.name, p.id ] }, {:include_blank => 'None'}%>
       <div id ="publication_cat_notif"></div>
+    </div>
+    <div id ="publication_prolog">
+      <p>Prolog</p>
+      <%=f.text_area :prolog, :rows=>5, :cols=>40 %>
     </div>
     <br>
     <br>

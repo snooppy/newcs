@@ -1,5 +1,5 @@
 <%@new_folder = Folder.new()%>
-<%= form_for(@new_folder, :remote => true) do |f| %>
+<%= form_for(@new_folder, :remote => true,:url => "/folders/create") do |f| %>
   <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>

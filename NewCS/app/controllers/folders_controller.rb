@@ -92,10 +92,11 @@ class FoldersController < ApplicationController
   def destroy
     @folder = Folder.find(params[:id])
     @folder.destroy
-
+    # TODO delete folder from disk
+    # TODO caskad deleting
     respond_to do |format|
-      format.html { redirect_to folders_url }
-      format.json { head :ok }
+      
+      format.js
     end
   end
 end

@@ -41,8 +41,12 @@ class PublicationsController < ApplicationController
   # POST /publications.json
   def create
     
+    file = Rails.root.join("app","assets","images","from_users",session[:user].id.to_s(),params[:publication][:photo].original_filename)
+    tmp  =  params[:publication][:photo].tempfile  
+    FileUtils.cp tmp.path, file 
+    p params[:publication]
+    params[:publication][:photo] = File.join("from_users",session[:user].id.to_s(),params[:publication][:photo].original_filename)
     @publication = Publication.new(params[:publication])
-
     respond_to do |format|
       if @publication.save
         format.html { redirect_to @publication, notice: 'Publication was successfully created.' }

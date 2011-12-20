@@ -5,17 +5,19 @@
     <tr>
       <th></th>
       <th></th>
-      <th><%=link_to @documents_info[:info][:folder], @documents_info[:info][:folder]%></th>
+      <%#*<th><%=link_to @documents_info[:info][:folder], @documents_info[:info][:folder]%></th>%>
     </tr>
     <% @documents_info[:folders].each do |folder| %>
       <tr>
         <%folder_path = File.join("documents",@documents_info[:info][:folder].user_id.to_s(),@documents_info[:info][:full_path],folder.name)%>
         <td><%=link_to folder.name, "/"+folder_path  %></td>
+        <td><%=link_to "delete", "/folders/"+folder.id.to_s(), :method=>:delete, :remote=>true,confirm: 'Are you sure?'%></td>
       </tr>
     <% end %>
     <% @documents_info[:documents].each do |document| %>
       <tr>
         <td><%= document.path  %></td>
+        <td><%=link_to "delete", "/documents/"+document.id.to_s(), :method=>:delete, :remote=>true,confirm: 'Are you sure?'%></td>
       </tr>
     <% end %>
     <tr><td></td></tr>
@@ -24,6 +26,7 @@
         <%@folder = @documents_info[:info][:folder] %>
         <%@full_path = @documents_info[:info][:full_path]%>
         <%=render :partial=>"form", :locals => { :folder => @folder,:full_path => @full_path  } %>
+        
       </td>
     </tr>
     <tr>

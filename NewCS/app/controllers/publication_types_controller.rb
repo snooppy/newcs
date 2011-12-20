@@ -24,6 +24,7 @@ class PublicationTypesController  < ApplicationController
   # GET /publication_types/new
   # GET /publication_types/new.json
   def new
+    layout "none"
     @publication_type = PublicationType.new
 
     respond_to do |format|
