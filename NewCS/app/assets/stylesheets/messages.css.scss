@@ -289,3 +289,55 @@ td#im_user_holder {
     background: #4477a1;
 }
 /*----------------------------------------------------------------------------*/
+
+/*--------------------------------Autocomplete--------------------------------*/
+.autocomplete_w1 { 
+    position:absolute;
+    top:300px; 
+    left:100px; 
+    /* IE6 fix: */ 
+    _background:none; 
+    _top:1px; 
+    font: normal 13px/100% Verdana, Tahoma, sans-serif;
+}
+
+.autocomplete { 
+    width:300px; 
+    border:1px solid #999; 
+    background:#FFF; 
+    cursor:default;
+    text-align:left; 
+    max-height:350px;
+    overflow:auto;
+    margin:-6px 6px 6px -6px; 
+    /* IE specific: */
+    _height:350px; 
+    _margin:0px 6px 6px 0; 
+    overflow-x:hidden;
+}
+
+.autocomplete .selected { 
+    background:#F0F0F0; 
+}
+
+.autocomplete div {
+    padding:2px 5px;
+    white-space:nowrap; 
+}
+
+.autocomplete strong {
+    font-weight:normal; 
+    color:black; 
+    font-weight: bold;
+}
+/*----------------------------------------------------------------------------*/
+
+.send_msg_text {
+    width: 500px;
+    height: 200px;
+    outline: 0;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    resize: none;
+}

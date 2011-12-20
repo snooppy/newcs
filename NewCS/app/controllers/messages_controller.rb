@@ -188,5 +188,13 @@ class MessagesController < ApplicationController
     end
   end
   
+  def userslist  
+    @users = User.find( :all, :conditions => ["login LIKE ?", params[:text] + "%"] )
+    render :partial =>"userslist"
+   #respond_to do |format|
+    #    format.js
+        #format.json { users  }
+    #end
+  end  
   
 end

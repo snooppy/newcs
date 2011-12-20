@@ -76,6 +76,16 @@ function event_scan(){
     });
 }
   
+function users_autocomplit(text){
+    $.ajax({
+        type: 'GET',
+        url: '/messages/userslist/'+text,
+        dataType: "html",
+        success: function (data){
+            event_success(data); 
+        } 
+    });
+}
 
   
 ///////////end global events//////

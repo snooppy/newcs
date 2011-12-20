@@ -1,23 +1,29 @@
 <!DOCTYPE html>
+<script>
+  $("#theme").keypress(function(event) {
+    alert("sds");
+  });
+</script>
 <%@message = Message.new%>
 <%= form_for(@message, :remote => true, :url => "/messages/create") do |f| %>
-  Сообщение:
-  <%=f.text_field :text%>
-  <br>
-  Кому:
-  <%-f.label "User to"%>
-  <%=f.select :userto_id, User.all.collect {|p| [ p.login, p.id ] }, {:include_blank => 'None'}%>
-
+  <strong>Кому:</strong>
+  <!--%=f.select :userto_id, User.all.collect {|p| [ p.login, p.id ] }, {:include_blank => 'None'}%-->
+  <div>
+    <%=f.text_field :userto_id, :style=>"width:500px;" %>
+  </div>
+  <br/>
+  <strong>Тема:</strong>
+  <!--%=f.select :userto_id, User.all.collect {|p| [ p.login, p.id ] }, {:include_blank => 'None'}%-->
+  <div>
+    <input id="theme" type="text" style="width:500px;" />
+    <!--%=text_field :theme, :style=>"width:500px;" %-->
+  </div>
+  <br/>
+  <strong>Сообщение:</strong>
+  <div>
+    <%=f.text_area :text, :class=>"send_msg_text"%>
+  </div>
   <div class="actions">
-    <%= f.submit :сиськи%>
+    <%= f.submit :Отправить, :class=>"button_send_message button_blue", :style=>"margin-left: 0px;"%>
   </div>
 <% end %>
-  
-
-	<p class="name">
-		<input type="text" name="name" id="name" />
-	</p>
-
-	<p class="text">
-		<textarea name="text"></textarea>
-	</p>

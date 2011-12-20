@@ -16,6 +16,7 @@ NewCS::Application.routes.draw do
   match 'messages/dialogs' => 'messages#dialogs', :via=>[:get]
   match 'messages/create' => 'messages#create', :via=>[:post]
   match 'messages' => 'messages#new', :as => :messages
+  match 'messages/userslist/:text' => 'messages#userslist', :via=>[:get]
   
   # events
   match 'events/scan/:events' => 'events#scan', :via=>[:get] 
