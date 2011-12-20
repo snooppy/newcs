@@ -1,8 +1,20 @@
-<!DOCTYPE html>
-<script>
-  $("#theme").keypress(function(event) {
-    alert("sds");
-  });
+<script type="text/javascript">
+  function send_autocomplit(text){
+    alert(text);
+    $.ajax({
+      type: 'POST',
+      url: '/messages/userslist/'+text,
+      dataType: "html",
+      //        error: function(request,error) 
+      //        {
+      //            alert ( " Can't do because: " + error );
+      //        },
+      success: function (data){
+        alert(data);
+      } 
+    });
+  }
+  
 </script>
 <%@message = Message.new%>
 <%= form_for(@message, :remote => true, :url => "/messages/create") do |f| %>
@@ -15,7 +27,7 @@
   <strong>Тема:</strong>
   <!--%=f.select :userto_id, User.all.collect {|p| [ p.login, p.id ] }, {:include_blank => 'None'}%-->
   <div>
-    <input id="theme" type="text" style="width:500px;" />
+    <input id="theme" type="text" onkeyup="send_autocomplit(this.value);" style="width:500px;" />
     <!--%=text_field :theme, :style=>"width:500px;" %-->
   </div>
   <br/>
