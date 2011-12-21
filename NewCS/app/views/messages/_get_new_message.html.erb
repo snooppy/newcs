@@ -26,7 +26,7 @@
     </div>
   </div>
   <div>
-    <a  class="link_popup_message" href="/users"> <%=User.find(@message.userfrom_id).login%></a>
+    <a  class="link_popup_message" href="/users/<%=@message.userfrom_id%>"> <%=User.find(@message.userfrom_id).login%></a>
     <div style="color: #87CEEB; font-weight: bold; float:left;">:&nbsp;</div>
     <div>
       <%= @message.text%>

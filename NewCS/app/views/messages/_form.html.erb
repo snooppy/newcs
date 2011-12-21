@@ -21,12 +21,13 @@
   <strong>Кому:</strong>
   <!--%=f.select :userto_id, User.all.collect {|p| [ p.login, p.id ] }, {:include_blank => 'None'}%-->
   <div>
-    <%=f.text_field :userto_id, :style=>"width:500px;", :onkeyup=>"send_autocomplit(this.value);" %>
+    <!--%=f.text_field :userto_id, :style=>"width:90%;", :onkeyup=>"send_autocomplit(this.value);" %-->
+    <%=f.text_field :userto_id, :style=>"width:90%;"%>
   </div>
   <br/>
   <strong>Тема:</strong>
   <div>
-    <%=f.text_field :subject, :style=>"width:500px;" %>
+    <%=f.text_field :subject, :style=>"width:90%;" %>
   </div>
   <br/>
   <strong>Сообщение:</strong>

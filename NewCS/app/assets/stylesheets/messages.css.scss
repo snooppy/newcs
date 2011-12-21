@@ -2,27 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-
-/*------------------------------------------------------------------------------
-#popup_message{
-    position: absolute;
-    top: 0;
-    left: 700px;
-    width: 200px;
-    background-color: #55ff55;
-    opacity: 0.5;
-    float: left;
-    padding: 10px;
-    display:none;
-}
-
-#popup_message_body{
-    color:black;
-    background-color: white;
-    opacity: 0.9;
-}
-}-----------------------------------------------------------------------------*/
-
 /*------------------------------Popum message---------------------------------*/
 #popup_message{	
     -webkit-border-radius: 10px;
@@ -40,16 +19,18 @@
     color: #FFFFFF;
     width:350px;
     display:none;
-    left: 50px;
-    top:100px;
+    right: 10px;
+    bottom:10px;
     line-height:normal;
-    position: absolute;
+    position: fixed;
+    z-index:100;
 }
 
 a.link_popup_message{
     color:#87CEEB; 
     float:left; 
     font-weight: bold;
+    text-decoration:none;
 }
 
 a.link_popup_message:hover{
@@ -331,7 +312,7 @@ td#im_user_holder {
 /*----------------------------------------------------------------------------*/
 
 .send_msg_text {
-    width: 500px;
+    width:90%;
     height: 200px;
     outline: 0;
     -moz-border-radius: 2px;
