@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111211203955) do
+ActiveRecord::Schema.define(:version => 20111211203953) do
 
   create_table "documents", :force => true do |t|
     t.string   "path"
@@ -144,6 +144,7 @@ ActiveRecord::Schema.define(:version => 20111211203955) do
     t.string   "email"
     t.string   "sex"
     t.string   "role"
+    t.string   "photo"
     t.integer  "group_id"
     t.integer  "settings_id"
     t.integer  "pos"

@@ -6,7 +6,7 @@
 //
 //= require jquery
 //= require jquery_ujs
- //= require jquery.form
+//= require jquery.form
 //= require jquery.remotipart
 //= require_tree .
 //= require tinymce-jquery  
@@ -73,17 +73,6 @@ function event_scan(){
         success: function (data){
             event_success(data); 
         }
-    });
-}
-  
-function users_autocomplit(text){
-    $.ajax({
-        type: 'GET',
-        url: '/messages/userslist/'+text,
-        dataType: "html",
-        success: function (data){
-            event_success(data); 
-        } 
     });
 }
 

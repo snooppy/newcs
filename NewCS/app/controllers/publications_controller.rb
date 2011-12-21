@@ -46,6 +46,7 @@ class PublicationsController < ApplicationController
     FileUtils.cp tmp.path, file 
     p params[:publication]
     params[:publication][:photo] = File.join("from_users",session[:user].id.to_s(),params[:publication][:photo].original_filename)
+    params[:publication][:user_id] = session[:user].id
     @publication = Publication.new(params[:publication])
     respond_to do |format|
       if @publication.save
