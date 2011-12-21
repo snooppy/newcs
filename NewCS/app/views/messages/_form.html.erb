@@ -1,6 +1,5 @@
 <script type="text/javascript">
   function send_autocomplit(text){
-    alert(text);
     $.ajax({
       type: 'POST',
       url: '/messages/userslist/'+text,
@@ -9,9 +8,9 @@
       //        {
       //            alert ( " Can't do because: " + error );
       //        },
-      success: function (data){
-        alert(data);
-      } 
+       success: function (data){
+            event_success(data); 
+        } 
     });
   }
   

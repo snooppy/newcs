@@ -9,7 +9,7 @@ class CreatePublicationsTypes < ActiveRecord::Migration
   end 
   
   def up
-    create_table :publications_types do |t|
+    create_table :publications_types, :options=>'DEFAULT CHARSET=UTF8' do |t|
       t.string :name
 
       t.timestamps

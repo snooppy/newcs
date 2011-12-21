@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111211203953) do
+ActiveRecord::Schema.define(:version => 20111211203955) do
 
   create_table "documents", :force => true do |t|
     t.string   "path"
@@ -139,8 +139,8 @@ ActiveRecord::Schema.define(:version => 20111211203953) do
     t.string   "first_name"
     t.string   "second_name"
     t.string   "last_name"
-    t.string   "login"
-    t.string   "password"
+    t.string   "login",       :null => false
+    t.string   "password",    :null => false
     t.string   "email"
     t.string   "sex"
     t.string   "role"
@@ -150,5 +150,7 @@ ActiveRecord::Schema.define(:version => 20111211203953) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "users", ["login"], :name => "index_users_on_login", :unique => true
 
 end

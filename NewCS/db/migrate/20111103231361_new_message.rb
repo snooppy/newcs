@@ -9,7 +9,7 @@ class NewMessage < ActiveRecord::Migration
   end 
   
   def up
-    create_table :new_messages do |t|
+    create_table :new_messages, :options=>'DEFAULT CHARSET=UTF8' do |t|
       t.text :text
       t.boolean :readed, :null => false, :default=> false
       t.boolean :showed_popup, :null => false, :default=> false

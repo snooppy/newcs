@@ -9,7 +9,7 @@ class CreateFolders < ActiveRecord::Migration
   end 
   
   def up
-    create_table :folders do |t|
+    create_table :folders, :options=>'DEFAULT CHARSET=UTF8' do |t|
       t.string :name
       t.integer :parent
       t.integer :user_id

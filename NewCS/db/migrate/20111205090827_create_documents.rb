@@ -9,7 +9,7 @@ class CreateDocuments < ActiveRecord::Migration
   end  
   
   def up
-    create_table :documents do |t|
+    create_table :documents, :options=>'DEFAULT CHARSET=UTF8' do |t|
       t.string :path
       t.string :title
       t.string :name

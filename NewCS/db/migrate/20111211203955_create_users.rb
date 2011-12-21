@@ -9,12 +9,12 @@ class CreateUsers < ActiveRecord::Migration
   end
   
   def up
-    create_table :users do |t|
+    create_table :users, :options=>'DEFAULT CHARSET=UTF8' do |t|
       t.string :first_name
       t.string :second_name
       t.string :last_name
-      t.string :login
-      t.string :password
+      t.string :login, :null => false
+      t.string :password, :null => false
       t.string :email
       t.string :sex
       t.string :role
@@ -28,6 +28,7 @@ class CreateUsers < ActiveRecord::Migration
       
       t.timestamps
     end
+    add_index(:users, :login, :unique => true)
   end
   def down
     drop_table :users

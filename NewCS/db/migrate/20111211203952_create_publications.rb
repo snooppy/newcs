@@ -8,7 +8,7 @@ class CreatePublications < ActiveRecord::Migration
     end
   end
   def up
-    create_table :publications do |t|
+    create_table :publications, :options=>'DEFAULT CHARSET=UTF8' do |t|
       t.string  :title
       t.text    :article
       t.text    :prolog

@@ -9,7 +9,7 @@ class CreateGroups < ActiveRecord::Migration
   end 
   
   def up
-    create_table :groups do |t|
+    create_table :groups, :options=>'DEFAULT CHARSET=UTF8' do |t|
       t.string :name 
       t.integer :year
       t.timestamps

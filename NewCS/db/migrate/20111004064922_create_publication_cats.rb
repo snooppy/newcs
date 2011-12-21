@@ -1,4 +1,4 @@
-class CreateSubjects < ActiveRecord::Migration
+class CreatePublicationCats < ActiveRecord::Migration
   def change
     begin
       down
@@ -9,12 +9,13 @@ class CreateSubjects < ActiveRecord::Migration
   end 
   
   def up
-    create_table :subjects do |t|
+    create_table :publication_cats, :options=>'DEFAULT CHARSET =UTF8' do |t|
       t.string :name
+
       t.timestamps
     end
   end
   def down
-    drop_table :subjects
+    drop_table :publication_cats
   end
 end
