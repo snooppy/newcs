@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111211203952) do
+ActiveRecord::Schema.define(:version => 20111211203953) do
 
   create_table "documents", :force => true do |t|
     t.string   "path"
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(:version => 20111211203952) do
     t.boolean  "readed",        :default => false, :null => false
     t.boolean  "showed_popup",  :default => false, :null => false
     t.boolean  "showed_dialog", :default => false, :null => false
-    t.text     "thema"
+    t.text     "subject"
     t.integer  "userto_id"
     t.integer  "userfrom_id"
     t.datetime "created_at"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(:version => 20111211203952) do
     t.boolean  "readed",        :default => false, :null => false
     t.boolean  "showed_popup",  :default => false, :null => false
     t.boolean  "showed_dialog", :default => false, :null => false
+    t.text     "subject"
     t.integer  "userto_id"
     t.integer  "userfrom_id"
     t.datetime "created_at"

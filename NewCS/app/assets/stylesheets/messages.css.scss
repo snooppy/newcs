@@ -140,7 +140,7 @@ a.link_popup_message:hover{
 }
 
 .dialog_message_checkmark{
-    left:450px;
+    left:490px;
     top: 30px;
     position:absolute;
     width: 21px;
@@ -212,9 +212,8 @@ a.dialog_message_author:hover{
 }
 
 .dialog_my_text {
-    width: 460px;
+    width: 510px;
     height: 52px;
-    margin-left: 10px;
     outline: 0;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
@@ -234,7 +233,6 @@ td#im_user_holder {
 
 /*------------------------Button for sending new message----------------------*/
 .button_send_message{
-    margin-left: 10px;
     margin-top: 5px;
     padding: 5px;
     text-decoration: none;

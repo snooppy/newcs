@@ -196,10 +196,10 @@ nav .menu li {
 }
 
 #primary_content {
-    width:70%;
+    width:65%;
     float: left;
     display: block;
-    /* background-color: #cdcde6;*/
+    /* background-color: red;*/
 }
 
 #title {
@@ -216,9 +216,9 @@ nav .menu li {
 }
 
 #right_panel{
-    /*background-color: #cdcde6;*/
-    width: 29%;
-    float: left;
+    /*background-color: red;*/
+    width: 34%;
+    float: right;
 
 }
 

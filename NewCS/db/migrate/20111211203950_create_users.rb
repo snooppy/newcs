@@ -1,5 +1,4 @@
-class CreateUsers < ActiveRecord::Migration
-  
+class CreateUsers < ActiveRecord::Migration 
   def change
     begin
       down
