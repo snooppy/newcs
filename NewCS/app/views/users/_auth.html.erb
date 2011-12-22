@@ -4,8 +4,9 @@
       var display = $("fieldset#signin_menu").css("display");
       if(display=="none"){
         $(".signin").addClass("menu_open");
-        $("fieldset#signin_menu").slideDown("slow");
-        $("#user_login").focus();
+        $("fieldset#signin_menu").slideDown("slow", function () {
+          $("#user_login").focus()});
+ 
       } else {
         $("fieldset#signin_menu").slideUp("slow", function () {
           $(".signin").removeClass("menu_open");
