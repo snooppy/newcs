@@ -1,9 +1,11 @@
+# encoding: utf-8
 class PrepodsController < ApplicationController
   # GET /prepods
   # GET /prepods.json
   def index
     @prepods = Prepod.all
-
+    @title = "Преподаватели"
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @prepods }

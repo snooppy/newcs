@@ -7,5 +7,6 @@
   $("#notification_area").addClass("notif_success");
 <% end %>
  
-$("#notification_area").show('fast');
-$("#notification_area").fadeOut(6000);
+$("#notification_area").slideDown("slow");
+$("#notification_area").delay(2000);
+$("#notification_area").slideUp("slow");

@@ -1,3 +1,4 @@
+# encoding: utf-8
 class UsersController < ApplicationController
   
   def sign_in
@@ -29,7 +30,8 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.all
-
+    @title = "Пользователи"
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @users }

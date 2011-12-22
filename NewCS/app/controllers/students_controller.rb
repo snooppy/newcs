@@ -1,9 +1,11 @@
+# encoding: utf-8
 class StudentsController < ApplicationController
   # GET /students
   # GET /students.json
   def index
     @students = Student.all
-
+    @title = "Студенты"
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @students }
