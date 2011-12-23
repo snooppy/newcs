@@ -18,6 +18,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :email
       t.string :sex
       t.string :role
+      t.string :photo
       
       ##### Students
       t.integer :group_id

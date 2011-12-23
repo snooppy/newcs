@@ -74,7 +74,7 @@ function event_scan(){
             event_success(data); 
         }
     });
-}
-
-  
+}  
 ///////////end global events//////
+
+

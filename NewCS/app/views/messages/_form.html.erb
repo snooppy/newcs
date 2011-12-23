@@ -1,13 +1,19 @@
 <script type="text/javascript">
   function send_autocomplit(text){
-    $.ajax({
-      type: 'GET',
-      url: '/messages/userslist/'+text,
-      dataType: "html",
-       success: function (data){
-            event_success(data); 
+    if ($(text)!=""){
+      $.ajax({
+        type: 'GET',
+        url: '/messages/users_list/'+text,
+        dataType: "html",
+        success: function (data){
+          $('#users_list').html(data)
         } 
-    });
+      });
+    }else{
+      $('#users_list').html("");
+    }
+    
+    
   }
   
 </script>
@@ -15,8 +21,9 @@
 <%= form_for(@message, :remote => true, :url => "/messages/create") do |f| %>
   <strong>Кому:</strong>
   <div>
-    <!--%=f.text_field :userto_id, :style=>"width:90%;", :onkeyup=>"send_autocomplit(this.value);" %-->
-    <%=f.text_field :userto_id, :style=>"width:90%;"%>
+    <%=f.hidden_field :userto_id, :style=>"width:90%;", :id=>"login_input"  %>
+    <%=text_field_tag  "","",:style=>"width:90%;", :onkeyup=>"send_autocomplit(this.value);"  %>
+    <div id="users_list"></div>
   </div>
   <br/>
   <strong>Тема:</strong>

@@ -9,8 +9,9 @@ $("#notification_area").addClass("notif_success");
 <%# end %>
 /* $("#notification_area").offset( { left: 500, top: 0 } );*/
 
-window.location.reload()
+
 /*$("#notification_area").show('fast');
 $("#notification_area").fadeOut(10000);
-*/
-
+<% unless ! @errors.nil? %>
+window.location.reload()
+<%end%>

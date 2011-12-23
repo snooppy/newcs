@@ -1,0 +1,42 @@
+my students
+	by group/kurs
+	by subject
+	by project
+	lists by groups
+
+my files
+	methods
+	soft
+	examples
+	by subject
+
+my subjects
+	methods
+	students
+	schedules
+	marks
+	kurses
+
+my schedules
+	by subject
+	by group
+
+my marks
+	by subject
+	by gruop
+
+my publications
+	new
+	by subject
+	list
+		
+my messages
+	output
+	dialogs
+	new messages
+	
+my settings
+	display_count for messages
+	show photos
+	who can write to me/
+	

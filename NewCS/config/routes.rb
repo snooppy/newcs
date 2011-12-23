@@ -17,8 +17,9 @@ NewCS::Application.routes.draw do
   match 'messages/dialog/:id' => 'messages#dialog', :via=>[:get], :as=>"dialog"
   match 'messages/dialogs' => 'messages#dialogs', :via=>[:get]
   match 'messages/create' => 'messages#create', :via=>[:post]
+  match 'messages/users_list/:text' => 'messages#users_list', :via=>[:get]
   match 'messages' => 'messages#new', :as => :messages
-  match 'messages/userslist/:text' => 'messages#userslist', :via=>[:post]
+  
   
   # events
   match 'events/scan/:events' => 'events#scan', :via=>[:get] 
@@ -47,10 +48,9 @@ NewCS::Application.routes.draw do
 
   resources :subjects
 
-  match 'publications/:id' => 'publications#show_one', :via=>[:get], :constraints => { :id => /\d+/ } #show one
-  match 'publications/latest/:page' => 'publications#show_latest', :via=>[:get], :constraints => { :page => /\d+/ }
-  match 'publications/bytype/:conditions/:page' => 'publications#show_by_type', :via=>[:get], :constraints => { :page => /\d+/ }
-  match 'publications/bycat/:conditions/:page' => 'publications#show_by_cat', :via=>[:get], :constraints => { :page => /\d+/ }
+  match 'publications'     => 'publications#index'
+  match 'publications/:id' => 'publications#show', :via=>[:get], :constraints => { :id => /\d+/ } #show one
+  match 'publications/:todo/(:cond)/:page' => 'publications#index', :via=>[:get], :constraints => { :page => /\d+/ }
   resources :publications
   
   resources :groups

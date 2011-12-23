@@ -144,7 +144,8 @@ class MessagesController < ApplicationController
   # POST /messages
   # POST /messages.json
   def create
-    params[:message][:userfrom_id]=session[:user].id
+    p session
+    params[:message][:userfrom_id]= session[:user].id
     @message = Message.new(params[:message])
     
     respond_to do |format|
@@ -188,13 +189,15 @@ class MessagesController < ApplicationController
     end
   end
   
-  def userslist  
-    @users = User.find( :all, :conditions => ["login LIKE ?", params[:text] + "%"] )
-    render :partial =>"userslist"
-   #respond_to do |format|
-    #    format.js
-        #format.json { users  }
-    #end
+  def users_list 
+    if !session[:user].nil?
+      text = params[:text]
+      @us = User.find( :all,:select=>"id,login", :conditions => ["login LIKE ?","%"+text+"%"],:limit=>"20" )
+      @us.each do |u| 
+          u.login = u.login.sub(Regexp.union(text), "<strong>"+text+"</strong>")
+      end
+      render :partial =>"userslist", :locals=>{:users=>@us}
+    end
   end  
   
 end
