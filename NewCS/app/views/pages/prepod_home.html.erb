@@ -1,16 +1,109 @@
 <%if !session[:user].nil? %>
-  <div>
-    <ul >
-      <li ><%= link_to "My students", '#' %></li>
-      <li ><%= link_to "My subjects", '#' %></li> 
-      <li ><%= link_to "My shedules", '#' %></li>
-      <li ><%= link_to "My files", '#' %></li>  
-      <li ><%= link_to "My publications", '#' %></li>
-      <li ><%= link_to "Marks", '#' %></li>
-      <li ><%= link_to "Messages", '#' %></li>   
-    </ul>  
+
+<div id="user_home_menu">
+  <div class="home_menu_button" style="margin-right: 10px;">
+    <div style="float: left;">
+      <div>
+        <img src="/assets/usershome/my_publications.png" width="64px" height="64px" > </img>
+      </div>
+    </div>
+    <div style="margin-top: 7%">
+      Мои публикации
+    </div>
+  </div>
+  
+  <div class="home_menu_button" style="margin-right: 10px;">
+    <div style="float: left; margin-right: 5px">
+      <div>
+        <img src="/assets/usershome/my_messages.png" width="64px" height="64px" > </img>
+      </div>
+    </div>
+    <div style="margin-top: 7%;">
+      Мои сообщения
+    </div>
+    
+  </div>
+  <div class="home_menu_button">
+    <div style="float: left;">
+      <div>
+        <img src="/assets/usershome/my_files1.png" width="64px" height="64px" > </img>
+      </div>
+    </div>
+    <div style="margin-top: 12%">
+      Мои файлы
+    </div>
   </div>
 
+  <div style="clear: both"></div>
+
+  <div class="home_menu_button" style="margin-right: 10px; margin-top: 10px;">
+    <div style="float: left;">
+      <div>
+        <img src="/assets/usershome/my_calendar.png" width="64px" height="64px" > </img>
+      </div>
+    </div>
+    <div style="margin-top: 7%">
+      Мое рассписание
+    </div>
+  </div>
+  <div class="home_menu_button" style="margin-right: 10px;  margin-top: 10px;">
+    <div style="float: left;">
+      <div style="overflow: hidden; ">
+        <img src="/assets/usershome/my_subjects.png" width="64px" height="64px" > </img>
+      </div>
+    </div>
+    <div style="margin-top: 7%">
+      Мои предметы
+    </div>
+  </div>
+  <div class="home_menu_button" style="margin-top: 10px;">
+    <div style="float: left;">
+      <div>
+        <img src="/assets/usershome/my_students.png" width="64px" height="64px" > </img>
+      </div>
+    </div>
+    <div style="margin-top: 7%">
+      Мои студенты
+    </div>
+  </div>
+
+  <div style="clear: both"></div>
+
+  <div class="home_menu_button" style="margin-right: 10px; margin-top: 10px;">
+    <div style="float: left;">
+      <div style="overflow: hidden; ">
+        <img src="/assets/usershome/my_marks.png" width="64px" height="64px" > </img>
+      </div>
+    </div>
+    <div style="margin-top: 12%">
+      Мои оценки
+    </div>
+  </div>
+  
+  <a href="#">
+    <div class="home_menu_button" style="margin-right: 10px;  margin-top: 10px;">
+        <div style="float: left;">
+          <div style="overflow: hidden; ">
+            <img src="/assets/usershome/my_settings.png" width="64px" height="64px" > </img>
+          </div>
+        </div>
+        <div style="margin-top: 7%">
+          Мои данные и настройки
+        </div>
+    </div>
+  </a>
+
+  <div class="home_menu_button" style="margin-top: 10px;">
+    <div style="float: left; margin-left: 5px; margin-right: 5px;">
+      <div>
+        <img src="/assets/usershome/my_exit.png" width="64px" height="64px" > </img>
+      </div>
+    </div>
+    <div style="margin-top: 12%">
+      Выйти
+    </div>
+  </div>
+</div>
 <%else %>
   <p>NAAAAAAAAAAAAAAAAAAAAAAX</p>
   <%
