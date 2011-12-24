@@ -1,7 +1,9 @@
+# encoding: utf-8
 class PublicationsController < ApplicationController
   # GET /publications
   # GET /publications.json
   def index
+    @title = "Публикации"
     on_page = 4
     todo = "latest"
     todo = params[:todo] unless params[:todo].nil?
@@ -62,6 +64,7 @@ class PublicationsController < ApplicationController
   # GET /publications/new
   # GET /publications/new.json
   def new
+    @title = "Добавление новой публикации"
     @publication = Publication.new
 
     respond_to do |format|

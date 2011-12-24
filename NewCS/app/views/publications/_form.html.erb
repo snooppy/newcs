@@ -28,7 +28,7 @@
       </div>
 
     <% end %>
-    
+
     <%= f.text_area :article, :rows => 10, :cols => 10   %>
 
     <script type="text/javascript">
@@ -51,20 +51,20 @@
       <%=f.file_field :photo%>
     </div>
     <div id="publication_type_sel">
-      <p>Type</p><br>
-      <p onclick="show_form('type')">create new</p>
+      <p>Тип публикации</p><br>
+      <p onclick="show_form('type')">Добавить новый</p>
       <%=f.select :publication_type_id, PublicationType.all.collect {|p| [ p.name, p.id ] }, {:include_blank => 'None'}%>
       <div id ="publication_type_notif"></div>
     </div>
     <br>
     <div id="publication_cat_sel">
-      <p>Category</p><br>
-      <p onclick="show_form('cat')">create new</p>
+      <p>Категория публикации</p><br>
+      <p onclick="show_form('cat')">Добавить новую</p>
       <%=f.select :publication_cat_id, PublicationCat.all.collect {|p| [ p.name, p.id ] }, {:include_blank => 'None'}%>
       <div id ="publication_cat_notif"></div>
     </div>
     <div id ="publication_prolog">
-      <p>Prolog</p>
+      <p>Пролог</p>
       <%=f.text_area :prolog, :rows=>5, :cols=>40 %>
     </div>
     <br>
