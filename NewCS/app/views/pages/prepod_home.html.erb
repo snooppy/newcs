@@ -1,109 +1,233 @@
+<script>
+  $(document).ready(function(){
+
+    $("#my_publications").bind("mouseenter",function(){
+      $("#my_publications .home_submenu_button").slideDown();
+    }).bind("mouseleave",function(){
+      $("#my_publications .home_submenu_button").slideUp();
+    });   
+    
+    $("#my_messages").bind("mouseenter",function(){
+      $("#my_messages .home_submenu_button").slideDown();
+    }).bind("mouseleave",function(){
+      $("#my_messages .home_submenu_button").slideUp();
+    }); 
+    
+    $("#my_files").bind("mouseenter",function(){
+      $("#my_files .home_submenu_button").slideDown();
+    }).bind("mouseleave",function(){
+      $("#my_files .home_submenu_button").slideUp();
+    }); 
+    
+    $("#my_calendar ").bind("mouseenter",function(){
+      $("#my_calendar .home_submenu_button").slideDown();
+    }).bind("mouseleave",function(){
+      $("#my_calendar .home_submenu_button").slideUp();
+    }); 
+    
+    $("#my_subjects").bind("mouseenter",function(){
+      $("#my_subjects .home_submenu_button").slideDown();
+    }).bind("mouseleave",function(){
+      $("#my_subjects .home_submenu_button").slideUp();
+    }); 
+     
+    $("#my_students").bind("mouseenter",function(){
+      $("#my_students .home_submenu_button").slideDown();
+    }).bind("mouseleave",function(){
+      $("#my_students .home_submenu_button").slideUp();
+    }); 
+    
+    $("#my_marks").bind("mouseenter",function(){
+      $("#my_marks .home_submenu_button").slideDown();
+    }).bind("mouseleave",function(){
+      $("#my_marks .home_submenu_button").slideUp();
+    }); 
+    
+    $("#my_settings").bind("mouseenter",function(){
+      $("#my_settings .home_submenu_button").slideDown();
+    }).bind("mouseleave",function(){
+      $("#my_settings .home_submenu_button").slideUp();
+    }); 
+  });
+  
+</script>
+
 <%if !session[:user].nil? %>
 
-<div id="user_home_menu">
-  <div class="home_menu_button" style="margin-right: 10px;">
-    <div style="float: left;">
-      <div>
-        <img src="/assets/usershome/my_publications.png" width="64px" height="64px" > </img>
-      </div>
-    </div>
-    <div style="margin-top: 7%">
-      Мои публикации
-    </div>
-  </div>
-  
-  <div class="home_menu_button" style="margin-right: 10px;">
-    <div style="float: left; margin-right: 5px">
-      <div>
-        <img src="/assets/usershome/my_messages.png" width="64px" height="64px" > </img>
-      </div>
-    </div>
-    <div style="margin-top: 7%;">
-      Мои сообщения
-    </div>
-    
-  </div>
-  <div class="home_menu_button">
-    <div style="float: left;">
-      <div>
-        <img src="/assets/usershome/my_files1.png" width="64px" height="64px" > </img>
-      </div>
-    </div>
-    <div style="margin-top: 12%">
-      Мои файлы
-    </div>
-  </div>
+  <div id="user_home_menu">
 
-  <div style="clear: both"></div>
+    <div id="my_publications" class="home_menu_part right">
+      <a href="#" class="home_menu_button">
+        <div style="float: left;">          
+          <img src="/assets/usershome/my_publications.png" width="64px" height="64px" > </img> 
+        </div>
+        <div style="margin-top: 7%">
+          Мои публикации
+        </div>
+      </a>
 
-  <div class="home_menu_button" style="margin-right: 10px; margin-top: 10px;">
-    <div style="float: left;">
-      <div>
-        <img src="/assets/usershome/my_calendar.png" width="64px" height="64px" > </img>
-      </div>
-    </div>
-    <div style="margin-top: 7%">
-      Мое рассписание
-    </div>
-  </div>
-  <div class="home_menu_button" style="margin-right: 10px;  margin-top: 10px;">
-    <div style="float: left;">
-      <div style="overflow: hidden; ">
-        <img src="/assets/usershome/my_subjects.png" width="64px" height="64px" > </img>
-      </div>
-    </div>
-    <div style="margin-top: 7%">
-      Мои предметы
-    </div>
-  </div>
-  <div class="home_menu_button" style="margin-top: 10px;">
-    <div style="float: left;">
-      <div>
-        <img src="/assets/usershome/my_students.png" width="64px" height="64px" > </img>
-      </div>
-    </div>
-    <div style="margin-top: 7%">
-      Мои студенты
-    </div>
-  </div>
+      <div style="clear: both"></div>
 
-  <div style="clear: both"></div>
+      <ul class="home_submenu_button">
+        <li><a href="#new">Создать новую</a></li>
+        <li><a href="#p">По предметам</a></li>
+      </ul>
 
-  <div class="home_menu_button" style="margin-right: 10px; margin-top: 10px;">
-    <div style="float: left;">
-      <div style="overflow: hidden; ">
-        <img src="/assets/usershome/my_marks.png" width="64px" height="64px" > </img>
-      </div>
     </div>
-    <div style="margin-top: 12%">
-      Мои оценки
+
+    <div id="my_messages" class="home_menu_part right" >
+      <a href="#"  class="home_menu_button">
+        <div style="float: left; margin-right: 5px;">
+          <img src="/assets/usershome/my_messages.png" width="64px" height="64px" > </img>
+        </div>
+        <div style="margin-top: 7%;">
+          Мои сообщения
+        </div>
+      </a>
+
+      <div style="clear: both"></div>
+
+      <ul class="home_submenu_button">
+        <li><a href="#">Написать новое </a></li>
+        <li><a href="#">Входящие</a></li>
+        <li><a href="#">Исходящие</a></li>
+        <li><a href="#">Диалог</a></li>
+      </ul>
     </div>
-  </div>
-  
-  <a href="#">
-    <div class="home_menu_button" style="margin-right: 10px;  margin-top: 10px;">
+
+
+    <div id="my_files" class="home_menu_part">
+      <a href="#" class="home_menu_button">
         <div style="float: left;">
-          <div style="overflow: hidden; ">
-            <img src="/assets/usershome/my_settings.png" width="64px" height="64px" > </img>
-          </div>
+          <img src="/assets/usershome/my_files1.png" width="64px" height="64px" > </img>
+        </div>
+        <div style="margin-top: 12%">
+          Мои файлы
+        </div>
+      </a>
+
+      <div style="clear: both"></div>
+
+      <ul class="home_submenu_button">
+        <li><a href="#">Методические указания</a></li>
+        <li><a href="#">Софт</a></li>
+        <li><a href="#">Примеры</a></li>
+        <li><a href="#">По предметам</a></li>
+      </ul>
+    </div>
+
+    <div style="clear: both"></div>
+
+    <div id="my_calendar" class="home_menu_part right">
+      <a href="#" class="home_menu_button">
+        <div style="float: left;">  
+          <img src="/assets/usershome/my_calendar.png" width="64px" height="64px" > </img>
+        </div>
+        <div style="margin-top: 7%">
+          Мое рассписание
+        </div>
+      </a>
+
+      <div style="clear: both"></div>
+
+      <ul class="home_submenu_button">
+        <li><a href="#">По предметам</a></li>
+        <li><a href="#">По группам</a></li>
+      </ul>
+    </div>
+
+    <div id="my_subjects" class="home_menu_part right">
+      <a href="#" class="home_menu_button">
+        <div style="float: left;">
+          <img src="/assets/usershome/my_subjects.png" width="64px" height="64px" > </img>
+        </div>
+        <div style="margin-top: 7%">
+          Мои предметы
+        </div>
+      </a>
+
+      <div style="clear: both"></div>
+
+      <ul class="home_submenu_button">
+        <li><a href="#">Методические указания</a></li>
+        <li><a href="#">Студенты</a></li>
+        <li><a href="#">Рассписание</a></li>
+        <li><a href="#">Курсы</a></li>
+        <li><a href="#">Оценки</a></li>
+      </ul>
+    </div>
+
+    <div id="my_students" class="home_menu_part right">
+      <a href="#" class="home_menu_button">
+        <div style="float: left;">
+          <img src="/assets/usershome/my_students.png" width="64px" height="64px" > </img>
+        </div>
+        <div style="margin-top: 7%">
+          Мои студенты
+        </div>
+      </a>
+
+      <div style="clear: both"></div>
+
+      <ul class="home_submenu_button">
+        <li><a href="#">По курсам/группам</a></li>
+        <li><a href="#">По предметам</a></li>
+        <li><a href="#">По проектам</a></li>
+      </ul>
+    </div>
+
+    <div style="clear: both"></div>
+
+    <div id="my_marks" class="home_menu_part right">
+      <a href="#" class="home_menu_button">
+        <div style="float: left;">
+          <img src="/assets/usershome/my_marks.png" width="64px" height="64px" > </img>
+        </div>
+        <div style="margin-top: 12%">
+          Мои оценки
+        </div>
+      </a>
+
+      <div style="clear: both"></div>
+
+      <ul class="home_submenu_button">
+        <li><a href="#">По предметам</a></li>
+        <li><a href="#">По группам</a></li>
+      </ul>
+    </div>
+
+
+    <div id="my_settings" class="home_menu_part right">
+      <a href="#" class="home_menu_button">
+        <div style="float: left;">
+          <img src="/assets/usershome/my_settings.png" width="64px" height="64px" > </img>
         </div>
         <div style="margin-top: 7%">
           Мои данные и настройки
         </div>
-    </div>
-  </a>
+      </a>
 
-  <div class="home_menu_button" style="margin-top: 10px;">
-    <div style="float: left; margin-left: 5px; margin-right: 5px;">
-      <div>
-        <img src="/assets/usershome/my_exit.png" width="64px" height="64px" > </img>
-      </div>
+      <div style="clear: both"></div>
+
+      <ul class="home_submenu_button">
+        <li><a href="#">Количество сообщений</a></li>
+        <li><a href="#">Фото</a></li>
+        <li><a href="#">Кто может писать мне</a></li>
+      </ul>
     </div>
-    <div style="margin-top: 12%">
-      Выйти
+
+    <div id="my_exit" class="home_menu_part">
+      <a href="#" class="home_menu_button">
+        <div style="float: left; margin-right: 5px;">
+          <img src="/assets/usershome/my_exit.png" width="64px" height="64px" > </img>
+        </div>
+        <div style="margin-top: 12%">
+          Выйти
+        </div>
+      </a>
     </div>
+
   </div>
-</div>
 <%else %>
   <p>NAAAAAAAAAAAAAAAAAAAAAAX</p>
   <%
