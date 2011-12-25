@@ -1,6 +1,12 @@
 class ShedulesController < ApplicationController
   # GET /shedules
   # GET /shedules.json
+  def get_one_shedule_form
+    @shedule = Shedule.new
+    @shedule[:hour]=params[:hour]
+    render "get_one_shedule_form", :layout=>false
+  end
+  
   def index
     @shedules = Shedule.all
 

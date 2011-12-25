@@ -33,7 +33,8 @@ NewCS::Application.routes.draw do
   match 'documents/:id'    => 'documents#destroy', :via=>[:delete]
 
   resources :publications_types
-
+  
+  match 'shedules/get_one_shedule_form/:hour' => 'shedules#get_one_shedule_form', :via=>[:get]
   resources :shedules
 
   resources :publication_cats

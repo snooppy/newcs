@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111211203956) do
+ActiveRecord::Schema.define(:version => 20111211203957) do
 
   create_table "documents", :force => true do |t|
     t.string   "path"
@@ -127,6 +127,11 @@ ActiveRecord::Schema.define(:version => 20111211203956) do
     t.integer  "sub_group3"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "shedules_groups", :id => false, :force => true do |t|
+    t.integer "shedule_id"
+    t.integer "group_id"
   end
 
   create_table "subjects", :force => true do |t|
