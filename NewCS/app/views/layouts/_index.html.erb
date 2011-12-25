@@ -2,89 +2,9 @@
 <html>
   <head>
     <%= stylesheet_link_tag   "index", "application" %>
-    <%= javascript_include_tag 'jquery', 'application' %>
+    <%= javascript_include_tag 'jquery', 'application','index' %>
     <%= csrf_meta_tags %>
-    <script type="text/javascript">
-      (function(jq) {
-        jq.autoScroll = function(ops) {
-          ops = ops || {};
-          ops.styleClass = ops.styleClass || 'scroll-to-top-button';
-          var t = jq('<div class="'+ops.styleClass+'"></div>'),
-          d = jq(ops.target || document);
-          jq(ops.container || 'body').append(t);
 
-          t.css({
-            opacity: 0,
-            position: 'absolute',
-            top: 0,
-            right: 0
-          }).click(function() {
-            jq('html,body').animate({
-              scrollTop: 0
-            }, ops.scrollDuration || 1000);
-          });
-
-          d.scroll(function() {
-            var sv = d.scrollTop();
-            if (sv < 10) {
-              t.clearQueue().fadeOut(ops.hideDuration || 200);
-              return;
-            }
-
-            t.css('display', '').clearQueue().animate({
-              top: sv,
-              opacity: 0.8
-            }, ops.showDuration || 500);
-          });
-        };
-      })(jQuery);
-      
-      function theRotator() {
-        // Устанавливаем прозрачность всех картинок в 0
-        $('div#rotator ul li').css({opacity: 0.0});
- 
-        // Берем первую картинку и показываем ее (по пути включаем полную видимость)
-        $('div#rotator ul li:first').css({opacity: 1.0});
- 
-        // Вызываем функцию rotate для запуска слайдшоу, 5000 = смена картинок происходит раз в 5 секунд
-        setInterval('rotate()',5000);
-      }
- 
-      function rotate() {	
-        // Берем первую картинку
-        var current = ($('div#rotator ul li.show')?  $('div#rotator ul li.show') : $('div#rotator ul li:first'));
- 
-        // Берем следующую картинку, когда дойдем до последней начинаем с начала
-        var next = ((current.next().length) ? ((current.next().hasClass('show')) ? $('div#rotator ul li:first') :current.next()) : $('div#rotator ul li:first'));	
- 
-        // Расскомментируйте, чтобы показвать картинки в случайном порядке
-        // var sibs = current.siblings();
-        // var rndNum = Math.floor(Math.random() * sibs.length );
-        // var next = $( sibs[ rndNum ] );
- 
-        // Подключаем эффект растворения/затухания для показа картинок, css-класс show имеет больший z-index
-        next.css({opacity: 0.0})
-        .addClass('show')
-        .animate({opacity: 1.0}, 1000);
- 
-        // Прячем текущую картинку
-        current.animate({opacity: 0.0}, 1000)
-        .removeClass('show');
-      };
- 
-      $(document).ready(function() {		
-        // Запускаем слайдшоу
-        theRotator();
-        
-        $.autoScroll({
-          scrollDuration: 2000, 
-          showDuration: 600, 
-          hideDuration: 300
-        }); 
-      });
-      
-     
-    </script>
     <%if !session[:user].nil?%>
       <script type="text/javascript" >
         
@@ -102,6 +22,10 @@
     <title>Главная - Кафедра ИКС</title>
   </head>
   <body class="body_index">
+    <div id ="notification_area">
+    </div>
+    <div id ="popup_message">
+    </div>
     <div id="header_wrapper_index">
       <div id="header_index">
         <div class="logos_index">
@@ -113,7 +37,6 @@
           <input id="submit_search" type="submit" value="Найти">
         </form>        
         <%=render :partial=>"users/auth"%>
-
       </div>	
     </div>
 
@@ -124,19 +47,19 @@
           <div id="photo_main">
             <div id="rotator">
               <ul>
-                <li class="show"><a href="#"><img src="assets/pic1.jpg"  width="658px;" height="196px;" alt="pic1" /></a></li>
-                <li><a href="#"><img src="assets/pic2.jpg"  width="658px;" height="196px;"  alt="pic2" /></a></li>
-                <li><a href="#"><img src="assets/pic3.jpg"  width="658px;" height="196px;" alt="pic3" /></a></li>
+                <li class="show"><a href="#"><img src="assets/pic1.jpg"   alt="pic1" /></a></li>
+                <li><a href="#"><img src="assets/pic2.jpg"    alt="pic2" /></a></li>
+                <li><a href="#"><img src="assets/pic3.jpg"    alt="pic3" /></a></li>
               </ul>
             </div>         				
           </div>
 
-          <ul id="features_menu" style="top:196px;">
+          <ul id="features_menu"  >
             <li style="width:157px;">
               <h2><a href="#" >Кафедра</a></h2>
             </li>	
             <li style="width:157px;">
-              <h2><a href="#" >События</a></h2>
+              <h2><a onclick="index_show_menu(this,'#events_list','left');" ><%=t :events %></a></h2>
             </li>	
             <li style="width:157px;">
               <h2><a href="#" >Рассписание</a></h2>
@@ -152,35 +75,20 @@
             </li>	
           </ul>
 
-          <div id="features_submenu" style="top: 0px;">
-            <div id="all_news_index">
-              <a href="#" > All news</a>
+          <div id="features_submenu" >
+            <div id="events_list" class="slide_up">
+              <script type="text/javascript">
+                $.ajax({
+                  type: 'GET',
+                  url: 'publications/for_index',
+                  dataType: "html",
+                  success: function (data){
+                    $("#events_list").html(data);
+                  } 
+                });
+              </script>
             </div>
 
-            <h4 style="margin-left:10px; margin-top:10px; color:#C2D7EF;">НОВОСТИ</h4>
-            <div id="last_news_1" class="last_news_index">
-              <div style="float:right; ">
-                <img src="assets/pic1.jpg" alt="" style="margin-left:5px;" width="100px;" height="50px;" >				
-              </div>	
-              <div style="line-height:14px;">							
-                > <a href="#" >Уважаемые преподаватели и студенты кафедры ИКС! Объявляется конкурс...																			
-                </a>
-              </div>
-            </div>
-
-            <div  id="last_news_2" class="last_news_index">
-              <div style="line-height:14px;">							
-                > <a href="#" >Пример содержания пояснительной записки к курсовому проекту... 																				
-                </a>
-              </div>	
-            </div>
-
-            <div  id="last_news_2" class="last_news_index">
-              <div style="line-height:14px;">							
-                > <a href="#" >Семінар ознайомить студентів катедри ІКС 3-5 курсів, а також усіх бажаючих...							
-                </a>
-              </div>	
-            </div>									
 
           </div>
 

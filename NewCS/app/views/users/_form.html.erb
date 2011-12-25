@@ -4,6 +4,8 @@
     <%= f.text_field :login %><br>
     <%= f.label :password %><br />
     <%= f.text_field :password %><br> # TODO add match passwords
+    <%= f.label :role %><br />
+    <div> <%=f.select :role,{"admin"=>0,"moder"=>1,"prepod"=>2,"student"=>3,"grad"=>4,"guest"=>5}%></div>
   </div>
   <div class="actions">
     <%= f.submit %>

@@ -1,33 +1,42 @@
-<h1>Listing shedules</h1>
+<script type="text/javascript">
+  var days = ["mon","tue","wen","thu","fri","sat"];
+  
+  function create_days(){
+    for (var i in days){
+      var day = '<div id=\"'+days[i] +'1\" class=\"day\">'+
+                '<div class=\"day_head\"><b>'+days[i] + '</b>'+
+                '<%=number_field_tag "","1",:class=>'hours_count'%>'+              
+                '</div></div><br><br>';
+      $('#shedules_table').append(day);
+    }
+  
+  }
+  
+  function create_table(){
+    var count = $('#group_count').val(); 
+    var count2 = $("#groups .count").val();
+    for (var i=count2;i<count;i++){
+      add_group();
+    }
+    $("#groups .count").val(count);
+  }
+  
+  
+  function add_group(){
+    for (var day in days){
+      hours = $("#"+days[day]+"1 .hours_count").val()
+      for (var i=0;i<hours;i++){
+        var form = '<%=render :partial=>"one_shedule_form"%>';
+        $("#"+days[day]+'1').append(form);
+      }
+    }
+  }
+</script>
 
-<table>
-  <tr>
-    <th>Week</th>
-    <th>Day</th>
-    <th>Hour</th>
-    <th>Classroom</th>
-    <th>Sub group2</th>
-    <th>Sub group3</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @shedules.each do |shedule| %>
-  <tr>
-    <td><%= shedule.week %></td>
-    <td><%= shedule.day %></td>
-    <td><%= shedule.hour %></td>
-    <td><%= shedule.classroom %></td>
-    <td><%= shedule.sub_group2 %></td>
-    <td><%= shedule.sub_group3 %></td>
-    <td><%= link_to 'Show', shedule %></td>
-    <td><%= link_to 'Edit', edit_shedule_path(shedule) %></td>
-    <td><%= link_to 'Destroy', shedule, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Shedule', new_shedule_path %>
+<%=number_field_tag "","1",:id=>"group_count"%><p onclick="create_table()">create</p>
+<div id="shedules_table">
+  <div id="groups"><input type="hidden" class="count" value="0"></div>
+  <script type="text/javascript">
+    create_days();
+  </script>
+</div>

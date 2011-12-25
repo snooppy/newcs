@@ -9,9 +9,11 @@ class PublicationsController < ApplicationController
     todo = params[:todo] unless params[:todo].nil?
     page = 0
     page = params[:page].to_d.to_int unless params[:page].nil?
-    conditions =""
-    conditions = params[:cond] unless params[:cond].nil?
-    cons = conditions.split(/\+/)
+    cond =""
+    cond = params[:cond] unless params[:cond].nil?
+    level = 5
+    level = session[:user].role unless session[:user].nil?
+    conds = cond.split(/\+/)
     start = (page)*on_page
     # TODO count = tratata if > than tratataa
     @publications = {}
@@ -20,12 +22,12 @@ class PublicationsController < ApplicationController
         :select   => "*",
         :order    => "created_at",
         :limit    => on_page,
+        :conditions => {:level=>">="+level},
         :offset   => start,
         :include  => :subjects
       )
-    else if todo == 'bysubject'
-        subjs=cons
-        
+    else if todo == 'bysubj'
+        subjs=conds
         @publications = Publication.find(:all,
           :select    => "*",
           :limit     => on_page,
@@ -33,7 +35,7 @@ class PublicationsController < ApplicationController
           :conditions => {:subjects=>{:id=>subjs}},
           :offset    => start
         )
-      else if todo == 'bytype'
+      else if todo == 'byuser'
           @publications = Publication.find(:all,
             :select   => "*",
             :order    => "created_at",
@@ -49,6 +51,12 @@ class PublicationsController < ApplicationController
     end
   end
   
+  def for_index
+    # TODO change level to 5 !!!!
+    @pubs = Publication.find(:all,:select=>"*",:order=>"created_at",:conditions=>"level=0",:limit=>"3")
+    p @pubs
+    render "for_index", :layout=>false
+  end
 
   # GET /publications/1
   # GET /publications/1.json
@@ -81,12 +89,13 @@ class PublicationsController < ApplicationController
   # POST /publications
   # POST /publications.json
   def create
-    
-    file = Rails.root.join("app","assets","images","from_users",session[:user].id.to_s(),params[:publication][:photo].original_filename)
-    tmp  =  params[:publication][:photo].tempfile  
-    FileUtils.cp tmp.path, file 
-    p params[:publication]
-    params[:publication][:photo] = File.join("from_users",session[:user].id.to_s(),params[:publication][:photo].original_filename)
+    unless params[:photo].nil?
+      file = Rails.root.join("app","assets","images","from_users",session[:user].id.to_s(),params[:publication][:photo].original_filename)
+      tmp  =  params[:publication][:photo].tempfile  
+      FileUtils.cp tmp.path, file 
+      p params[:publication]
+      params[:publication][:photo] = File.join("from_users",session[:user].id.to_s(),params[:publication][:photo].original_filename)
+    end
     params[:publication][:user_id] = session[:user].id
     @publication = Publication.new(params[:publication])
     respond_to do |format|

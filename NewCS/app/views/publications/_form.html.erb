@@ -46,7 +46,7 @@
         <div class ="check_box_subject"><%=  check_box_tag  "publication[subject_ids][]", s.id, has_subject?(s) %> <%=f.label s.name%></div>
       <%end%>
     </div>
-
+    <div>level <%=f.select :level,{"admin"=>0,"moder"=>1,"prepod"=>2,"student"=>3,"grad"=>4,"guest"=>5}%></div>
     <div>
       <%=f.file_field :photo%>
     </div>

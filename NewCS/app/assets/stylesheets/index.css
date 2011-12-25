@@ -73,7 +73,7 @@
 
 #features_panel{
     width: 100%;
-    height: 234px;
+    height: 304px;
     margin-bottom: 32px;
     position: relative;
     overflow: hidden;
@@ -83,7 +83,7 @@
 /*----------------------------menu-------------------------------------------*/
 #features_menu {
     position: absolute;
-    top: 185px;
+    top: 264px;
     width: 101%; /* compensate for slightly-less-than-16.6666% values which are there to prevent IE rounding errors */
     height: 37px;
     border-top: 1px solid #000d1d;
@@ -162,14 +162,24 @@ div#rotator ul li.show {
     color: white;
 }
 
-.last_news_index{
-    margin: 0 10px 10px 10px;
+#photo_main img{
+    width:658px;
+    height:264px;
 }
 
-#all_news_index{
+#features_submenu  .slide_up{
     position: absolute;
-    margin: 170px 10px 10px 225px;
+    top:  0px;
+    left: 0px;
+    z-index:100;    
+    width: 290px
+    
 }
+
+.index_menu_checked{
+    background-color: #2E4C6F;
+}
+
 
 /*-----------------------------------------------------------------------------------*/
 
@@ -250,3 +260,4 @@ div#rotator ul li.show {
     border-bottom: #C2D7EF dashed 1px;
     text-align: center;
 }
+

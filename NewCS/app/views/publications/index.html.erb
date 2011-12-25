@@ -13,13 +13,13 @@
       <div class="user">
         <%  @user = User.find(publication.user_id) %>
         <div class="photo_div"><%=image_tag @user.photo, :class => "photo", :onload=>"set_margin("+publication.id.to_s+")"%></div>
-        <div calss="login_div" ><%=@user.login%></div>
+        <div class='login' ><%=@user.login%></div>
       </div>
 
       <div class="title"><%=publication.title%></div>
       <div class ="prolog"><%=publication.prolog%></div>
       <div> Subjects: <%publication.subjects.each do |subj|%>         
-          <%=subj.name%>
+          <%=link_to subj.name, "/publications/bysubj/1"%>
         <%end%>
       </div>
     </div>

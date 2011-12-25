@@ -34,6 +34,7 @@
 <%@user=User.new%>
 
 <%  if session[:user].nil? %>
+
   <div id="container_singin">
     <div id="topnav" class="topnav"> <div style="float: left; color: #fff;">Имеете аккаунт? </div><div id="signin" class="signin"><span>Войти</span></div> </div>
     <fieldset id="signin_menu">
@@ -63,6 +64,15 @@
     </fieldset>
   </div>
 <%else%>
+  <%if session[:login_success] == "success"%>
+    <script type="text/javascript">
+      $("#notification_area").replaceWith('<div id ="notification_area"><p id="notification" class="notification">User "<%= session[:user].login%>  " was seccesfully signing in!</p></div>');
+      $("#notification_area").addClass("notif_success");
+      $("#notification_area").fadeIn(3000);
+      $("#notification_area").fadeOut(2000);
+    </script>
+    <%session[:login_success] = ""%>
+  <%end%>
   <div id="container_singin">
     <%=link_to "sign out", {:controller=>"users",:action=>"sign_out"}%>
   </div>

@@ -22,7 +22,7 @@
   <strong>Кому:</strong>
   <div>
     <%=f.hidden_field :userto_id, :style=>"width:90%;", :id=>"login_input"  %>
-    <%=text_field_tag  "","",:style=>"width:90%;", :onkeyup=>"send_autocomplit(this.value);"  %>
+    <%=text_field_tag  "","",:style=>"width:90%;", :onkeyup=>"send_autocomplit(this.value);", :id=>"login_input_fake" %>
     <div id="users_list"></div>
   </div>
   <br/>

@@ -194,7 +194,8 @@ class MessagesController < ApplicationController
       text = params[:text]
       @us = User.find( :all,:select=>"id,login", :conditions => ["login LIKE ?","%"+text+"%"],:limit=>"20" )
       @us.each do |u| 
-          u.login = u.login.sub(Regexp.union(text), "<strong>"+text+"</strong>")
+        u[:login_fake]=u.login
+        u.login = u.login.sub(Regexp.union(text), "<strong>"+text+"</strong>")         
       end
       render :partial =>"userslist", :locals=>{:users=>@us}
     end

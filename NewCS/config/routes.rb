@@ -1,6 +1,6 @@
 NewCS::Application.routes.draw do    
   
-  match 'home/:id' => 'pages#prepod_home', :via=>[:get]
+  match 'home' => 'pages#prepod_home', :via=>[:get]
   
   #user menu settings
   match 'settings/:id/edit' => 'settings#edit', :via=>[:get], :as => "setting"
@@ -48,9 +48,15 @@ NewCS::Application.routes.draw do
 
   resources :subjects
 
-  match 'publications'     => 'publications#index'
-  match 'publications/:id' => 'publications#show', :via=>[:get], :constraints => { :id => /\d+/ } #show one
-  match 'publications/:todo/(:cond)/:page' => 'publications#index', :via=>[:get], :constraints => { :page => /\d+/ }
+  match 'publications/for_index' => 'publications#for_index', :via=>[:get]
+  match 'publications/new'     => 'publications#new', :via=>[:get]
+  match 'publications'     => 'publications#index', :via=>[:get]
+  match 'publications/:page'     => 'publications#index', :via=>[:get], :constraints => { :page => /\d+/ }
+  match 'publication/:id' => 'publications#show', :via=>[:get], :constraints => { :id => /\d+/ } #show one
+  match 'publications/:todo/:page' => 'publications#index', :via=>[:get], :constraints => { :page => /\d+/ }
+  match 'publications/:todo/:cond' => 'publications#index', :via=>[:get], :constraints => { :page => /\d+/ }
+  match 'publications/:todo/:cond/:page' => 'publications#index', :via=>[:get], :constraints => { :page => /\d+/ }
+ 
   resources :publications
   
   resources :groups
