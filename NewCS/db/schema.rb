@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111211203957) do
+ActiveRecord::Schema.define(:version => 20111225184451) do
 
   create_table "documents", :force => true do |t|
     t.string   "path"
@@ -30,6 +30,24 @@ ActiveRecord::Schema.define(:version => 20111211203957) do
     t.integer  "parent"
     t.integer  "user_id"
     t.integer  "level"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "former_users", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "first_name"
+    t.string   "second_name"
+    t.string   "last_name"
+    t.string   "login",       :null => false
+    t.string   "password",    :null => false
+    t.string   "email"
+    t.string   "sex"
+    t.string   "role"
+    t.string   "photo"
+    t.integer  "group_id"
+    t.integer  "settings_id"
+    t.integer  "pos"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

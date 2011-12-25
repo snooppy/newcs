@@ -1,0 +1,27 @@
+<div id="title">Удаленные пользователи</div>
+<table>
+  <tr>
+    <th>Логин</th>
+    <th>Title</th>
+    <th>Content</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <% @former_users.each do |former_user| %>
+    <tr>
+      <td><%= former_user.login %></td>
+      <td><%= former_user.first_name %></td>
+      <td><%= former_user.second_name %></td>
+      <td><%= former_user.last_name %></td>
+      <td><%#= link_to 'Show', former_user %></td>
+      <td><%#= link_to 'Edit', edit_former_user_path(former_user) %></td>
+      <td><%#= link_to 'Destroy', former_user, confirm: 'Are you sure?', method: :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<br />
+
+<%#= link_to 'New Former user', new_former_user_path %>

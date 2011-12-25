@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @former_user.name %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @former_user.title %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%= @former_user.content %>
+</p>
+
+
+<%= link_to 'Edit', edit_former_user_path(@former_user) %> |
+<%= link_to 'Back', former_users_path %>

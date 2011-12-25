@@ -1,5 +1,5 @@
 NewCS::Application.routes.draw do    
-  
+ 
   match 'home' => 'pages#prepod_home', :via=>[:get]
   
   #user menu settings
@@ -46,6 +46,8 @@ NewCS::Application.routes.draw do
   match 'users/create' => 'users#create', :via=>[:post]
   match 'users/sign_in' => 'users#sign_in', :via=>[:get]
   match 'users/sign_out' => 'users#sign_out', :via=>[:get]  
+  
+  match 'former_users' => 'former_users#index', :as => :former_users
 
   resources :subjects
 
