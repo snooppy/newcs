@@ -1,0 +1,12 @@
+<div calss="shedule">
+  <%=label_tag @shedule[:hour] %>
+  <%= form_for(@shedule) do |f| %> 
+    <%= f.hidden_field :week %>
+    <%= f.hidden_field :group_ids %>
+    <%= f.hidden_field :day %>
+    <%= f.hidden_field :hour %>
+    <%= f.text_field :classroom %>
+    <%= f.hidden_field :sub_group2 %>
+    <%= f.hidden_field :sub_group3 %>
+  <% end %>
+</div>
