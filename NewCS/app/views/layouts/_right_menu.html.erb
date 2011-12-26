@@ -2,31 +2,34 @@
 if !session[:user].nil?
   @user_options = session[:user_options]
 %>
-<div>
+  <div>
     <!-- image -->
     <%= image_tag "face.png" %>
-    
+
     <ul style="list-style: none;" >
       <%if @user_options.nil? || @user_options[:students] %>
-        <li ><%= link_to "My students", '#' %></li>
+        <li ><%= link_to "My students", '/home' %></li>
+      <%end%>
+      <%if @user_options.nil? || @user_options[:students] %>
+        <li ><%= link_to "My students", '/students' %></li>
       <%end%>
       <%if @user_options.nil? || @user_options[:subjects] %>
-        <li ><%= link_to "My subjects", '#' %></li> 
+        <li ><%= link_to "My subjects", '/subjects' %></li> 
       <%end%>
       <%if @user_options.nil? || @user_options[:shedules] %>
-        <li ><%= link_to "My shedules", '#' %></li>
+        <li ><%= link_to "My shedules", '/shedules' %></li>
       <%end%>
       <%if @user_options.nil? || @user_options[:files] %>
-        <li ><%= link_to "My files", '#' %></li>  
+        <li ><%= link_to "My files", '/folders/show' %></li>  
       <%end%>
       <%if @user_options.nil? || @user_options[:publications] %>
-        <li ><%= link_to "My publications", '#' %></li>
+        <li ><%= link_to "My publications", '/publications' %></li>
       <%end%>
       <%if @user_options.nil? || @user_options[:marks] %>
         <li ><%= link_to "Marks", '#' %></li>  
       <%end%>
 
-      <li ><%= link_to "Messages", '#' %></li>
+      <li ><%= link_to "Messages", '/messages' %></li>
       <li ><%= link_to "Settings", '/settings/'+session[:user][:settings_id].to_s+'/edit' %></li> 
 
     </ul>  

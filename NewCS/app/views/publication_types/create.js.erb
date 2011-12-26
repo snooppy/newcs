@@ -5,14 +5,14 @@ $("#publication_type_form").fadeOut();
 
 <% if @publication_type.errors.any? %>
   $("#publication_type_notif").replaceWith('<div id ="publication_type_notif"><% @publication_type.errors.full_messages.each do |msg| %><p><%= msg %></p><% end %> <%=@publication_type.errors.full_messages.count%></div>') 
-  $("#notification_area").replaceWith('<div id ="notification_area"><p id="notification" class="notification">Publication Type "<%= @publication_type.name%>" inserting was faild</p></div>')
+  $("#notification_area").replaceWith('<div id ="notification_area"><p id="notification" class="notification">Тип публикаций "<%= @publication_type.name%>" не был добавлен</p></div>')
   $("#publication_type_notif").addClass("notif_error");
   $("#notification_area").addClass("notif_error");
 <%else%>
   $("#publication_publication_type_id").replaceWith('<select id="publication_publication_type_id" name="publication[publication_type_id]"><%PublicationType.all.each do |p_t|%><option value="<%=p_t.id%>"> <%=p_t.name%></option><%end%></select>');
   
-  $("#publication_type_notif").replaceWith('<div id ="publication_type_notif"><img src="/media/img/added.png">"<%= @publication_type.name%>"was added!</div>')
-  $("#notification_area").replaceWith('<div id ="notification_area"><p id="notification" class="notification">Publication Type "<%= @publication_type.name%>" was seccesfully added</p></div>')
+  $("#publication_type_notif").replaceWith('<div id ="publication_type_notif"><img src="/media/img/added.png">"<%= @publication_type.name%>"добавлено!</div>')
+  $("#notification_area").replaceWith('<div id ="notification_area"><p id="notification" class="notification">Новый тип публикаций "<%= @publication_type.name%>" успешно добавлен</p></div>')
   $("#publication_type_notif").addClass("notif_success");
   $("#notification_area").addClass("notif_success");
 

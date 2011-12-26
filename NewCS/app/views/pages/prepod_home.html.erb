@@ -57,7 +57,7 @@
   <div id="user_home_menu">
 
     <div id="my_publications" class="home_menu_part right">
-      <a href="#" class="home_menu_button">
+      <a href="/publications" class="home_menu_button">
         <div style="float: left;">          
           <img src="/assets/usershome/my_publications.png" width="64px" height="64px" > </img> 
         </div>
@@ -69,14 +69,14 @@
       <div style="clear: both"></div>
 
       <ul class="home_submenu_button">
-        <li><a href="#new">Создать новую</a></li>
-        <li><a href="#p">По предметам</a></li>
+        <li><a href="/publications/new">Создать новую</a></li>
+        <li><a href="/publications">По предметам</a></li>
       </ul>
 
     </div>
 
     <div id="my_messages" class="home_menu_part right" >
-      <a href="#"  class="home_menu_button">
+      <a href="/messages"  class="home_menu_button">
         <div style="float: left; margin-right: 5px;">
           <img src="/assets/usershome/my_messages.png" width="64px" height="64px" > </img>
         </div>
@@ -88,10 +88,10 @@
       <div style="clear: both"></div>
 
       <ul class="home_submenu_button">
-        <li><a href="#">Написать новое </a></li>
-        <li><a href="#">Входящие</a></li>
-        <li><a href="#">Исходящие</a></li>
-        <li><a href="#">Диалог</a></li>
+        <li><a href="/messages">Написать новое </a></li>
+        <li><a href="/messages">Входящие</a></li>
+        <li><a href="/messages">Исходящие</a></li>
+        <li><a href="/messages/dialog/<%=session[:user].id%>">Диалог</a></li>
       </ul>
     </div>
 
@@ -119,7 +119,7 @@
     <div style="clear: both"></div>
 
     <div id="my_calendar" class="home_menu_part right">
-      <a href="#" class="home_menu_button">
+      <a href="/shedules" class="home_menu_button">
         <div style="float: left;">  
           <img src="/assets/usershome/my_calendar.png" width="64px" height="64px" > </img>
         </div>
@@ -158,7 +158,7 @@
     </div>
 
     <div id="my_students" class="home_menu_part right">
-      <a href="#" class="home_menu_button">
+      <a href="/students" class="home_menu_button">
         <div style="float: left;">
           <img src="/assets/usershome/my_students.png" width="64px" height="64px" > </img>
         </div>
@@ -170,7 +170,7 @@
       <div style="clear: both"></div>
 
       <ul class="home_submenu_button">
-        <li><a href="#">По курсам/группам</a></li>
+        <li><a href="">По курсам/группам</a></li>
         <li><a href="#">По предметам</a></li>
         <li><a href="#">По проектам</a></li>
       </ul>
@@ -198,7 +198,7 @@
 
 
     <div id="my_settings" class="home_menu_part right">
-      <a href="#" class="home_menu_button">
+      <a href="/settings/<%=session[:user][:settings_id].to_s%>/edit" class="home_menu_button">
         <div style="float: left;">
           <img src="/assets/usershome/my_settings.png" width="64px" height="64px" > </img>
         </div>
@@ -229,7 +229,7 @@
 
   </div>
 <%else %>
-  <p>NAAAAAAAAAAAAAAAAAAAAAAX</p>
+  <p>Access Denied</p>
   <%
   #Redirect 
 end

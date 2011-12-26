@@ -5,30 +5,37 @@
         <%=  image_tag "ribbon.png" %>
       </a>
     </div>
- 
+
     <form id="searchbox">
       <input id="search" type="text" placeholder="Поиск">
       <input id="submit_search" type="submit" value="Найти">
     </form>
     <%=render :partial=>"users/auth"%>
-    
+
     <nav style="float:left;">
       <ul>               
-        <li><a href="#">Главная</a></li>
         <li><a href="#">Кафедра</a></li>
         <li class="drop"><a href="#">События</a>
           <ul class="menu">
             <li><a href="#">Activities and Interests </a></li>
-            <li><a href="#">Arts &amp; Entertainment</a></li>
-            <li><a href="#">Education &amp; Work</a></li>
-            <li><a href="#">Philsophy</a></li>
-            <li><a href="#">Sports</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Преподаватели</a>
+          <ul class="menu">
+            <li><a href="/prepods">Все преподаватели </a></li>
+            <li><a href="/prepods">Рассписание преподавателей </a></li>
+          </ul>
+        </li>
+        <li><a href="/students">Студенты</a>
+          <ul class="menu">
+            <li><a href="/students">Все студенты</a></li>
+            <li><a href="/students">Лучшие студенты</a></li>
+            <li><a href="/students">Аттестация</a></li>            
           </ul>
         </li>
         <li><a href="#">Рассписание</a></li>
-        <li><a href="#">Чат</a></li>
-        <li><a href="#">Блоги</a></li>
-        <li><a href="#">Фотоальбом</a></li>
+        <li><a href="/publications">Публикации</a></li>
+        <li><a href="#">Фото</a></li>
       </ul>
     </nav>
   </div>
