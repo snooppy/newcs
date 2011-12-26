@@ -6,7 +6,7 @@
         $(".signin").addClass("menu_open");
         $("fieldset#signin_menu").slideDown("slow", function () {
           $("#user_login").focus()});
- 
+
       } else {
         $("fieldset#signin_menu").slideUp("slow", function () {
           $(".signin").removeClass("menu_open");
@@ -66,10 +66,12 @@
 <%else%>
   <%if session[:login_success] == "success"%>
     <script type="text/javascript">
-      $("#notification_area").replaceWith('<div id ="notification_area"><p id="notification" class="notification">User "<%= session[:user].login%>  " was seccesfully signing in!</p></div>');
+      $("#notification_area").replaceWith('<div id ="notification_area">Приветствуем Вас на сайте кафедры ИКС! Вы вошли как <a href="/users/<%=session[:user].id%>"><%= session[:user].login%></a>.</div>');
       $("#notification_area").addClass("notif_success");
-      $("#notification_area").fadeIn(3000);
-      $("#notification_area").fadeOut(2000);
+      $("#notification_area").delay(1000);
+      $("#notification_area").slideDown("slow");
+      $("#notification_area").delay(3000);
+      $("#notification_area").slideUp("slow");
     </script>
     <%session[:login_success] = ""%>
   <%end%>

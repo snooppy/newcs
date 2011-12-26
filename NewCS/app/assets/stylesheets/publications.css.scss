@@ -3,9 +3,34 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 #publication_form{
-	width:500px;
-	float:left;
-	padding:10px;
+    width:100%;
+}
+
+.publication_text{
+    width:98%;
+    height: 500px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    resize: none;
+    display:block;
+}
+
+.publication_prolog{
+    width:98%;
+    height: 150px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    resize: none;
+    display:block;
+}
+
+.styled_select select {
+   font-size: 13px;
+   border: 1px solid #ccc;
+   height: 24px;
+   width: 110px;
 }
 
 .notif_error{
@@ -15,8 +40,6 @@
 .notif_success{
     background-color:#a2aaff;
 }
-
-
 
 
 #publication_type_notif{
@@ -41,12 +64,13 @@
     display:none;
     position:absolute;
     width:300px;
+    top:1170px;
+    left:550px;
 }
 
 #publication_type_sel{
     float:left;
-    width: 500px;
-    padding:10px;
+    margin-top:15px;
 }
 
 
@@ -72,24 +96,25 @@
     display:none;
     position:absolute;
     width:300px;
+    top:1230px;
+    left:550px;
 }
 
 #publication_cat_sel{
     float:left;
-    width: 500px;
-    padding:10px;
+    margin-top:15px;
 }
 
 .check_box_subject{
     width: 90px;
     float:left;
-    padding:10px;
+    padding-top:10px;
+    padding-bottom:10px;
 }
 
 #publication_subject_sel{
     float:left;
-    width: 500px;
-    padding:10px;
+    margin-top:15px;
 }
 
 #publications_table{

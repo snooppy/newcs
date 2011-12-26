@@ -2,11 +2,11 @@
 if !session[:user].nil?
   @user_options = session[:user_options]
 %>
-  <div>
+<div>
     <!-- image -->
     <%= image_tag "face.png" %>
     
-    <ul >
+    <ul style="list-style: none;" >
       <%if @user_options.nil? || @user_options[:students] %>
         <li ><%= link_to "My students", '#' %></li>
       <%end%>

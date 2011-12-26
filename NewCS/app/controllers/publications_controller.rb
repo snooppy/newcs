@@ -89,7 +89,7 @@ class PublicationsController < ApplicationController
   # POST /publications
   # POST /publications.json
   def create
-    unless params[:photo].nil?
+    unless params[:publication][:photo].nil?
       file = Rails.root.join("app","assets","images","from_users",session[:user].id.to_s(),params[:publication][:photo].original_filename)
       tmp  =  params[:publication][:photo].tempfile  
       FileUtils.cp tmp.path, file 
@@ -100,7 +100,7 @@ class PublicationsController < ApplicationController
     @publication = Publication.new(params[:publication])
     respond_to do |format|
       if @publication.save
-        format.html { redirect_to @publication, notice: 'Publication was successfully created.' }
+        format.html { redirect_to @publication, notice: 'Публикация успешно добавлена.' }
         format.json { render json: @publication, status: :created, location: @publication }
       else
         format.html { render action: "new" }
@@ -123,7 +123,7 @@ class PublicationsController < ApplicationController
 
     respond_to do |format|
       if @publication.update_attributes(params[:publication])
-        format.html { redirect_to @publication, notice: 'Publication was successfully updated.' }
+        format.html { redirect_to @publication, notice: 'Публикация успешно обновлена.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

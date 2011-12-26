@@ -3,8 +3,13 @@
   <script type="text/javascript">
     function show_form(what){
       var t_off = $('#publication_'+what+'_sel').offset();
-      $('#publication_'+what+'_form').offset({ left : t_off.left , top : t_off.top});
-      $('#publication_'+what+'_form').fadeToggle(300);
+      var display = $('#publication_'+what+'_form').css("display");
+      if(display=="none"){
+        $('#publication_'+what+'_form').slideDown(); 
+         
+      } else{
+        $('#publication_'+what+'_form').slideUp(); 
+      }
     } 
     
     function show_type_form(){
@@ -15,7 +20,7 @@
     
   </script>
 
-  <%= form_for(@publication  ) do |f| %>
+  <%= form_for(@publication  ) do |f_publ| %>
     <% if @publication.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(@publication.errors.count, "error") %> prohibited this publication from being saved:</h2>
@@ -28,8 +33,22 @@
       </div>
 
     <% end %>
+    <strong>Заголовок публикации:</strong>
+    <div>
+       <%=f_publ.text_field  :title, :style=>"width:98%;"%>
+    </div>
 
-    <%= f.text_area :article, :rows => 10, :cols => 10   %>
+    <br/>
+
+    <strong>Пролог(краткое содержимое):</strong>
+    <div id ="publication_prolog">
+      <%=f_publ.text_area :prolog, :rows=>5, :cols=>40, :class=>"publication_prolog" %>
+    </div>
+
+    <br/>
+
+    <strong>Публикация(полное содержимое):</strong>
+    <%= f_publ.text_area :article, :rows => 10, :cols => 10, :class=>"publication_text" %>
 
     <script type="text/javascript">
       $(function() {
@@ -40,36 +59,60 @@
 
     </script>
 
-    <div id="publication_subject_sel"
-         <p>Subject list </p>
-           <%Subject.all.each do |s| %>
-        <div class ="check_box_subject"><%=  check_box_tag  "publication[subject_ids][]", s.id, has_subject?(s) %> <%=f.label s.name%></div>
-      <%end%>
+    <div style=" margin-top: 15px;">
+      <span>Приватность</span>
+      <div class="styled_select"><%=f_publ.select :level,{"admin"=>0,"moder"=>1,"prepod"=>2,"student"=>3,"grad"=>4,"guest"=>5}%></div>
     </div>
-    <div>level <%=f.select :level,{"admin"=>0,"moder"=>1,"prepod"=>2,"student"=>3,"grad"=>4,"guest"=>5}%></div>
-    <div>
-      <%=f.file_field :photo%>
+
+    <div style=" margin-top: 15px;">
+      <span>Фото</span>
+      <div>
+        <%=f_publ.file_field :photo%>
+      </div>
     </div>
+
+
     <div id="publication_type_sel">
-      <p>Тип публикации</p><br>
-      <p onclick="show_form('type')">Добавить новый</p>
-      <%=f.select :publication_type_id, PublicationType.all.collect {|p| [ p.name, p.id ] }, {:include_blank => 'None'}%>
-      <div id ="publication_type_notif"></div>
+      <span style="float: left">Тип публикации</span>
+      <div style="clear: both"></div>
+      <div style="float: left">
+        <div class="styled_select" style="float: left">
+          <%=f_publ.select :publication_type_id, PublicationType.all.collect {|p| [ p.name, p.id ] }, {:include_blank => 'None'}%>
+        </div>
+        <div style="float: left; margin-left: 100px;" onclick="show_form('type')">Добавить новый</div>
+        <div id ="publication_type_notif"></div>
+      </div>
     </div>
-    <br>
+
+    <div style="clear: both"></div>
+
     <div id="publication_cat_sel">
-      <p>Категория публикации</p><br>
-      <p onclick="show_form('cat')">Добавить новую</p>
-      <%=f.select :publication_cat_id, PublicationCat.all.collect {|p| [ p.name, p.id ] }, {:include_blank => 'None'}%>
-      <div id ="publication_cat_notif"></div>
+      <span style="float: left">Категория публикаци</span>
+      <div style="clear: both"></div>
+      <div style="float: left">
+        <div class="styled_select" style="float: left">
+          <%=f_publ.select :publication_cat_id, PublicationCat.all.collect {|p| [ p.name, p.id ] }, {:include_blank => 'None'}%>
+        </div>
+        <div style="float: left; margin-left: 100px;" onclick="show_form('cat')">Добавить новую</div>
+        <div id ="publication_cat_notif"></div>
+      </div>
     </div>
-    <div id ="publication_prolog">
-      <p>Пролог</p>
-      <%=f.text_area :prolog, :rows=>5, :cols=>40 %>
+
+    <div style="clear: both"></div>
+
+    <div id="publication_subject_sel">
+      <span>Список предметов </span>
+      <div>
+        <%Subject.all.each do |s| %>
+          <div class ="check_box_subject"><%=  check_box_tag  "publication[subject_ids][]", s.id, has_subject?(s) %> <%=f_publ.label s.name%></div>
+        <%end%>
+      </div>
     </div>
-    <br>
-    <br>
-    <%=f.submit   %>
+
+    <div style="clear: both"></div>
+    <div style="margin-top: 10px">
+      <%=f_publ.submit "Добавить публикацию", :class=>"button_send_message button_blue"%>
+    </div>
   <% end %>
 
 
@@ -83,6 +126,4 @@
 <div id="publication_cat_form">
   <%=render :partial=>"publication_cats/form", :locals=>{:p_cats=>@p_cats}%>
 </div>
-<br>
-<br>
 
