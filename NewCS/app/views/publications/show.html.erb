@@ -1,8 +1,10 @@
 <p id="notice"><%= notice %></p>
 
+<div id="title"><%= render :inline=> @publication.title%></div>
+
 <%= render :inline=> @publication.article%>
+<%=@publication.user.login%>
 <%@publication.subjects.each do |s|%>
   <%=s.name%>
 <%end%>
-<%= link_to 'Edit', edit_publication_path(@publication) %> |
-<%= link_to 'Back', publications_path %>
+<%= link_to 'Править', edit_publication_path(@publication) %>

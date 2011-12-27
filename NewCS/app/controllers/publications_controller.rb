@@ -62,7 +62,7 @@ class PublicationsController < ApplicationController
   # GET /publications/1.json
   def show
     @publication = Publication.find(params[:id])
-
+   
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @publication }
@@ -101,7 +101,7 @@ class PublicationsController < ApplicationController
     respond_to do |format|
       if @publication.save
         format.html { redirect_to "/publication/"+@publication.id.to_s() }
-       else
+      else
         format.html { render action: "new" }
         format.json { render json: @publication.errors, status: :unprocessable_entity }
       end

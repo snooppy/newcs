@@ -6,4 +6,5 @@ class Publication < ActiveRecord::Base
                           :autosave =>true
   belongs_to :publication_type
   belongs_to :publication_cat
+  belongs_to :user
 end
