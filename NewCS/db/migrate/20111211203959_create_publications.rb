@@ -1,5 +1,5 @@
 class CreatePublications < ActiveRecord::Migration
-  def change
+    def change
     begin
       down
       up

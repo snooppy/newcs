@@ -1,6 +1,8 @@
 <p id="notice"><%= notice %></p>
 
-<%= content_tag @publication.article%>
-<%=@publication.subjects%>
+<%= render :inline=> @publication.article%>
+<%@publication.subjects.each do |s|%>
+  <%=s.name%>
+<%end%>
 <%= link_to 'Edit', edit_publication_path(@publication) %> |
 <%= link_to 'Back', publications_path %>

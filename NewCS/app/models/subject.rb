@@ -1,4 +1,5 @@
 class Subject < ActiveRecord::Base
+  #has_many :shedules;
   has_and_belongs_to_many :prepods,
                           :join_table => "prepods_subjects",
                           :foreign_key => "prepod_id",

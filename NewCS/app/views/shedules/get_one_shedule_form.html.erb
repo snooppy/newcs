@@ -1,12 +1,29 @@
-<div calss="shedule">
-  <%=label_tag @shedule[:hour] %>
-  <%= form_for(@shedule) do |f| %> 
+<div class="shedule" onclick="show_shedule_form(this);">
+  <label><%=@shedule[:hour].to_s() %></label>
+
+  <div class="label" >
+    <p><%=@shedule[:classroom]%></p>
+    <p><%=@shedule[:subject]%></p>
+    <p><%=@shedule[:prepod]%></p>
+    <p><%=@shedule[:type]%></p>
+    <p><%=@shedule[:corpus]%></p>
+  </div>
+  <%= form_for(@shedule, :remote=>true) do |f| %> 
+    <p style="width:100%;background-color: coral" onclick="$(this).parent().hide(100);">X</p><br>
     <%= f.hidden_field :week %>
     <%= f.hidden_field :group_ids %>
     <%= f.hidden_field :day %>
     <%= f.hidden_field :hour %>
+    <%= f.label :calssroom %>
     <%= f.text_field :classroom %>
+    <%= f.label :subject %>
+    <%=f.select :subject_id, Subject.all.collect {|s| [ s.name, s.id ] }, {:include_blank => 'None'}%><br>
+    <%= f.label :type %>
+    <%= f.text_field :type %>
+    <%= f.label :corpus %>
+    <%= f.text_field :corpus %>
     <%= f.hidden_field :sub_group2 %>
     <%= f.hidden_field :sub_group3 %>
+    <%= f.submit :submit %>
   <% end %>
 </div>

@@ -36,22 +36,14 @@
     float:left;
 }
 
-#shedules_table .day .shedule{
-    width:100px;
-    float:left;
-}
+
 #shedules_table .day .day_group_div{
     width:120px;
     float:left; 
     background-color:#d0d0d0;
     padding-left:5px;
     padding-right:5px;
-}
-
-#shedules_table  .new_shedule input{
-    width:90px;
-    float:left;
-
+    margin:3px;
 }
 
 #groups_head #group_count  {
@@ -62,6 +54,58 @@
     float:left;
 }
 #groups_head select{
-    width:120px;
-    margin-right:10px;
+    width:126px;
+    margin-right:7px;
+    margin-left: 3px;
+}
+
+
+
+#shedules_table .day .shedule{
+    width:100px;
+    float:left;
+}
+
+#shedules_table .day .shedule .label{
+    width:100px;
+    float:left;
+}
+
+
+#shedules_table .shedule .new_shedule {
+    display:none;
+    float:left;
+    width:200px;
+    position:absolute;
+    background-color: #c0bbff;
+    margin: -20px;
+}
+
+#shedules_table .shedule .new_shedule *{
+    float:left;
+}
+#shedules_table  .new_shedule input{
+    width:90px;
+}
+#shedules_table  .new_shedule label{
+    width:90px;
+}
+
+#shedules_table .shedule .edit_shedule {
+    display:none;
+    float:left;
+    width:200px;
+    position:absolute;
+    background-color: #c0bbff;
+    margin: -20px;
+}
+
+#shedules_table .shedule .edit_shedule *{
+    float:left;
+}
+#shedules_table  .edit_shedule input{
+    width:90px;
+}
+#shedules_table  .edit_shedule label{
+    width:90px;
 }

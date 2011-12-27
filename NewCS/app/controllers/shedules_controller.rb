@@ -2,8 +2,15 @@ class ShedulesController < ApplicationController
   # GET /shedules
   # GET /shedules.json
   def get_one_shedule_form
-    @shedule = Shedule.new
-    @shedule[:hour]=params[:hour]
+    @shedule =nil
+    unless params[:groups_id].nil?
+      @shedule = Shedule.find(:first,:conditions=>{:groups=>{:id=>params[:groups_id]}},:include=>:groups)
+    end
+    if @shedule.nil?
+      @shedule = Shedule.new
+      @shedule[:hour] = params[:hour]
+      @shedule[:day]  = params[:day]
+    end
     render "get_one_shedule_form", :layout=>false
   end
   
@@ -46,6 +53,8 @@ class ShedulesController < ApplicationController
   # POST /shedules
   # POST /shedules.json
   def create
+    p params[:shedule]
+    p params[:shedule][:subject_id]
     @shedule = Shedule.new(params[:shedule])
 
     respond_to do |format|

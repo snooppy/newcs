@@ -34,7 +34,7 @@ NewCS::Application.routes.draw do
 
   resources :publications_types
   
-  match 'shedules/get_one_shedule_form/:hour' => 'shedules#get_one_shedule_form', :via=>[:get]
+  match 'shedules/get_one_shedule_form/:day/:hour/(:groups_id)' => 'shedules#get_one_shedule_form', :via=>[:get]
   resources :shedules
 
   resources :publication_cats
@@ -52,6 +52,7 @@ NewCS::Application.routes.draw do
   resources :subjects
 
   match 'publications/for_index' => 'publications#for_index', :via=>[:get]
+  match 'publication/:id/edit'     => 'publications#edit', :via=>[:get]
   match 'publications/new'     => 'publications#new', :via=>[:get]
   match 'publications'     => 'publications#index', :via=>[:get]
   match 'publications/:page'     => 'publications#index', :via=>[:get], :constraints => { :page => /\d+/ }

@@ -22,7 +22,7 @@ class PublicationsController < ApplicationController
         :select   => "*",
         :order    => "created_at",
         :limit    => on_page,
-        :conditions => {:level=>">="+level},
+        :conditions => {:level=>">="+level.to_s()},
         :offset   => start,
         :include  => :subjects
       )
@@ -100,9 +100,8 @@ class PublicationsController < ApplicationController
     @publication = Publication.new(params[:publication])
     respond_to do |format|
       if @publication.save
-        format.html { redirect_to @publication, notice: 'Публикация успешно добавлена.' }
-        format.json { render json: @publication, status: :created, location: @publication }
-      else
+        format.html { redirect_to "/publication/"+@publication.id.to_s() }
+       else
         format.html { render action: "new" }
         format.json { render json: @publication.errors, status: :unprocessable_entity }
       end

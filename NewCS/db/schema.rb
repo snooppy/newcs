@@ -143,6 +143,10 @@ ActiveRecord::Schema.define(:version => 20111225184451) do
     t.integer  "classroom"
     t.integer  "sub_group2"
     t.integer  "sub_group3"
+    t.integer  "corpus"
+    t.integer  "type"
+    t.integer  "subject_id"
+    t.integer  "prepod_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

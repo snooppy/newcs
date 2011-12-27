@@ -21,11 +21,37 @@
     $("#groups .count").val(count);
   }
   
+  function fill_group(group_num, group_id){
+    for (var day in days){
+      hours = $("#"+days[day]+"1 .hours_count").val()
+      $("#"+days[day] + "1  .day_group"+group_num).html("");
+      for (var i=1;i<=hours;i++){
+        $.ajax({
+          async:false,
+          type: 'GET',
+          url: 'get_one_shedule_form/'+day+"/"+i+"/"+group_id,
+          dataType: "html",
+          success: function (data){
+            $("#"+days[day]+'1 .day_group'+group_num).append(data);
+          } 
+        });
+      }
+    }
+  }
   
   function create_group_col(group_num){
-    
-    var  group_list='<%=render :partial=>"/groups/group_list"%>'
+    var group_list='<%=render :partial=>"/groups/group_list"%>' // DON`T CHANge name of this class!!!!!
     $('#groups_head').append(group_list);
+    $('#groups_head select').last().addClass("group_select"+group_num);
+    $('#groups_head select').last().click(function(){
+      var id = this.value;
+      if (id != "" && id!= ""){
+        fill_group(this.className[12],id);
+      }
+      for (var i=0;i<5;i++){
+        $('.day_group' + this.className[12]+" #shedule_group_ids").val(id);
+      }
+    });
     
     for (var day in days){
       hours = $("#"+days[day]+"1 .hours_count").val()
@@ -34,7 +60,7 @@
         $.ajax({
           async:false,
           type: 'GET',
-          url: 'get_one_shedule_form/'+i,
+          url: 'get_one_shedule_form/'+day+"/"+i,
           dataType: "html",
           success: function (data){
             $("#"+days[day]+'1 .day_group'+group_num).append(data);
@@ -50,16 +76,21 @@
     var day = $(p_this).parent().parent().attr('id');
     for (var i=0;i<=group_count;i++){
       $.ajax({
-          async:false,
-          type: 'GET',
-          url: 'get_one_shedule_form/'+new_count,
-          dataType: "html",
-          success: function (data){
-            $("#"+day+' .day_group'+i).append(data);
-          } 
-        });
+        async:false,
+        type: 'GET',
+        url: 'get_one_shedule_form/'+day[3]+"/"+new_count,
+        dataType: "html",
+        success: function (data){
+          $("#"+day+' .day_group'+i).append(data);
+        } 
+      });
     }
     
+  }
+  
+  function show_shedule_form(p_this){
+    $(p_this).children(" .new_shedule").show();
+    $(p_this).children(" .edit_shedule").show();
   }
 </script>
 <div id="shedules_widget">
