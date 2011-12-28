@@ -1,32 +1,56 @@
 <div id="title">Публикации</div>
-<script type="text/javascript">
-  function set_margin(id){
-    var height = $('#pub_div_'+id+' .user .photo_div').height();
-    $('#pub_div_'+id+' .user').css("margin-top",-height+20);
-  }
-</script>
 
 <div id="publications_table">
+  <%counter=1%>
   <% @publications.each do |publication| %>
-    <div class="pub_div" id="pub_div_<%=publication.id%>">
-      <%=image_tag publication.photo%>
-      <div class="user">
-        <%  @user = User.find(publication.user_id) %>
-        <div class="photo_div"><%=image_tag @user.photo, :class => "photo", :onload=>"set_margin("+publication.id.to_s+")"%></div>
-        <div class='login' ><%=@user.login%></div>
-      </div>
+    <%if counter==4%>
+      <div style="clear: both"></div>
+    <%end%>
 
-      <div class="title"><%=publication.title%></div>
-      <div class ="prolog"><%=publication.prolog%></div>
-      <div> Subjects: <%publication.subjects.each do |subj|%>         
-          <%=link_to subj.name, "/publications/bysubj/1"%>
+    <%if counter==3 || counter==6%>
+      <div class="pub_div" style="margin-right: 0px;" id="pub_div_<%=publication.id%>">
+      <%else%>
+        <div class="pub_div" id="pub_div_<%=publication.id%>">
         <%end%>
+        <%if  publication.photo?%>
+          <%= link_to image_tag(publication.photo), "/publication/"+publication.id.to_s%>
+        <%end%>
+
+        <div class="user">
+          <%if publication.created_at.to_date==Time.now.to_date %>
+            Сегодня, <%= publication.created_at.strftime("%H:%M") %>
+          <%elsif publication.created_at.to_date==Time.now.to_date-1%>
+            Вчера, <%= publication.created_at.strftime("%H:%M") %>
+          <%else%>
+            <%=  publication.created_at.to_date.strftime("%d.%m.%Y")%>  
+          <%end%>
+          |
+          <%=link_to publication.user.login, "/users/"+publication.user.login.to_s%>
+
+        </div>
+
+        <div class="title">
+          <%=link_to publication.title, "/publication/"+publication.id.to_s%>
+        </div>
+        <div class ="prolog"><%=publication.prolog%></div>
+
+        <div style="clear: both"></div>
+        <%if publication.subjects.size!=0%>
+          <div class="subjects">
+            Предметы:
+            <%publication.subjects.each do |s|%>
+              <%=link_to s.name, "/publications/bysubj/"+s.id.to_s%>
+            <%end%>
+          </div>
+        <%end%>
+
+
       </div>
-    </div>
+      <%counter+=1%>
+    <% end %>
+  </div> 
+  <br />
 
-
-  <% end %>
-</div> 
-<br />
-
-<%= link_to 'Добавить публикацю', new_publication_path %>
+  <div class="add_publication">
+    <%= link_to 'Добавить публикацю', new_publication_path %>
+  </div>

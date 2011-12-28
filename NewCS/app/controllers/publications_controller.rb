@@ -4,7 +4,7 @@ class PublicationsController < ApplicationController
   # GET /publications.json
   def index
     @title = "Публикации"
-    on_page = 4
+    on_page = 6
     todo = "latest"
     todo = params[:todo] unless params[:todo].nil?
     page = 0
