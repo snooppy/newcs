@@ -196,3 +196,128 @@
     float:right;
     height:70px;
 }
+
+.publication{
+}
+
+.publication .info {
+    color:#313131;
+    padding: 4px;
+    margin: 10px 0;
+    background-color: #aeadad;
+    border: 1px solid #989595;
+    border-image: initial;
+    display:block;
+    float: left;
+    width:98%;
+}
+
+.publication .info span {
+    height: 45px;
+    line-height: 45px;
+    padding: 0 8px;
+    margin: 0 10px 0 0;
+    background-color: #989696;
+    color: white;
+    float: left;
+}
+
+.publication .info .avatar {
+    width:45px;
+    hight:45px;
+    float: left;
+}
+
+.publication .info a {
+    color:#313131;
+}
+.publication .info a:hover {
+    text-decoration:none
+}
+
+
+.publication .author, .comments {
+    float: left;
+    font-size: 11px;
+    margin-left:10px;
+    margin-top:-2px;
+    line-height: 13px;
+}
+
+.publication .comments {
+    float: right;
+    font-size: 11px;
+    margin-left:10px;
+    margin-top:-2px;
+    line-height: 13px;
+}
+
+.publication .type {
+    float: left;
+    font-size: 11px;
+    margin-left:10px;
+    margin-top:-4px;
+    line-height: 11px;
+}
+
+.publication .cat {
+    float: left;
+    font-size: 11px;
+    margin-left:10px;
+    margin-top:-6px;
+    line-height: 11px;
+}
+
+.publication .subjects{
+    font-size: 12px;
+    margin:10px 0 0 0;
+    padding:5px 0 5px 0;
+    border-bottom: 1px solid #989595;
+    border-top: 1px solid #989595;
+}
+.publication .subjects a {
+    color:#313131;
+    margin-left:5px;
+}
+.publication .subjects a:hover {
+    text-decoration:none
+}
+
+.publication .article{
+
+}
+
+.publication .article .photo{
+    max-width:45%;
+    float:left;
+    margin-right:10px;
+}
+
+.publication .article .text{
+    text-align:left;
+}
+
+.publication .edit{
+    margin-top:10px;
+}
+
+.publication .edit a{
+    color:#313131;
+    text-decoration:none
+}
+
+.publication .edit a:hover{
+    color:#313131;
+    text-decoration:underline;
+}
+
+.publication .my_comment{
+    width: 98%;
+    height: 150px;
+    outline: 0;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    resize: none;
+}
+

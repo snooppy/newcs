@@ -1,10 +1,70 @@
-<p id="notice"><%= notice %></p>
+<div class="publication">
+  <p id="notice"><%= notice %></p>
+  <div id="title"><%= render :inline=> @publication.title%></div>
 
-<div id="title"><%= render :inline=> @publication.title%></div>
+  <div class="info rounded">
+    <span class="rounded">
+      <%if @publication.created_at.to_date==Time.now.to_date %>
+        Сегодня, <%= @publication.created_at.strftime("%H:%M") %>
+      <%elsif @publication.created_at.to_date==Time.now.to_date-1%>
+        Вчера, <%= @publication.created_at.strftime("%H:%M") %>
+      <%else%>
+        <%=  @publication.created_at.to_date.strftime("%d.%m.%Y")%>  
+      <%end%>
+    </span>
 
-<%= render :inline=> @publication.article%>
-<%=@publication.user.login%>
-<%@publication.subjects.each do |s|%>
-  <%=s.name%>
-<%end%>
-<%= link_to 'Править', edit_publication_path(@publication) %>
+    <%=image_tag @publication.user.photo,:class => "avatar rounded"%>
+
+    <div class="author">
+      <%if @publication.user.sex=="1" %>
+        Опубликовал: 
+      <%elsif  @publication.user.sex=="0"%>
+        Опубликровала:
+      <%else%>
+        Опубликовал(а):
+      <%end%>   
+      <a href="/users/<%=@publication.user.id%>"><%=@publication.user.login%></a>
+    </div>
+
+    <div class="comments">Комментариев: 123</div>
+    <br />
+    <div class="type">Тип: <a href="#"><%=@publication.publication_type.name%></a></div>
+    <br />
+    <div class="cat">Категория: <a href=""><%=@publication.publication_cat.name%></a></div>
+  </div>
+
+  <div class="article">
+    <%if  @publication.photo?%>
+      <%=image_tag @publication.photo, :class=>"photo"%>
+    <%end%>
+
+    <div class="text">
+      <%= render :inline=> @publication.article%>
+    </div>
+  </div>
+
+  <%if @publication.subjects.size!=0%>
+    <div class="subjects">
+      Предметы:
+      <%@publication.subjects.each do |s|%>
+        <a href="/subjects/<%=s.id%>"><%=s.name%></a>
+      <%end%>
+    </div>
+  <%end%>
+
+  <%if !session[:user].nil? && session[:user].id==@publication.user.id%>
+    <div class="edit">
+      <%= link_to 'Править', edit_publication_path(@publication)%>
+    </div>
+  <%end%>
+
+  <%if !session[:user].nil?%>
+    <strong style="float: left; margin-top: 20px; margin-bottom: 5px">Оставить комментарий</strong>
+    <div>
+      <textarea id="id_comment" name="write_text_comment" class="my_comment"></textarea>
+      <div>
+        <input type="submit" name="leave_comment" value="Отправить" class="button_send_message button_blue"/>
+      </div>
+    </div>  
+  <%end%>
+</div>
