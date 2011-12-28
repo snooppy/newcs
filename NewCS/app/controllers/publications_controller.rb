@@ -30,8 +30,8 @@ class PublicationsController < ApplicationController
       @pages_col=Publication.count(
         :conditions => [ "level >= ?", level]
       )
-      if @pages_col > 6
-        @pages_col= @pages_col/6
+      if @pages_col > on_page
+        @pages_col= @pages_col/on_page
       end
 
     else if todo == 'bysubj'
@@ -40,7 +40,7 @@ class PublicationsController < ApplicationController
           :select    => "*",
           :limit     => on_page,
           :include  => :subjects,
-          :conditions => {:subject_id=>1},
+          :conditions => {:subjects=>{:id=>subjs}},
           :offset    => start
         )
       else if todo == 'byuser'
