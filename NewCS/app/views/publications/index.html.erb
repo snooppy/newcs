@@ -1,6 +1,6 @@
 <div id="title">Публикации</div>
-
 <div id="publications_table">
+
   <%counter=1%>
   <% @publications.each do |publication| %>
     <%if counter==4%>
@@ -12,22 +12,26 @@
       <%else%>
         <div class="pub_div" id="pub_div_<%=publication.id%>">
         <%end%>
+
+        <div class="user">
+          <div style="margin-left: 5px; margin-right: 5px">
+            <%if publication.created_at.to_date==Time.now.to_date %>
+              Сегодня, <%= publication.created_at.strftime("%H:%M") %>
+            <%elsif publication.created_at.to_date==Time.now.to_date-1%>
+              Вчера, <%= publication.created_at.strftime("%H:%M") %>
+            <%else%>
+              <%=  publication.created_at.to_date.strftime("%d.%m.%Y")%>  
+            <%end%>
+            |
+            <%=link_to publication.user.login, "/users/"+publication.user.login.to_s%>
+          </div>
+        </div>
+
         <%if  publication.photo?%>
           <%= link_to image_tag(publication.photo), "/publication/"+publication.id.to_s%>
         <%end%>
 
-        <div class="user">
-          <%if publication.created_at.to_date==Time.now.to_date %>
-            Сегодня, <%= publication.created_at.strftime("%H:%M") %>
-          <%elsif publication.created_at.to_date==Time.now.to_date-1%>
-            Вчера, <%= publication.created_at.strftime("%H:%M") %>
-          <%else%>
-            <%=  publication.created_at.to_date.strftime("%d.%m.%Y")%>  
-          <%end%>
-          |
-          <%=link_to publication.user.login, "/users/"+publication.user.login.to_s%>
 
-        </div>
 
         <div class="title">
           <%=link_to publication.title, "/publication/"+publication.id.to_s%>
@@ -46,10 +50,19 @@
 
 
       </div>
-      <%counter+=1%>
+      <%  counter+=1 %>
     <% end %>
   </div> 
   <br />
+
+  <%if @pages_col > 0%>
+    <%i=1%>
+    <%=link_to 1, "/publications/"%>
+    <%while i <= @pages_col%>
+      <%=link_to (i+1), "/publications/"+(i).to_s%>
+      <%i+=1%>
+    <%end%>
+  <%end%>
 
   <div class="add_publication">
     <%= link_to 'Добавить публикацю', new_publication_path %>

@@ -4,6 +4,7 @@ class PublicationsController < ApplicationController
   # GET /publications.json
   def index
     @title = "Публикации"
+    @pages_col=0
     on_page = 6
     todo = "latest"
     todo = params[:todo] unless params[:todo].nil?
@@ -20,19 +21,26 @@ class PublicationsController < ApplicationController
     if todo == 'latest'
       @publications = Publication.find(:all,
         :select   => "*",
-        :order    => "created_at",
+        :order    => "created_at desc",
         :limit    => on_page,
-        :conditions => {:level=>">="+level.to_s()},
+        :conditions => [ "level >= ?", level],
         :offset   => start,
         :include  => :subjects
       )
+      @pages_col=Publication.count(
+        :conditions => [ "level >= ?", level]
+      )
+      if @pages_col > 6
+        @pages_col= @pages_col/6
+      end
+
     else if todo == 'bysubj'
         subjs=conds
         @publications = Publication.find(:all,
           :select    => "*",
           :limit     => on_page,
           :include  => :subjects,
-          :conditions => {:subjects=>{:id=>subjs}},
+          :conditions => {:subject_id=>1},
           :offset    => start
         )
       else if todo == 'byuser'

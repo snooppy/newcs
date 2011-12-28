@@ -126,7 +126,7 @@
     max-width: 32%;
     float:left;
     margin-right:10px;
-    margin-bottom:20px;
+    margin-bottom:30px;
 }
 #publications_table .pub_div .prolog{
     width: 100%;
@@ -151,23 +151,27 @@
 
 #publications_table .pub_div .title a:hover{
     text-decoration:underline;
+    color: #4e6890;
 }
 
 #publications_table .pub_div .user{
     width:100%;
     float:left;
     font-size: 11px;
-    color: #405876;
- /*background-color: #aeadad;*/
+    color: #4e6890;
+    -moz-border-radius: 4px 4px 0 0 ;
+    -webkit-border-radius: 4px 4px 0 0 ;
+    border-radius: 4px 4px 0 0 ;;
+    background-color: #dee5eb;
 }
 
 #publications_table .pub_div .user a{
-    color:#405876;
+    color:#4e6890;
     text-decoration:underline;
 }
 
 #publications_table .pub_div .user a:hover{
-    color:#405876;
+    color:#4e6890;
     text-decoration:none
 }
 
@@ -179,7 +183,6 @@
 #publications_table .pub_div .subjects{
     font-size: 12px;
     margin:0;
-    padding:5px 0 5px 0;
     border-bottom: 1px solid #989595;
     border-top: 1px solid #989595;
 }
@@ -225,7 +228,7 @@
 .publication .info {
     color:#313131;
     padding: 4px;
-    margin: 10px 0;
+    margin-bottom: 10px;
     background-color: #aeadad;
     border: 1px solid #989595;
     border-image: initial;
