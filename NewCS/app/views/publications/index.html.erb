@@ -43,7 +43,7 @@
           <div class="subjects">
             Предметы:
             <%publication.subjects.each do |s|%>
-              <%=link_to s.name, "/publications/bysubj/"+s.id.to_s%>
+              <%=link_to s.name, "/publications/bysubj/"+s.id.to_s+"/0"%>
             <%end%>
           </div>
         <%end%>

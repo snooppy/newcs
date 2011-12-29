@@ -58,7 +58,6 @@ NewCS::Application.routes.draw do
   match 'publications/:page'     => 'publications#index', :via=>[:get], :constraints => { :page => /\d+/ }
   match 'publication/:id' => 'publications#show', :via=>[:get], :constraints => { :id => /\d+/ } #show one
   match 'publications/:todo/:page' => 'publications#index', :via=>[:get], :constraints => { :page => /\d+/ }
-  match 'publications/:todo/:cond' => 'publications#index', :via=>[:get], :constraints => { :page => /\d+/ }
   match 'publications/:todo/:cond/:page' => 'publications#index', :via=>[:get], :constraints => { :page => /\d+/ }
  
   resources :publications
