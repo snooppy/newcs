@@ -8,14 +8,14 @@ class PublicationsController < ApplicationController
     on_page = 6
     todo = "latest"
     todo = params[:todo] unless params[:todo].nil?
-    page = 0
-    page = params[:page].to_d.to_int unless params[:page].nil?
+    @page = 0
+    @page = params[:page].to_d.to_int unless params[:page].nil?
     cond =""
     cond = params[:cond] unless params[:cond].nil?
     level = 5
     level = session[:user].role unless session[:user].nil?
     conds = cond.split(/\+/)
-    start = (page)*on_page
+    start = (@page)*on_page
     # TODO count = tratata if > than tratataa
     @publications = {}
     if todo == 'latest'

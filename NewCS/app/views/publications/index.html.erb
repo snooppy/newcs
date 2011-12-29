@@ -56,12 +56,68 @@
   <br />
 
   <%if @pages_col > 0%>
-    <%i=1%>
-    <%=link_to 1, "/publications/"%>
-    <%while i <= @pages_col%>
-      <%=link_to (i+1), "/publications/"+(i).to_s%>
-      <%i+=1%>
-    <%end%>
+    <div class="pages_navigation">
+      <%if @page ==0 %>
+        <span>Назад</span>
+      <%else%>
+        <%=link_to "Назад", "/publications/"+(@page-1).to_s%>
+      <%end%>
+      <%if @pages_col<10%>
+
+        <%for i in 0..@pages_col%>
+          <%if i == @page %>
+            <span><%= @page+1%></span>
+          <%else%>
+            <%=link_to (i+1), "/publications/"+(i).to_s%>
+          <%end%>
+        <%end%>
+
+      <%else%>
+        <%if @page>5%>
+          <%=link_to (1), "/publications/"%>
+          <span class="nav_ext">...</span>
+          <%pages_count=0%>
+          <%if @page >= @pages_col-4%>
+            <%pages_count=@pages_col%>
+          <%else%>
+            <%pages_count=@page+4%>
+          <%end%>
+          <%for l in (@page-4)..pages_count%>
+            <%if l == @page %>
+              <span><%= @page+1%></span>
+            <%else%>
+              <%=link_to (l+1), "/publications/"+(l).to_s%>
+            <%end%>
+          <%end%>
+
+          <%if (@page+4) < @pages_col%>
+            <span class="nav_ext">...</span>
+            <%=link_to (@pages_col+1), "/publications/"+(@pages_col).to_s%>
+          <%end%>
+
+        <%else%>
+
+          <%for j in 0..9%>
+
+            <%if j == @page %>
+              <span><%= @page+1%></span>
+            <%else%>
+              <%=link_to (j+1), "/publications/"+(j).to_s%>
+            <%end%>
+          <%end%>
+
+          <span class="nav_ext">...</span>
+          <%=link_to (@pages_col+1), "/publications/"+(@pages_col).to_s%>
+        <%end%>
+      <%end%>
+
+      <%if @page==@pages_col%>
+        <span>Далее</span>
+      <%else%>
+        <%=link_to "Далее", "/publications/"+(@page+1).to_s%>
+      <%end%>
+
+    </div>
   <%end%>
 
   <div class="add_publication">
