@@ -12,8 +12,11 @@
         <%=  @publication.created_at.to_date.strftime("%d.%m.%Y")%>  
       <%end%>
     </span>
-
-    <%=image_tag @publication.user.photo,:class => "avatar rounded"%>
+    <%if @publication.user.photo?%>
+      <%=image_tag @publication.user.photo,:class => "avatar rounded"%>
+    <%else%>
+      <%=image_tag "no_avatar.jpg",:class => "avatar rounded"%>
+    <%end%>
 
     <div class="author">
       <%if @publication.user.sex=="1" %>

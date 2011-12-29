@@ -53,7 +53,7 @@ class UsersController < ApplicationController
   # GET /users/new.json
   def new
     @user = User.new
-
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @user }
@@ -73,6 +73,7 @@ class UsersController < ApplicationController
     # TODO create folder
     # TODO create record in Folder
     if @user.save
+      Dir.mkdir(Dir.pwd+"/app/assets/images/from_users/"+@user.id.to_s)
       render :partial => "/users/create"
     else
       render :partial => "/users/create"
