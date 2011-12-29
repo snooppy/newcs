@@ -60,8 +60,9 @@ class PublicationsController < ApplicationController
   end
   
   def for_index
-    # TODO change level to 5 !!!!
-    @pubs = Publication.find(:all,:select=>"*",:order=>"created_at",:conditions=>"level=0",:limit=>"3")
+    level = 5
+    level = session[:user].role unless session[:user].nil?
+    @pubs = Publication.find(:all,:select=>"*",:order=>"created_at desc",:conditions=>[ "level >= ?", level],:limit=>"3")
     p @pubs
     render "for_index", :layout=>false
   end
@@ -70,7 +71,7 @@ class PublicationsController < ApplicationController
   # GET /publications/1.json
   def show
     @publication = Publication.find(params[:id])
-   
+    @title = @publication.title
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @publication }
@@ -92,6 +93,7 @@ class PublicationsController < ApplicationController
   # GET /publications/1/edit
   def edit
     @publication = Publication.find(params[:id])
+    @title = "Правка публикации \""+@publication.title+"\""
   end
 
   # POST /publications
@@ -130,7 +132,7 @@ class PublicationsController < ApplicationController
 
     respond_to do |format|
       if @publication.update_attributes(params[:publication])
-        format.html { redirect_to @publication, notice: 'Публикация успешно обновлена.' }
+        format.html { redirect_to "/publication/"+@publication.id.to_s(), notice: 'Публикация успешно обновлена.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

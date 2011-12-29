@@ -1,5 +1,3 @@
-
-      
 function theRotator() {
     // Устанавливаем прозрачность всех картинок в 0
     $('div#rotator ul li').css({

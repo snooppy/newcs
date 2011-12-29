@@ -1,17 +1,19 @@
 
 <div id="news_div">
-  <h3><%= t :last_events %> </h3>
+  <h4 style="margin-left:10px; margin-top:10px; color:#C2D7EF;">ПОСЛЕДНИЕ НОВОСТИ</h4>
+
   <a href="/publication/<%=@pubs[0].id%>">
-    <div class="first_news_div">
+    <div id="first_news_div">
       <p class="img_prolog">
-        <%=image_tag @pubs[1].photo%>
+        <%=image_tag @pubs[0].photo%>
         <b class="title">
           > <%=@pubs[0].title%>
-        </b><br>
-        <%=@pubs[1].prolog.slice(0..130)%>...
+        </b><br />
+        <%=@pubs[0].prolog.slice(0..130)%>...
       </p>
     </div>
   </a>
+
   <a href="/publication/<%=@pubs[1].id%>">
     <div id="second_news_div">
       <p class="title">
@@ -19,6 +21,7 @@
       </p>
     </div>
   </a>
+
   <a href="/publication/<%=@pubs[2].id%>">
     <div id="third_news_div">
       <p class="title">
@@ -26,5 +29,6 @@
       </p>
     </div>
   </a>
-  <a href="#" > <%=t :all_events %></a>
-</div
+
+  <a href="publications/" style="float: right; position: relative; top: 0px; right: 0px; color:#C2D7EF;"> <b>Все новости</b></a>
+</div>

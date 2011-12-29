@@ -52,7 +52,7 @@ NewCS::Application.routes.draw do
   resources :subjects
 
   match 'publications/for_index' => 'publications#for_index', :via=>[:get]
-  match 'publication/:id/edit'     => 'publications#edit', :via=>[:get]
+  match 'publications/:id/edit'     => 'publications#edit', :via=>[:get]
   match 'publications/new'     => 'publications#new', :via=>[:get]
   match 'publications'     => 'publications#index', :via=>[:get]
   match 'publications/:page'     => 'publications#index', :via=>[:get], :constraints => { :page => /\d+/ }
