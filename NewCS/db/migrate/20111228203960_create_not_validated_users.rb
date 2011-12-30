@@ -9,7 +9,7 @@ class CreateNotValidatedUsers < ActiveRecord::Migration
   end
   
   def up
-    create_table :not_validated_users do |t|
+    create_table :not_validated_users, :options=>'DEFAULT CHARSET=UTF8' do |t|
       t.string :login
       t.string :password
       t.string :first_name

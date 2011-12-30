@@ -32,6 +32,8 @@ class PublicationsController < ApplicationController
       )
       if @pages_col > on_page
         @pages_col= @pages_col/on_page
+      else
+        @pages_col=0
       end
 
     else if todo == 'bysubj'
@@ -93,7 +95,7 @@ class PublicationsController < ApplicationController
   # GET /publications/1/edit
   def edit
     @publication = Publication.find(params[:id])
-    @title = "Правка публикации \""+@publication.title+"\""
+    @title = "Правка публикации \""+@publication.id+"\""
   end
 
   # POST /publications

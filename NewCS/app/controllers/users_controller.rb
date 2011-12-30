@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   def sign_in
         
     ldap = Net::LDAP.new(
-      host: '192.168.56.101',
+      host: '192.168.73.151',
       :auth => {
         :method => :simple,
         :username => "cn=root, o=newcs, dc=ua",
@@ -193,7 +193,7 @@ class UsersController < ApplicationController
       }
     
       Net::LDAP.open(
-        host: '192.168.56.101',
+        host: '192.168.73.151',
         :auth => {
           :method => :simple,
           :username => "cn=root, o=newcs, dc=ua",

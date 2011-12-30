@@ -1,28 +1,37 @@
-<h1>Not registered users</h1>
-<br/>
-<table>
-  <tr>
-    <th>Login</th>
-    <th>Password</th>
-    <th>Second name</th>
-    <th>Last name</th>
-    <th>Email</th>
-    <th>Sex</th>
-    <th>Role</th>
-    <th></th>
-  </tr>
+<div id="title">Пользователи, подавшие заявку на регистрацию</div>
 
-<% @not_validated_users.each do |not_validated_user| %>
-  <tr>
-    <td><%= not_validated_user.login %></td>
-    <td><%= not_validated_user.password %></td>
-    <td><%= not_validated_user.first_name %></td>    
-    <td><%= not_validated_user.second_name %></td>
-    <td><%= not_validated_user.last_name %></td>
-    <td><%= not_validated_user.email %></td>
-    <td><%= not_validated_user.sex %></td>
-    <td><%= not_validated_user.role %></td>
-    <td><%= link_to 'Register', not_validated_user, :method => :delete %></td>    
-  </tr>
-<% end %>
+<table class="table" cellspacing="0"> 
+  <tbody>
+    <tr>
+      <th>Логин</th> 
+      <th>Пароль</th> 
+      <th>Имя</th> 
+      <th>Фамилия</th> 
+      <th>Отчество</th> 
+      <th>E-mail</th> 
+      <th>Пол</th> 
+      <th>Роль</th> 
+      <th></th> 
+    </tr>
+    <% class_even=0  %>
+    <%@not_validated_users.each do |not_validated_user|%> 
+      <%if class_even==1%>
+        <%class_even=0%>
+        <tr  class="even"> 
+        <%else%>
+          <%class_even=1%>
+        <tr> 
+        <%end%>
+        <td><%= not_validated_user.login %></td> 
+        <td><%= not_validated_user.password %></td> 
+        <td><%= not_validated_user.first_name %></td> 
+        <td><%= not_validated_user.second_name %></td> 
+        <td><%= not_validated_user.last_name %></td> 
+        <td><%= not_validated_user.email %></td> 
+        <td><%= not_validated_user.sex %></td> 
+        <td><%= not_validated_user.role %></td> 
+        <td><%= link_to image_tag("thumbs-up.png"), not_validated_user, :method => :delete %>
+      </tr> 
+    <% end %>
+  </tbody>
 </table>

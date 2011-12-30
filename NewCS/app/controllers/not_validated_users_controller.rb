@@ -1,9 +1,11 @@
+# encoding: utf-8
 class NotValidatedUsersController < ApplicationController
   
   def index
     if ! session[:user].nil? && session[:user][:role] == '0'
       @not_validated_users = NotValidatedUser.all
-
+      @title="Пользователи, подавшие заявку на регистрацию"
+      
       respond_to do |format|
         format.html # index.html.erb
         format.json { render json: @not_validated_users }
@@ -19,6 +21,7 @@ class NotValidatedUsersController < ApplicationController
   
   def new
     @not_validated_user = NotValidatedUser.new
+    @title="Заполнение заявки на регистрацию"
 
     respond_to do |format|
       format.html # new.html.erb
@@ -75,7 +78,7 @@ class NotValidatedUsersController < ApplicationController
     }
     
     Net::LDAP.open(
-      host: '192.168.56.101',
+      host: '192.168.73.151',
       :auth => {
         :method => :simple,
         :username => "cn=root, o=newcs, dc=ua",

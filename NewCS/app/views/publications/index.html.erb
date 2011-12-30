@@ -23,7 +23,7 @@
               <%=  publication.created_at.to_date.strftime("%d.%m.%Y")%>  
             <%end%>
             |
-            <%=link_to publication.user.login, "/users/"+publication.user.login.to_s%>
+            <%=link_to publication.user.login, "/users/"+publication.user.id.to_s%>
           </div>
         </div>
 

@@ -5,9 +5,9 @@ if !session[:user].nil?
   <div>
     <%if @user_options.nil? || @user_options[:students] %>
       <%if session[:user].photo?%>
-        <%=image_tag session[:user].photo,:class => "rounded", :width=>"100px", :hight=>"100px"%>
+        <%=link_to image_tag (session[:user].photo :class => "rounded", :width=>"100px", :hight=>"100px"),"/home"%>
       <%else%>
-        <%=image_tag "no_avatar.jpg",:class => "rounded", :width=>"100px", :hight=>"100px"%>
+        <%= link_to image_tag("no_avatar.jpg", :class => "rounded", :width=>"100px", :hight=>"100px"), "/home" %>
       <%end%>
     <%end%>
 

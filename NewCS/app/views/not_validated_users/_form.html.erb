@@ -1,38 +1,40 @@
 <%= form_for(@not_validated_user, :remote => true,:url => "/not_validated_users/create") do |f| %>
 
   <div class="field">
-    <%= f.label :login %><br />
+    <%= f.label "Логин" %><br />
     <%= f.text_field :login %>
   </div>
   <div class="field">
-    <%= f.label :password %><br />
+    <%= f.label "Пароль"%><br />
     <%= f.text_field :password %>
   </div>
-<div class="field">
-    <%= f.label :first_name %><br />
+  <div class="field">
+    <%= f.label "Имя" %><br />
     <%= f.text_field :first_name %>
   </div>
   <div class="field">
-    <%= f.label :second_name %><br />
+    <%= f.label "Фамилия" %><br />
     <%= f.text_field :second_name %>
   </div>
   <div class="field">
-    <%= f.label :last_name %><br />
+    <%= f.label "Отчество" %><br />
     <%= f.text_field :last_name %>
   </div>
   <div class="field">
-    <%= f.label :email %><br />
+    <%= f.label "E-mail" %><br />
     <%= f.text_field :email %>
   </div>
   <div class="field">
-    <%= f.label :sex %><br />
+    <%= f.label "Пол" %><br />
     <%= f.text_field :sex %>
   </div>
-  <div class="field">
-    <%= f.label :role %><br />
-    <div> <%=f.select :role,{"student"=>3,"prepod"=>2,}%></div>
+
+  <div class="styled_select">
+    <%= f.label "Роль" %><br />
+    <%=f.select :role,{"student"=>3,"prepod"=>2,}%>
   </div>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Подать заявку", :class=>"button_send_message button_blue" %>
   </div>
 <% end %>
