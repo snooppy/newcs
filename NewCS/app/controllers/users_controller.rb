@@ -1,11 +1,44 @@
 # encoding: utf-8
 class UsersController < ApplicationController
+ 
+  require 'net/ldap'
   
   def sign_in
-    @user = User.find_all_by_login_and_password(params[:user][:login],params[:user][:password])
+        
+    ldap = Net::LDAP.new(
+      host: '192.168.56.101',
+      :auth => {
+        :method => :simple,
+        :username => "cn=root, o=newcs, dc=ua",
+        :password => "qwerty"
+      }
+    )        
+
+    @user = User.find_all_by_login(params[:user][:login])[0]
+    
+    if ! @user.nil?   
+      if (@user[:role] == "0") 
+        result = ldap.bind_as(:base => "ou=admins, o=newcs, dc=ua",
+          :filter => "(cn="+params[:user][:login]+")",
+          :password => params[:user][:password])
+      elsif (@user[:role] == "1" )
+        result = ldap.bind_as(:base => "ou=moderators, o=newcs, dc=ua",
+          :filter => "(cn="+params[:user][:login]+")",
+          :password => params[:user][:password])      
+      elsif (@user[:role] == "2" )
+        result = ldap.bind_as(:base => "ou=prepods, o=newcs, dc=ua",
+          :filter => "(cn="+params[:user][:login]+")",
+          :password => params[:user][:password])       
+      elsif (@user[:role] == "3" )
+        result = ldap.bind_as(:base => "ou=users, o=newcs, dc=ua",
+          :filter => "(cn="+params[:user][:login]+")",
+          :password => params[:user][:password])
+      end           
+    end    
+    
     respond_to do |format|
-      if ! @user.empty?
-        session[:user] = @user[0]           
+      if result && ! @user.nil?
+        session[:user] = @user           
         if !session[:user][:settings_id].nil?
           session[:user_options] = Setting.find( session[:user][:settings_id])
         else
@@ -16,13 +49,14 @@ class UsersController < ApplicationController
       else
         format.js
         @errors="error"
-        format.json { render json: @errors, status: ":unprocessable_entity" }
+        format.json { render json: @errors, status: ":unprocessable_entity" }        
       end
     end
   end
   
   def sign_out
     session[:user] = nil
+    session[:user_options] = nil
     redirect_to "/"
   end
   
@@ -52,12 +86,21 @@ class UsersController < ApplicationController
   # GET /users/new
   # GET /users/new.json
   def new
-    @user = User.new
+    if session[:user].nil? 
+      @user = User.new
     
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @user }
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render json: @user }
+      end
+    else 
+      respond_to do |format|
+        format.html { redirect_to_back }
+        format.json { head :ok }
+      end
     end
+    
+    
   end
 
   # GET /users/1/edit
@@ -108,4 +151,64 @@ class UsersController < ApplicationController
       format.json { head :ok }
     end
   end
+  
+  def add_user
+    if ! session[:user].nil? && session[:user][:role] == '0'
+      @user = User.new
+
+      respond_to do |format|
+        format.html # add_user.html.erb
+        format.json { render json: @user }
+      end
+    else 
+      respond_to do |format|
+        format.html { redirect_to_back }
+        format.json { head :ok }
+      end
+    end
+  end
+  
+  
+  def add_user_to_ldap
+    @user = User.new(params[:user])                
+    
+    if ! @user.nil?   
+      if (@user[:role] == "0") 
+        dn = "cn="+@user[:login]+", ou=admins, o=newcs, dc=ua"
+      elsif (@user[:role] == "1" )
+        dn = "cn="+@user[:login]+", ou=moderators, o=newcs, dc=ua"
+      elsif (@user[:role] == "2" )
+        dn = "cn="+@user[:login]+", ou=prepods, o=newcs, dc=ua"
+      elsif (@user[:role] == "3" )
+        dn = "cn="+@user[:login]+", ou=users, o=newcs, dc=ua"
+      end           
+    
+      attr = {
+        :cn => @user[:login],
+        :objectclass => ["organizationalperson", "inetorgperson"],
+        :gn => @user[:first_name],
+        :sn => @user[:second_name],
+        :mail => @user[:email],
+        :userpassword => @user[:password],
+      }
+    
+      Net::LDAP.open(
+        host: '192.168.56.101',
+        :auth => {
+          :method => :simple,
+          :username => "cn=root, o=newcs, dc=ua",
+          :password => "qwerty"
+        }) do |ldap|
+        
+        result = ldap.add(:dn => dn, :attributes => attr)  
+
+        if result
+          render :partial => "/users/add_user_to_ldap"
+        else
+          render :partial => "/users/add_user_to_ldap_fail"
+        end
+      end    
+    end
+  end
+  
 end

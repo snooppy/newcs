@@ -1,0 +1,3 @@
+ldapadd -f test.ldif -D "cn=root,o=newcs,dc=ua" -w qwerty
+ldapsearch -x -b "ou=moderators,o=newcs,dc=ua" "(objectclass=*)"
+ldapdelete -x -w qwerty -D "cn=root,o=newcs,dc=ua" "cn=test1,ou=prepods,o=newcs,dc=ua"

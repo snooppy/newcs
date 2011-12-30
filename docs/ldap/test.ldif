@@ -1,0 +1,68 @@
+dn: o=newcs,dc=ua
+objectclass: dcObject
+objectclass: organization
+o: newcs
+dc: ua
+
+#-----------------------------------------------------------------------
+dn: ou=admins,o=newcs,dc=ua
+ou: admins
+objectclass: top
+objectclass: organizationalUnit
+
+dn: cn=root,ou=admins,o=newcs,dc=ua
+objectclass: organizationalperson
+objectclass: inetorgperson
+cn: root
+mail: test@mail.ru
+gn: root
+sn: root
+userPassword: root
+
+#-----------------------------------------------------------------------
+dn: ou=moderators,o=newcs,dc=ua
+ou: moderators
+objectclass: top
+objectclass: organizationalUnit
+
+dn: cn=moderator,ou=moderators,o=newcs,dc=ua
+objectclass: organizationalperson
+objectclass: inetorgperson
+cn: moderator
+mail: test@mail.ru
+gn: moderator
+sn: moderator
+userPassword: moderator
+
+
+#-----------------------------------------------------------------------
+dn: ou=prepods,o=newcs,dc=ua
+ou: prepods
+objectclass: top
+objectclass: organizationalUnit
+
+dn: cn=prepod,ou=prepods,o=newcs,dc=ua
+objectclass: organizationalperson
+objectclass: inetorgperson
+cn: prepod
+mail: test@mail.ru
+gn: prepod
+sn: prepod
+userPassword: prepod
+
+
+#-----------------------------------------------------------------------
+dn: ou=users,o=newcs,dc=ua
+ou: users
+objectclass: top
+objectclass: organizationalUnit
+
+dn: cn=qwerty,ou=users,o=newcs,dc=ua
+objectclass: organizationalperson
+objectclass: inetorgperson
+cn: qwerty
+mail: qwerty@mail.ru
+gn: qwerty
+sn: qwerty
+userPassword: qwerty
+

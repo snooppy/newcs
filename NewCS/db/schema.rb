@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111225184451) do
+ActiveRecord::Schema.define(:version => 20111228203959) do
 
   create_table "documents", :force => true do |t|
     t.string   "path"
@@ -79,6 +79,19 @@ ActiveRecord::Schema.define(:version => 20111225184451) do
     t.text     "subject"
     t.integer  "userto_id"
     t.integer  "userfrom_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "not_validated_users", :force => true do |t|
+    t.string   "login"
+    t.string   "password"
+    t.string   "first_name"
+    t.string   "second_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "sex"
+    t.string   "role"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

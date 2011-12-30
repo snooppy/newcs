@@ -1,0 +1,44 @@
+yum install -y httpd mod_fcgid lighttpd-fastcgi httpd-devel mod_ssl
+
+gem install passenger
+passenger-install-apache2-module
+
+
+
+
+
+
+
+
+
+#LoadModule passenger_module /usr/local/rvm/gems/ruby-1.9.2-p290\@rails3tutorial/gems/passenger-3.0.11/ext/apache2/mod_passenger.so
+#PassengerRoot /usr/local/rvm/gems/ruby-1.9.2-p290\@rails3tutorial/gems/passenger-3.0.11
+#PassengerRuby /usr/local/rvm/wrappers/ruby-1.9.2-p290\@rails3tutorial/ruby
+
+LoadModule passenger_module /usr/local/rvm/gems/ruby/gems/passenger-3.0.11/ext/apache2/mod_passenger.so
+PassengerRoot /usr/local/rvm/gems/ruby/gems/passenger-3.0.11
+PassengerRuby /usr/local/rvm/wrappers/ruby/ruby
+
+<VirtualHost *:80>
+    RewriteEngine on
+    RewriteRule ^(.*) https://%{HTTP:Host}$1
+    RewriteRule ^(.*)(:443)(.*) $1$3
+    RewriteRule ^https://([^/]*)(/?.*) https://$1:443$2 [R]
+</VirtualHost>
+
+<VirtualHost *:443>
+    ServerName cs.stu
+    DocumentRoot /var/www/cs/public
+    <Directory /var/www/cs/public>
+		AllowOverride all              
+		Options -MultiViews           
+    </Directory>
+    SSLEngine on
+    SSLCertificateFile /home/server.crt
+    SSLCertificateKeyFile /home/server.key
+</VirtualHost>
+
+
+
+
+RAILS_ENV=production bundle exec rake assets:precompile

@@ -1,11 +1,11 @@
-<%= form_for(@user, :remote => true,:url => "/users/create") do |f| %>
+<%= form_for(@user, :remote => true,:url => "/users/add_user_to_ldap") do |f| %>
   <div class="field">
     <%= f.label :login %><br />
     <%= f.text_field :login %><br>
     <%= f.label :password %><br />
     <%= f.text_field :password %><br>
     <%= f.label :role %><br />
-    <div> <%=f.select :role,{"student"=>3,"prepod"=>2,}%></div>
+    <div> <%=f.select :role,{"admin"=>0,"moder"=>1,"prepod"=>2,"student"=>3}%></div>
     <%= f.label :first_name %><br />
     <%= f.text_field :first_name %><br>
     <%= f.label :second_name %><br />
@@ -15,6 +15,7 @@
     <%= f.label :email %><br />
     <%= f.text_field :email %><br>
     
+    # TODO add some fields
   </div>
   <div class="actions">
     <%= f.submit %>

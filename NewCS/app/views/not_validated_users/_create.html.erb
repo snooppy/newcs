@@ -1,0 +1,11 @@
+<% if @not_validated_user.errors.any? %>
+  $("#notification_area").replaceWith('<div id ="notification_area"><ul><%@not_validated_user.errors.full_users.each do |msg| %><li><%= msg %></li><% end %></ul><%=@not_validated_user.errors.full_users.count%></div>');
+  $("#notification_area").addClass("notif_error");
+<%else%>
+  $("#notification_area").replaceWith('<div id ="notification_area">Ваша заявка на регистрацию принята к рассмотрению</div>');
+  $("#notification_area").addClass("notif_success");
+<% end %>
+
+$("#notification_area").slideDown("slow");
+$("#notification_area").delay(2000);
+$("#notification_area").slideUp("slow");

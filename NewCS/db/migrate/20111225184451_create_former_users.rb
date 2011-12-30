@@ -1,6 +1,6 @@
 class CreateFormerUsers < ActiveRecord::Migration
   
-    def change
+  def change
     begin
       down
       up
@@ -33,7 +33,7 @@ class CreateFormerUsers < ActiveRecord::Migration
     end
   end
   
-    def down
+  def down
     drop_table :former_users
   end
 end

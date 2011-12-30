@@ -1,0 +1,204 @@
+<script>
+  $(document).ready(function(){
+
+    $("#my_publications").bind("mouseenter",function(){
+      $("#my_publications .home_submenu_button").slideDown();
+    }).bind("mouseleave",function(){
+      $("#my_publications .home_submenu_button").slideUp();
+    });   
+    
+    $("#my_messages").bind("mouseenter",function(){
+      $("#my_messages .home_submenu_button").slideDown();
+    }).bind("mouseleave",function(){
+      $("#my_messages .home_submenu_button").slideUp();
+    }); 
+    
+    $("#my_files").bind("mouseenter",function(){
+      $("#my_files .home_submenu_button").slideDown();
+    }).bind("mouseleave",function(){
+      $("#my_files .home_submenu_button").slideUp();
+    }); 
+    
+    $("#my_calendar ").bind("mouseenter",function(){
+      $("#my_calendar .home_submenu_button").slideDown();
+    }).bind("mouseleave",function(){
+      $("#my_calendar .home_submenu_button").slideUp();
+    }); 
+    
+    $("#my_subjects").bind("mouseenter",function(){
+      $("#my_subjects .home_submenu_button").slideDown();
+    }).bind("mouseleave",function(){
+      $("#my_subjects .home_submenu_button").slideUp();
+    });      
+    
+    $("#my_marks").bind("mouseenter",function(){
+      $("#my_marks .home_submenu_button").slideDown();
+    }).bind("mouseleave",function(){
+      $("#my_marks .home_submenu_button").slideUp();
+    }); 
+    
+    $("#my_settings").bind("mouseenter",function(){
+      $("#my_settings .home_submenu_button").slideDown();
+    }).bind("mouseleave",function(){
+      $("#my_settings .home_submenu_button").slideUp();
+    }); 
+  });
+  
+</script>
+
+<div id="user_home_menu">
+
+  <div id="my_publications" class="home_menu_part right">
+    <a href="/publications" class="home_menu_button">
+      <div style="float: left;">          
+        <img src="/assets/usershome/my_publications.png" width="64px" height="64px" > </img> 
+      </div>
+      <div style="margin-top: 7%">
+        Мои публикации
+      </div>
+    </a>
+
+    <div style="clear: both"></div>
+
+    <ul class="home_submenu_button">
+      <li><a href="/publications/new">Создать новую</a></li>
+      <li><a href="/publications">По предметам</a></li>
+    </ul>
+
+  </div>
+
+  <div id="my_messages" class="home_menu_part right" >
+    <a href="/messages"  class="home_menu_button">
+      <div style="float: left; margin-right: 5px;">
+        <img src="/assets/usershome/my_messages.png" width="64px" height="64px" > </img>
+      </div>
+      <div style="margin-top: 7%;">
+        Мои сообщения
+      </div>
+    </a>
+
+    <div style="clear: both"></div>
+
+    <ul class="home_submenu_button">
+      <li><a href="/messages">Написать новое </a></li>
+      <li><a href="/messages">Входящие</a></li>
+      <li><a href="/messages">Исходящие</a></li>
+      <li><a href="/messages/dialog/<%=session[:user].id%>">Диалог</a></li>
+    </ul>
+  </div>
+
+
+  <div id="my_files" class="home_menu_part">
+    <a href="#" class="home_menu_button">
+      <div style="float: left;">
+        <img src="/assets/usershome/my_files1.png" width="64px" height="64px" > </img>
+      </div>
+      <div style="margin-top: 12%">
+        Мои файлы
+      </div>
+    </a>
+
+    <div style="clear: both"></div>
+
+    <ul class="home_submenu_button">
+      <li><a href="#">Методические указания</a></li>
+      <li><a href="#">Софт</a></li>
+      <li><a href="#">Примеры</a></li>
+      <li><a href="#">По предметам</a></li>
+    </ul>
+  </div>
+
+  <div style="clear: both"></div>
+
+  <div id="my_calendar" class="home_menu_part right">
+    <a href="/shedules" class="home_menu_button">
+      <div style="float: left;">  
+        <img src="/assets/usershome/my_calendar.png" width="64px" height="64px" > </img>
+      </div>
+      <div style="margin-top: 7%">
+        Мое рассписание
+      </div>
+    </a>
+
+    <div style="clear: both"></div>
+
+    <ul class="home_submenu_button">
+      <li><a href="#">По предметам</a></li>
+      <li><a href="#">По группам</a></li>
+    </ul>
+  </div>
+
+  <div id="my_subjects" class="home_menu_part right">
+    <a href="#" class="home_menu_button">
+      <div style="float: left;">
+        <img src="/assets/usershome/my_subjects.png" width="64px" height="64px" > </img>
+      </div>
+      <div style="margin-top: 7%">
+        Мои предметы
+      </div>
+    </a>
+
+    <div style="clear: both"></div>
+
+    <ul class="home_submenu_button">
+      <li><a href="#">Методические указания</a></li>
+      <li><a href="#">Студенты</a></li>
+      <li><a href="#">Рассписание</a></li>
+      <li><a href="#">Курсы</a></li>
+      <li><a href="#">Оценки</a></li>
+    </ul>
+  </div>
+
+
+
+  <div id="my_marks" class="home_menu_part right">
+    <a href="#" class="home_menu_button">
+      <div style="float: left;">
+        <img src="/assets/usershome/my_marks.png" width="64px" height="64px" > </img>
+      </div>
+      <div style="margin-top: 12%">
+        Мои оценки
+      </div>
+    </a>
+
+    <div style="clear: both"></div>
+
+    <ul class="home_submenu_button">
+      <li><a href="#">По предметам</a></li>
+      <li><a href="#">По группам</a></li>
+    </ul>
+  </div>
+
+  <div style="clear: both"></div>
+
+  <div id="my_settings" class="home_menu_part right">
+    <a href="/settings/<%=session[:user][:settings_id].to_s%>/edit" class="home_menu_button">
+      <div style="float: left;">
+        <img src="/assets/usershome/my_settings.png" width="64px" height="64px" > </img>
+      </div>
+      <div style="margin-top: 7%">
+        Мои данные и настройки
+      </div>
+    </a>
+
+    <div style="clear: both"></div>
+
+    <ul class="home_submenu_button">
+      <li><a href="#">Количество сообщений</a></li>
+      <li><a href="#">Фото</a></li>
+      <li><a href="#">Кто может писать мне</a></li>
+    </ul>
+  </div>
+
+  <div id="my_exit" class="home_menu_part">
+    <a href="#" class="home_menu_button">
+      <div style="float: left; margin-right: 5px;">
+        <img src="/assets/usershome/my_exit.png" width="60px" height="60px" > </img>
+      </div>
+      <div style="margin-top: 12%">
+        Выйти
+      </div>
+    </a>
+  </div>
+
+</div>

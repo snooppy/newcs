@@ -1,0 +1,6 @@
+$("#notification_area").replaceWith('<div style="text-align: center;" id ="notification_area"><b style="color: red;">FAIL!</b> Пользователь <%= @user[:login]%> не добавлен</div>');
+$("#notification_area").addClass("notif_error");
+
+$("#notification_area").slideDown("slow");
+$("#notification_area").delay(2000);
+$("#notification_area").slideUp("slow");

@@ -24,7 +24,7 @@ test:
 production:
       host: localhost
       adapter: mysql2
-      database: newcs_prodaction
+      database: newcs_production
       port: 3306
       username: root
       password: qwerty

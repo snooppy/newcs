@@ -1,0 +1,28 @@
+<h1>Not registered users</h1>
+<br/>
+<table>
+  <tr>
+    <th>Login</th>
+    <th>Password</th>
+    <th>Second name</th>
+    <th>Last name</th>
+    <th>Email</th>
+    <th>Sex</th>
+    <th>Role</th>
+    <th></th>
+  </tr>
+
+<% @not_validated_users.each do |not_validated_user| %>
+  <tr>
+    <td><%= not_validated_user.login %></td>
+    <td><%= not_validated_user.password %></td>
+    <td><%= not_validated_user.first_name %></td>    
+    <td><%= not_validated_user.second_name %></td>
+    <td><%= not_validated_user.last_name %></td>
+    <td><%= not_validated_user.email %></td>
+    <td><%= not_validated_user.sex %></td>
+    <td><%= not_validated_user.role %></td>
+    <td><%= link_to 'Register', not_validated_user, :method => :delete %></td>    
+  </tr>
+<% end %>
+</table>
