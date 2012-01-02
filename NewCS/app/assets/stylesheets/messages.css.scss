@@ -272,8 +272,8 @@ td#im_user_holder {
 /*--------------------------------Autocomplete--------------------------------*/
 .autocomplete_w1 { 
     position:absolute;
-    top:300px; 
-    left:100px; 
+    top:280px; 
+    left:221px; 
     /* IE6 fix: */ 
     _background:none; 
     _top:1px; 
@@ -293,10 +293,14 @@ td#im_user_holder {
     _height:350px; 
     _margin:0px 6px 6px 0; 
     overflow-x:hidden;
+    border: solid 1px #C9C9C9;
+    box-shadow: rgba(0,0,0, 0.15) 0px 0px 8px;
+    -moz-box-shadow: rgba(0,0,0, 0.15) 0px 0px 8px;
+    -webkit-box-shadow: rgba(0,0,0, 0.15) 0px 0px 8px;
 }
 
 .autocomplete .selected { 
-    background:#F0F0F0; 
+    background:#dee5eb; 
 }
 
 .autocomplete div {

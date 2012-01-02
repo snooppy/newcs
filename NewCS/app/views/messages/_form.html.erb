@@ -1,28 +1,69 @@
 <script type="text/javascript">
-  function send_autocomplit(text){
-    if (!$.isEmptyObject(text)){
-      $.ajax({
-        type: 'GET',
-        url: '/messages/users_list/'+text,
-        dataType: "html",
-        success: function (data){
-          $('#users_list').html(data)
-        } 
-      });
-    }else{
-      $('#users_list').html("");
-    }
-    
-    
-  }
   
+  $(document).ready(
+  function(){
+    $('#login_input_fake').keyup(function (e) { 
+      
+      switch (e.keyCode) {
+        // User pressed "up" arrow
+        case 38:
+          if($('#autocomplete_query').length){
+            $prevElem= $('#autocomplete_query .selected').prev();
+            if($prevElem.length>0){
+              $('#autocomplete_query .selected').removeClass('selected');
+              $prevElem.addClass('selected');
+            }
+          }
+          break;
+
+        case 40:
+          // User pressed "down" arrow
+          if($('#autocomplete_query').length){
+            $nextElem= $('#autocomplete_query .selected').next();
+            if($nextElem.length>0){
+              $('#autocomplete_query .selected').removeClass('selected');
+              $nextElem.addClass('selected');
+            }
+          }
+          break;  
+          
+        case 13:
+          // User pressed "enter" arrow
+          if($('#autocomplete_query').length){
+            $currElem= $('#autocomplete_query .selected')
+            var array = $currElem.attr('id').split('_split_');
+            var firstValue = array[0];
+            var secondValue = array[1];
+            $('#login_input').val(firstValue);
+            $('#login_input_fake').val(secondValue);
+            $('#users_list').html("");
+          }
+          break;    
+        
+        default:
+          if ($('#login_input_fake').val()!=""){
+            $.ajax({
+              type: 'GET',
+              url: '/messages/users_list/'+$('#login_input_fake').val(),
+              dataType: "html",
+              success: function (data){
+                $('#users_list').html(data)
+              } 
+            });
+          }else{
+            $('#users_list').html("");
+          }
+          break;
+      }
+    });               
+  });
 </script>
 <%@message = Message.new%>
 <%= form_for(@message, :remote => true, :url => "/messages/create") do |f| %>
   <strong>Кому:</strong>
   <div>
     <%=f.hidden_field :userto_id, :style=>"width:90%;", :id=>"login_input"  %>
-    <%=text_field_tag  "","",:style=>"width:90%;", :onkeyup=>"send_autocomplit(this.value);", :id=>"login_input_fake" %>
+    <%=text_field_tag  "","",:style=>"width:90%;", :id=>"login_input_fake" %>
     <div id="users_list"></div>
   </div>
   <br/>

@@ -1,10 +1,27 @@
-<%if @us.count>0 %>
-  <div class="autocomplete_w1">
-    <div style="width:299px;" id="Autocomplete_query" class="autocomplete">
-      <% @us.each do |user| %>
-        <div onclick="$('#login_input').val('<%=user.id%>');$('#login_input_fake').val('<%=user.login_fake%>');"><%= render :inline=> user[:login]  %></div>
-      <% end %>
+<script>
+  $('#autocomplete_query div').click(function () {
+    var array = this.id.split('_split_');
+    var firstValue = array[0];
+    var secondValue = array[1];
+    $('#login_input').val(firstValue);
+    $('#login_input_fake').val(secondValue);
+    $('#users_list').html("");
+  });
 
+</script>
+
+<%if @us.count>0 %>
+  <%first=false%>
+  <div class="autocomplete_w1">
+    <div style="width:299px;" id="autocomplete_query" class="autocomplete">
+      <% @us.each do |user| %>
+        <%if first==false%>
+          <div class="selected" id="<%=user.id%>_split_<%=user.login_fake%>" ><%= render :inline=> user[:login]  %></div>
+          <%first=true%>
+        <%else%>
+          <div id="<%=user.id%>_split_<%=user.login_fake%>"><%= render :inline=> user[:login]  %></div>
+        <%end%>       
+      <% end %>
     </div>
   </div>
 <%end%>
