@@ -1,27 +1,35 @@
 <div id="title">Удаленные пользователи</div>
-<table>
-  <tr>
-    <th>Логин</th>
-    <th>Title</th>
-    <th>Content</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
 
-  <% @former_users.each do |former_user| %>
+<table class="table" cellspacing="0"> 
+  <tbody>
     <tr>
-      <td><%= former_user.login %></td>
-      <td><%= former_user.first_name %></td>
-      <td><%= former_user.second_name %></td>
-      <td><%= former_user.last_name %></td>
-      <td><%#= link_to 'Show', former_user %></td>
-      <td><%#= link_to 'Edit', edit_former_user_path(former_user) %></td>
-      <td><%#= link_to 'Destroy', former_user, confirm: 'Are you sure?', method: :delete %></td>
+      <th>Логин</th> 
+      <th>Пароль</th> 
+      <th>Имя</th> 
+      <th>Фамилия</th> 
+      <th>Отчество</th> 
+      <th>E-mail</th> 
+      <th>Пол</th> 
+      <th>Роль</th> 
     </tr>
-  <% end %>
+    <% class_even=0  %>
+    <%@former_users.each do |former_user|%> 
+      <%if class_even==1%>
+        <%class_even=0%>
+        <tr  class="even"> 
+        <%else%>
+          <%class_even=1%>
+        <tr> 
+        <%end%>
+        <td><%= former_user.login %></td> 
+        <td><%= former_user.password %></td> 
+        <td><%= former_user.first_name %></td> 
+        <td><%= former_user.second_name %></td> 
+        <td><%= former_user.last_name %></td> 
+        <td><%= former_user.email %></td> 
+        <td><%= former_user.sex %></td> 
+        <td><%= former_user.role %></td> 
+      </tr> 
+    <% end %>
+  </tbody>
 </table>
-
-<br />
-
-<%#= link_to 'New Former user', new_former_user_path %>

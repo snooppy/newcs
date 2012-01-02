@@ -3,12 +3,16 @@ class FormerUsersController < ApplicationController
   # GET /former_users
   # GET /former_users.json
   def index
-    @former_users = FormerUser.all
-    @title = "Удаленные пользователи"
+    if !session[:user].nil? &&  session[:user][:role] == '0'
+      @former_users = FormerUser.all
+      @title = "Удаленные пользователи"
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @former_users }
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: @former_users }
+      end
+    else
+      redirect_to_back
     end
   end
 
@@ -81,5 +85,9 @@ class FormerUsersController < ApplicationController
       format.html { redirect_to former_users_url }
       format.json { head :ok }
     end
+  end
+  
+  def forbiden
+    "/pages/403.html.erb"
   end
 end
