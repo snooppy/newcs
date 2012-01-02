@@ -1,6 +1,6 @@
 <script type="text/javascript">
   function send_autocomplit(text){
-    if ($(text)!=""){
+    if ($(text).length>0){
       $.ajax({
         type: 'GET',
         url: '/messages/users_list/'+text,
