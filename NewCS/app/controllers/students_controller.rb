@@ -14,13 +14,17 @@ class StudentsController < ApplicationController
 
   # GET /students/1
   # GET /students/1.json
-  def show
-    @student = Student.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @student }
-    end
+  def show    
+    if params[:id].to_i == session[:user][:id]
+      @student = Student.find(params[:id])
+    
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @student }
+      end
+    else
+      redirect_to_back
+    end  
   end
 
   # GET /students/new
@@ -36,7 +40,11 @@ class StudentsController < ApplicationController
 
   # GET /students/1/edit
   def edit
-    @student = Student.find(params[:id])
+    if params[:id] == session[:user][:id]      
+      @student = Student.find(params[:id])
+    else
+      redirect_to_back
+    end   
   end
 
   # POST /students

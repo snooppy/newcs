@@ -1,5 +1,7 @@
 NewCS::Application.routes.draw do    
-
+ 
+  match 'department_info' => 'pages#department_info', :via=>[:get]
+  
   match 'home' => 'pages#home', :via=>[:get]
   
   #user menu settings

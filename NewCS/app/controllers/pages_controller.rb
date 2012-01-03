@@ -23,4 +23,8 @@ class PagesController < ApplicationController
     "/pages/403.html.erb"
   end
   
+  def department_info
+    render :action => "department_info"
+  end
+  
 end
