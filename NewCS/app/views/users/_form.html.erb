@@ -5,7 +5,7 @@
     <%= f.label :password %><br />
     <%= f.text_field :password %><br>
     <%= f.label :role %><br />
-    <div> <%=f.select :role,{"student"=>3,"prepod"=>2,}%></div>
+    <div> <%=f.select :role,{"student"=>ROLE_STUDENT,"prepod"=>ROLE_PREPOD,}%></div>
     <%= f.label :first_name %><br />
     <%= f.text_field :first_name %><br>
     <%= f.label :second_name %><br />

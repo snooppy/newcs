@@ -7,15 +7,16 @@
     <th></th>
   </tr>
 
-<% @prepods.each do |prepod| %>
-  <tr>
-    <td><%= link_to 'Show', prepod %></td>
-    <td><%= link_to 'Edit', edit_prepod_path(prepod) %></td>
-    <td><%= link_to 'Destroy', prepod, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+  <% @prepods.each do |prepod| %>
+    <tr>
+      <td>    
+        <%if prepod.photo?%>
+          <%=image_tag (prepod.photo :class => "rounded", :width=>"100px", :hight=>"100px")%>
+        <%else%>
+          <%=image_tag("no_avatar.jpg", :class => "rounded", :width=>"100px", :hight=>"100px")%>
+        <%end%>
+      </td>
+      <td><%= prepod.second_name %>&nbsp;<%= prepod.first_name %>&nbsp;<%= prepod.last_name %></td>    
+    </tr>
+  <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New Prepod', new_prepod_path %>

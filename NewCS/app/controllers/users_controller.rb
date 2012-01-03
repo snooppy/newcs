@@ -6,31 +6,31 @@ class UsersController < ApplicationController
   def sign_in
         
     ldap = Net::LDAP.new(
-      host: '192.168.73.151',
+      host: LDAP_SERVER,
       :auth => {
         :method => :simple,
-        :username => "cn=root, o=newcs, dc=ua",
-        :password => "qwerty"
+        :username => LDAP_ROOT,
+        :password => LDAP_ROOT_PASSWORD
       }
     )        
 
     @user = User.find_all_by_login(params[:user][:login])[0]
     
     if ! @user.nil?   
-      if (@user[:role] == "0") 
-        result = ldap.bind_as(:base => "ou=admins, o=newcs, dc=ua",
+      if (@user[:role] == ROLE_ADMIN ) 
+        result = ldap.bind_as(:base => LDAP_ADMIN_BASE,
           :filter => "(cn="+params[:user][:login]+")",
           :password => params[:user][:password])
-      elsif (@user[:role] == "1" )
-        result = ldap.bind_as(:base => "ou=moderators, o=newcs, dc=ua",
+      elsif (@user[:role] == ROLE_MODERATOR )
+        result = ldap.bind_as(:base => LDAP_MODERATOR_BASE,
           :filter => "(cn="+params[:user][:login]+")",
           :password => params[:user][:password])      
-      elsif (@user[:role] == "2" )
-        result = ldap.bind_as(:base => "ou=prepods, o=newcs, dc=ua",
+      elsif (@user[:role] == ROLE_PREPOD )
+        result = ldap.bind_as(:base => LDAP_PREPOD_BASE,
           :filter => "(cn="+params[:user][:login]+")",
           :password => params[:user][:password])       
-      elsif (@user[:role] == "3" )
-        result = ldap.bind_as(:base => "ou=users, o=newcs, dc=ua",
+      elsif (@user[:role] == ROLE_STUDENT )
+        result = ldap.bind_as(:base => LDAP_STUDENT_BASE,
           :filter => "(cn="+params[:user][:login]+")",
           :password => params[:user][:password])
       end           
@@ -57,7 +57,7 @@ class UsersController < ApplicationController
   def sign_out
     session[:user] = nil
     session[:user_options] = nil
-    redirect_to "/"
+    redirect_to_back
   end
   
   # GET /users
@@ -153,7 +153,7 @@ class UsersController < ApplicationController
   end
   
   def add_user
-    if ! session[:user].nil? && session[:user][:role] == '0'
+    if ! session[:user].nil? && session[:user][:role] == ROLE_ADMIN
       @user = User.new
 
       respond_to do |format|
@@ -173,14 +173,14 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])                
     
     if ! @user.nil?   
-      if (@user[:role] == "0") 
-        dn = "cn="+@user[:login]+", ou=admins, o=newcs, dc=ua"
-      elsif (@user[:role] == "1" )
-        dn = "cn="+@user[:login]+", ou=moderators, o=newcs, dc=ua"
-      elsif (@user[:role] == "2" )
-        dn = "cn="+@user[:login]+", ou=prepods, o=newcs, dc=ua"
-      elsif (@user[:role] == "3" )
-        dn = "cn="+@user[:login]+", ou=users, o=newcs, dc=ua"
+      if (@user[:role] == ROLE_ADMIN ) 
+        dn = "cn="+@user[:login]+", " + LDAP_ADMIN_BASE
+      elsif (@user[:role] == ROLE_MODERATOR )
+        dn = "cn="+@user[:login]+", " + LDAP_MODERATOR_BASE
+      elsif (@user[:role] == ROLE_PREPOD )
+        dn = "cn="+@user[:login]+", " + LDAP_PREPOD_BASE
+      elsif (@user[:role] == ROLE_STUDENT )
+        dn = "cn="+@user[:login]+", " + LDAP_STUDENT_BASE
       end           
     
       attr = {
@@ -191,13 +191,13 @@ class UsersController < ApplicationController
         :mail => @user[:email],
         :userpassword => @user[:password],
       }
-    
+
       Net::LDAP.open(
-        host: '192.168.73.151',
+        host: LDAP_SERVER,
         :auth => {
           :method => :simple,
-          :username => "cn=root, o=newcs, dc=ua",
-          :password => "qwerty"
+          :username => LDAP_ROOT,
+          :password => LDAP_ROOT_PASSWORD
         }) do |ldap|
         
         result = ldap.add(:dn => dn, :attributes => attr)  

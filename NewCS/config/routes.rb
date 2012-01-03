@@ -66,7 +66,7 @@ NewCS::Application.routes.draw do
   match 'publications/:id/edit'     => 'publications#edit', :via=>[:get]
   match 'publications/new'     => 'publications#new', :via=>[:get]
   match 'publications'     => 'publications#index', :via=>[:get]
-  match 'publications/:page'     => 'publications#index', :via=>[:get], :constraints => { :page => /\d+/ }
+  match 'publications:page'     => 'publications#index', :via=>[:get], :constraints => { :page => /\d+/ }
   match 'publication/:id' => 'publications#show', :via=>[:get], :constraints => { :id => /\d+/ } #show one
   match 'publications/:todo/:page' => 'publications#index', :via=>[:get], :constraints => { :page => /\d+/ }
   match 'publications/:todo/:cond/:page' => 'publications#index', :via=>[:get], :constraints => { :page => /\d+/ }

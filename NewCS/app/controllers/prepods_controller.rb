@@ -3,7 +3,7 @@ class PrepodsController < ApplicationController
   # GET /prepods
   # GET /prepods.json
   def index
-    @prepods = Prepod.all
+    @prepods = Student.find_all_by_role ROLE_PREPOD
     @title = "Преподаватели"
     
     respond_to do |format|

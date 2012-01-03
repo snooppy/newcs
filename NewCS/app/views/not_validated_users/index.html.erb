@@ -29,7 +29,13 @@
         <td><%= not_validated_user.last_name %></td> 
         <td><%= not_validated_user.email %></td> 
         <td><%= not_validated_user.sex %></td> 
-        <td><%= not_validated_user.role %></td> 
+        <td>
+          <% if not_validated_user.role == ROLE_STUDENT %> 
+            Студент
+          <% else %>
+            Преподаватель
+          <% end %>
+        </td> 
         <td><%= link_to image_tag("thumbs-up.png"), not_validated_user, :method => :delete %>
       </tr> 
     <% end %>

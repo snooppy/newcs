@@ -2,7 +2,7 @@
 class NotValidatedUsersController < ApplicationController
   
   def index
-    if ! session[:user].nil? && session[:user][:role] == '0'
+    if ! session[:user].nil? && session[:user][:role] == ROLE_ADMIN
       @not_validated_users = NotValidatedUser.all
       @title="Пользователи, подавшие заявку на регистрацию"
       
@@ -58,15 +58,15 @@ class NotValidatedUsersController < ApplicationController
     @user.sex = @valid_user.sex
     @user.role = @valid_user.role
      
-    if (@user[:role] == "0") 
-      dn = "cn="+@user[:login]+", ou=admins, o=newcs, dc=ua"
-    elsif (@user[:role] == "1" )
-      dn = "cn="+@user[:login]+", ou=moderators, o=newcs, dc=ua"
-    elsif (@user[:role] == "2" )
-      dn = "cn="+@user[:login]+", ou=prepods, o=newcs, dc=ua"
-    elsif (@user[:role] == "3" )
-      dn = "cn="+@user[:login]+", ou=users, o=newcs, dc=ua"
-    end           
+    if (@user[:role] == ROLE_ADMIN ) 
+      dn = "cn="+@user[:login]+", " + LDAP_ADMIN_BASE
+    elsif (@user[:role] == ROLE_MODERATOR )
+      dn = "cn="+@user[:login]+", " + LDAP_MODERATOR_BASE
+    elsif (@user[:role] == ROLE_PREPOD )
+      dn = "cn="+@user[:login]+", " + LDAP_PREPOD_BASE
+    elsif (@user[:role] == ROLE_STUDENT )
+      dn = "cn="+@user[:login]+", " + LDAP_STUDENT_BASE
+    end            
     
     attr = {
       :cn => @user[:login],
@@ -78,11 +78,11 @@ class NotValidatedUsersController < ApplicationController
     }
     
     Net::LDAP.open(
-      host: '192.168.73.151',
+      host: LDAP_SERVER,
       :auth => {
         :method => :simple,
-        :username => "cn=root, o=newcs, dc=ua",
-        :password => "qwerty"
+        :username => LDAP_ROOT,
+        :password => LDAP_ROOT_PASSWORD
       }) do |ldap|
         
       result = ldap.add(:dn => dn, :attributes => attr)  

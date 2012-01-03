@@ -3,7 +3,7 @@ class FormerUsersController < ApplicationController
   # GET /former_users
   # GET /former_users.json
   def index
-    if !session[:user].nil? &&  session[:user][:role] == '0'
+    if !session[:user].nil? &&  session[:user][:role] == ROLE_ADMIN
       @former_users = FormerUser.all
       @title = "Удаленные пользователи"
 

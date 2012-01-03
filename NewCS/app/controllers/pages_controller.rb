@@ -2,13 +2,13 @@ class PagesController < ApplicationController
   
   def home
     if !session[:user].nil?
-      if session[:user][:role] == '0'
+      if session[:user][:role] == ROLE_ADMIN
         render :action => "admin_home"
-      elsif session[:user][:role] == '1'
+      elsif session[:user][:role] == ROLE_MODERATOR
         render :action => "moderator_home"
-      elsif session[:user][:role] == '2'
+      elsif session[:user][:role] == ROLE_PREPOD
         render :action => "prepod_home"
-      elsif session[:user][:role] == '3'        
+      elsif session[:user][:role] == ROLE_STUDENT
         render :action => "student_home"    
       else
         redirect_to_back

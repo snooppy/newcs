@@ -3,7 +3,7 @@ class StudentsController < ApplicationController
   # GET /students
   # GET /students.json
   def index
-    @students = Student.all
+    @students = Student.find_all_by_role ROLE_STUDENT
     @title = "Студенты"
     
     respond_to do |format|
