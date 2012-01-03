@@ -4,9 +4,9 @@
       <h2><%= pluralize(@setting.errors.count, "error") %> prohibited this setting from being saved:</h2>
 
       <ul>
-      <% @setting.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+        <% @setting.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
@@ -15,10 +15,12 @@
     <%= f.label :images %><br />
     <%= f.check_box :images %>
   </div>
-  <div class="field">
-    <%= f.label :students %><br />
-    <%= f.check_box :students %>
-  </div>
+  <%if session[:user][:role] == ROLE_PREPOD %>  
+    <div class="field">
+      <%= f.label :students %><br />
+      <%= f.check_box :students %>
+    </div>
+  <%end%>
   <div class="field">
     <%= f.label :subjects %><br />
     <%= f.check_box :subjects %>

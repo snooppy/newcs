@@ -3,40 +3,49 @@ if !session[:user].nil?
   @user_options = session[:user_options]
 %>
   <div>
-    <%if @user_options.nil? || @user_options[:students] %>
-      <%if session[:user].photo?%>
-        <%=link_to image_tag(session[:user].photo, :class => "rounded", :width=>"100px", :hight=>"100px"),"/home"%>
-      <%else%>
-        <%= link_to image_tag("no_avatar.jpg", :class => "rounded", :width=>"100px", :hight=>"100px"), "/home" %>
-      <%end%>
-    <%end%>
 
+    <%if session[:user].photo?%>
+      <%=link_to image_tag(session[:user].photo, :class => "rounded", :width=>"100px", :hight=>"100px"),"/home"%>
+    <%else%>
+      <%= link_to image_tag("no_avatar.jpg", :class => "rounded", :width=>"100px", :hight=>"100px"), "/home" %>
+    <%end%>
 
     <ul style="list-style: none;" >
       <%if @user_options.nil? || @user_options[:students] %>
-        <li ><%= link_to "My students", '/home' %></li>
+        <li ><%= link_to "Мой кабинет", '/home' %></li>
       <%end%>
-      <%if @user_options.nil? || @user_options[:students] %>
-        <li ><%= link_to "My students", '/students' %></li>
+      <%if session[:user][:role] == ROLE_PREPOD && ( @user_options.nil? || @user_options[:students] ) %>
+        <li ><%= link_to "Мои студенты", '/students' %></li>
       <%end%>
       <%if @user_options.nil? || @user_options[:subjects] %>
-        <li ><%= link_to "My subjects", '/subjects' %></li> 
+        <li ><%= link_to "Мои предметы", '/subjects' %></li> 
       <%end%>
       <%if @user_options.nil? || @user_options[:shedules] %>
-        <li ><%= link_to "My shedules", '/shedules' %></li>
+        <li ><%= link_to "Моё рассписание", '/shedules' %></li>
       <%end%>
       <%if @user_options.nil? || @user_options[:files] %>
-        <li ><%= link_to "My files", '/folders/show' %></li>  
+        <li ><%= link_to "Мои файлы", '/folders/show' %></li>  
       <%end%>
       <%if @user_options.nil? || @user_options[:publications] %>
-        <li ><%= link_to "My publications", '/publications' %></li>
+        <li ><%= link_to "Мои публикации", '/publications' %></li>
       <%end%>
       <%if @user_options.nil? || @user_options[:marks] %>
-        <li ><%= link_to "Marks", '#' %></li>  
+        <li ><%= link_to "Оценки", '#' %></li>  
       <%end%>
 
-      <li ><%= link_to "Messages", '/messages' %></li>
-      <li ><%= link_to "Settings", '/settings/'+session[:user][:settings_id].to_s+'/edit' %></li> 
+      <li ><%= link_to "Сообщения", '/messages' %></li>
+      <li >        
+        <% if ! session[:user][:settings_id].nil? %>
+          <%= link_to "Настройки", '/settings/'+session[:user][:settings_id].to_s+'/edit' %>
+        <%end%>
+      </li> 
+
+      <%if session[:user][:role] == ROLE_ADMIN %>
+        <li ><%= link_to "Заявки на регистрацию", '/users/register_users' %></li>
+      <%end%>
+      <%if session[:user][:role] == ROLE_MODERATOR %>
+        <li ><%= link_to "Непроверенные публикации", '/publications/not_validated' %></li>
+      <%end%>
 
     </ul>  
   </div>

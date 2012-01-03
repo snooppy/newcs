@@ -34,7 +34,11 @@ class SettingsController < ApplicationController
 
   # GET /settings/1/edit
   def edit
-    @setting = Setting.find(params[:id])
+    if ! session[:user].nil?
+      @setting = Setting.find(params[:id])
+    else
+      redirect_to_back
+    end   
   end
 
   # POST /settings
