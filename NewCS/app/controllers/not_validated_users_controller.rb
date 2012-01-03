@@ -19,13 +19,17 @@ class NotValidatedUsersController < ApplicationController
     end
   end
   
-  def new
-    @not_validated_user = NotValidatedUser.new
-    @title="Заполнение заявки на регистрацию"
+  def new    
+    if session[:user].nil?
+      @not_validated_user = NotValidatedUser.new
+      @title="Заполнение заявки на регистрацию"
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @not_validated_user }
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render json: @not_validated_user }
+      end
+    else       
+      redirect_to_back      
     end
   end
 

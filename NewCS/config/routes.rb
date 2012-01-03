@@ -43,20 +43,18 @@ NewCS::Application.routes.draw do
 
   resources :publication_types
 
-  match 'users' => 'users#index', :as => :users  
-  match 'users/new' => 'users#new'  
-  match 'users/create' => 'users#create', :via=>[:post]
+  #match 'users' => 'users#index', :as => :users  
+  #match 'users/new' => 'users#new'  
+  #match 'users/create' => 'users#create', :via=>[:post]
   match 'users/sign_in' => 'users#sign_in', :via=>[:get]
   match 'users/sign_out' => 'users#sign_out', :via=>[:get]    
   match 'users/add_user' => 'users#add_user'  
   match 'users/add_user_to_ldap' => 'users#add_user_to_ldap', :via=>[:post]  
-  
-  
   match 'not_validated_users/:id' => 'not_validated_users#register_user', :via=>[:delete], :as => :not_validated_user
   match 'users/register_users' => 'not_validated_users#index', :as => :not_validated_users  
   match 'users/registration' => 'not_validated_users#new'
   match 'not_validated_users/create' => 'not_validated_users#create', :via=>[:post] 
-  match 'users/:id' => 'users#show', :via=>[:get]  
+  #match 'users/:id' => 'users#show', :via=>[:get]  
   #  resources :not_validated_users
   
   
