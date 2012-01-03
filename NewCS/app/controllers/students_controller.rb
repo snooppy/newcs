@@ -40,7 +40,7 @@ class StudentsController < ApplicationController
 
   # GET /students/1/edit
   def edit
-    if params[:id].to_i == session[:user][:id]      
+    if ! session[:user].nil? && params[:id].to_i == session[:user][:id]      
       @student = Student.find(params[:id])
     else
       redirect_to_back

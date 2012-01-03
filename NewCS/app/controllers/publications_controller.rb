@@ -83,13 +83,19 @@ class PublicationsController < ApplicationController
   # GET /publications/new
   # GET /publications/new.json
   def new
-    @title = "Добавление новой публикации"
-    @publication = Publication.new
+    if ! session[:user].nil?
+      @title = "Добавление новой публикации"            
+      @publication = Publication.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @publication }
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render json: @publication }
+      end
+      
+    else
+      redirect_to_back
     end
+    
   end
 
   # GET /publications/1/edit
