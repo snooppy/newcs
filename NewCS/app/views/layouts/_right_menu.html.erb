@@ -47,6 +47,13 @@ if !session[:user].nil?
         <li ><%= link_to "Непроверенные публикации", '/publications/not_validated' %></li>
       <%end%>
 
+
+      <%if session[:user][:role] == ROLE_STUDENT %>
+        <li ><%= link_to "Мои данные", '/students/'+session[:user][:id].to_s+'/edit' %></li>
+      <%elsif session[:user][:role] == ROLE_PREPOD %>           
+        <li ><%= link_to "Мои данные", '/prepods/'+session[:user][:id].to_s+'/edit' %></li>
+      <%end%>
+
     </ul>  
   </div>
 <%end%>

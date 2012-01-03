@@ -36,7 +36,11 @@ class PrepodsController < ApplicationController
 
   # GET /prepods/1/edit
   def edit
-    @prepod = Prepod.find(params[:id])
+    if ! session[:user].nil? && params[:id].to_i == session[:user][:id]   
+      @prepod = Prepod.find(params[:id])
+    else
+      redirect_to_back
+    end  
   end
 
   # POST /prepods
@@ -62,7 +66,8 @@ class PrepodsController < ApplicationController
 
     respond_to do |format|
       if @prepod.update_attributes(params[:prepod])
-        format.html { redirect_to @prepod, notice: 'Prepod was successfully updated.' }
+        #        format.html { redirect_to @prepod, notice: 'Prepod was successfully updated.' }
+        format.html { redirect_to "/home", notice: 'Prepod was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

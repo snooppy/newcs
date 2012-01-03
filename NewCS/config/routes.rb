@@ -77,9 +77,15 @@ NewCS::Application.routes.draw do
   
   resources :groups
 
-  resources :prepods
+  match 'prepods' => 'prepods#index', :via=>[:get]
+  match 'prepods/:id/edit' => 'prepods#edit', :via=>[:get], :as => "prepod"
+  match 'prepods/:id/edit' => 'prepods#update', :via=>[:put]
+  #resources :prepods
 
-  resources :students
+  match 'students' => 'students#index', :via=>[:get]
+  match 'students/:id/edit' => 'students#edit', :via=>[:get], :as => "student"
+  match 'students/:id/edit' => 'students#update', :via=>[:put]  
+  #  resources :students
   
   resources :pages
 

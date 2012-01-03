@@ -15,7 +15,7 @@ class StudentsController < ApplicationController
   # GET /students/1
   # GET /students/1.json
   def show    
-    if params[:id].to_i == session[:user][:id]
+    if ! session[:user].nil? && params[:id].to_i == session[:user][:id]
       @student = Student.find(params[:id])
     
       respond_to do |format|
@@ -40,7 +40,7 @@ class StudentsController < ApplicationController
 
   # GET /students/1/edit
   def edit
-    if params[:id] == session[:user][:id]      
+    if params[:id].to_i == session[:user][:id]      
       @student = Student.find(params[:id])
     else
       redirect_to_back
@@ -70,7 +70,8 @@ class StudentsController < ApplicationController
 
     respond_to do |format|
       if @student.update_attributes(params[:student])
-        format.html { redirect_to @student, notice: 'Student was successfully updated.' }
+        #format.html { redirect_to @student, notice: 'Student was successfully updated.' }
+        format.html { redirect_to "/home", notice: 'Информация успешно обновлена.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

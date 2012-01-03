@@ -4,17 +4,17 @@
       <h2><%= pluralize(@student.errors.count, "error") %> prohibited this student from being saved:</h2>
 
       <ul>
-      <% @student.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+        <% @student.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
-<%=render :partial =>"/subs/user_form", :locals=>{:form=>f}%>
+  <%=render :partial =>"/subs/user_form", :locals=>{:form=>f}%>
 
-<%=f.select :group_id, Group.all.collect {|p| [ p.name, p.id ] }, {:include_blank => 'None'}%>
+  <%=f.select :group_id, Group.all.collect {|p| [ p.name, p.id ] }, {:include_blank => 'None'}%>
 
- 
+
   <div class="actions">
     <%= f.submit %>
   </div>
