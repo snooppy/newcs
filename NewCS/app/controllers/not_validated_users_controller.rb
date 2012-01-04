@@ -53,14 +53,14 @@ class NotValidatedUsersController < ApplicationController
     @valid_user = NotValidatedUser.find(params[:id])
     
     @user = User.new                
-    @user[:email] = @valid_user[:email]
-    @user.first_name = @valid_user.first_name
-    @user.second_name = @valid_user.second_name
-    @user.last_name = @valid_user.last_name
-    @user.login = @valid_user.login
-    @user.password = @valid_user.password
-    @user.sex = @valid_user.sex
-    @user.role = @valid_user.role
+    @user[:email] = @valid_user[:email].force_encoding('ASCII-8BIT')
+    @user.first_name = @valid_user.first_name.force_encoding('ASCII-8BIT')
+    @user.second_name = @valid_user.second_name.force_encoding('ASCII-8BIT')
+    @user.last_name = @valid_user.last_name.force_encoding('ASCII-8BIT')
+    @user.login = @valid_user.login.force_encoding('ASCII-8BIT')
+    @user.password = @valid_user.password.force_encoding('ASCII-8BIT')
+    @user.sex = @valid_user.sex.force_encoding('ASCII-8BIT')
+    @user.role = @valid_user.role.force_encoding('ASCII-8BIT')
      
     if (@user[:role] == ROLE_ADMIN ) 
       dn = "cn="+@user[:login]+", " + LDAP_ADMIN_BASE
