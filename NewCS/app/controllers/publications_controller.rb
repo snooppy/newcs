@@ -23,12 +23,12 @@ class PublicationsController < ApplicationController
         :select   => "*",
         :order    => "created_at desc",
         :limit    => on_page,
-        :conditions => [ "level >= ?", level],
+        :conditions => [ "level >= ? and not_validated = 0", level],
         :offset   => start,
         :include  => :subjects
       )
       @pages_col=Publication.count(
-        :conditions => [ "level >= ?", level]
+        :conditions => [ "level >= ? and not_validated = 0", level]
       )
       if @pages_col > on_page
         @pages_col= @pages_col/on_page
@@ -51,6 +51,15 @@ class PublicationsController < ApplicationController
             :order    => "created_at",
             :limit    => on_page,
             :offset   => start)
+        
+        else if todo == 'not_validated'
+            @publications = Publication.find(:all,
+              :select   => "*",
+              :order    => "created_at",
+              :limit    => on_page,
+              :offset   => start,
+              :conditions => "not_validated = 1")
+          end
         end
       end
     end
@@ -115,6 +124,7 @@ class PublicationsController < ApplicationController
       params[:publication][:photo] = File.join("from_users",session[:user].id.to_s(),params[:publication][:photo].original_filename)
     end
     params[:publication][:user_id] = session[:user].id
+    params[:publication][:not_validated] = 1
     @publication = Publication.new(params[:publication])
     respond_to do |format|
       if @publication.save
@@ -160,4 +170,15 @@ class PublicationsController < ApplicationController
       format.json { head :ok }
     end
   end
+  
+  def make_valid
+    @publication = Publication.find(params[:id])
+    @publication.update_attribute("not_validated", 0)
+
+    respond_to do |format|
+      format.html { redirect_to "/publications/not_validated/0" }
+      format.json { head :ok }
+    end
+  end
+  
 end

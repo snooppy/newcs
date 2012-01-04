@@ -44,7 +44,7 @@ if !session[:user].nil?
         <li ><%= link_to "Заявки на регистрацию", '/users/register_users' %></li>
       <%end%>
       <%if session[:user][:role] == ROLE_MODERATOR %>
-        <li ><%= link_to "Непроверенные публикации", '/publications/not_validated' %></li>
+        <li ><%= link_to "Непроверенные публикации", '/publications/not_validated/0' %></li>
       <%end%>
 
 

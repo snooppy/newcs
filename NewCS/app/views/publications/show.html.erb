@@ -24,7 +24,7 @@
       <%elsif  @publication.user.sex=="0"%>
         Опубликровала:
       <%else%>
-        Опубликовал(а):
+        Опубликовал:
       <%end%>   
       <a href="/users/<%=@publication.user.id%>"><%=@publication.user.login%></a>
     </div>
@@ -34,6 +34,9 @@
     <div class="type">Тип: <a href="#"><%=@publication.publication_type.name%></a></div>
     <br />
     <div class="cat">Категория: <a href=""><%=@publication.publication_cat.name%></a></div>
+    <%if session[:user].role == ROLE_MODERATOR%>
+      <%=link_to "Make valid", {:controller=>"publications",:action=>"make_valid",:id=>@publication.id}%>
+    <%end%>
   </div>
 
   <div class="article">

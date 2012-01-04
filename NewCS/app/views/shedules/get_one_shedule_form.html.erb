@@ -1,12 +1,16 @@
 <div class="shedule" onclick="show_shedule_form(this);">
   <label><%=@shedule[:hour].to_s() %></label>
 
-  <div class="label" >
-    <p><%=@shedule[:classroom]%></p>
-    <p><%=@shedule[:subject]%></p>
+  <div class="label" style="width:100%; background-color: white">
+    
+    <p>
+      <%unless @shedule.subject.nil?%>
+        <%=@shedule.subject.name%>
+      <%end%>
+    </p>
     <p><%=@shedule[:prepod]%></p>
     <p><%=@shedule[:type]%></p>
-    <p><%=@shedule[:corpus]%></p>
+    <p> <%=@shedule[:corpus]%> </p><b><%=@shedule[:classroom]%></b>
   </div>
   <%= form_for(@shedule, :remote=>true) do |f| %> 
     <p style="width:100%;background-color: coral" onclick="$(this).parent().hide(100);">X</p><br>

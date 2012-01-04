@@ -13,6 +13,7 @@ class CreatePublications < ActiveRecord::Migration
       t.text    :article
       t.text    :prolog
       t.integer :level
+      t.integer :not_validated
       t.text    :photo
       
       t.integer :publication_type_id

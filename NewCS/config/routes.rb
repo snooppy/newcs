@@ -62,7 +62,7 @@ NewCS::Application.routes.draw do
   match 'former_users' => 'former_users#index', :as => :former_users
 
   resources :subjects
-
+  match 'publications/make_valid/:id' => 'publications#make_valid', :via=>[:get]
   match 'publications/for_index' => 'publications#for_index', :via=>[:get]
   match 'publications/:id/edit'     => 'publications#edit', :via=>[:get]
   match 'publications/new'     => 'publications#new', :via=>[:get]

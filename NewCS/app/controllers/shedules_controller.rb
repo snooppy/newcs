@@ -4,7 +4,7 @@ class ShedulesController < ApplicationController
   def get_one_shedule_form
     @shedule =nil
     unless params[:groups_id].nil?
-      @shedule = Shedule.find(:first,:conditions=>{:groups=>{:id=>params[:groups_id]}},:include=>:groups)
+      @shedule = Shedule.find(:first,:conditions=>{:groups=>{:id=>params[:groups_id]},:hour=>params[:hour], :day=>params[:day]},:include=>[:groups,:subject])
     end
     if @shedule.nil?
       @shedule = Shedule.new
@@ -75,7 +75,7 @@ class ShedulesController < ApplicationController
 
     respond_to do |format|
       if @shedule.update_attributes(params[:shedule])
-        format.html { redirect_to @shedule, notice: 'Shedule was successfully updated.' }
+        render :inline => "ok"
         format.json { head :ok }
       else
         format.html { render action: "edit" }

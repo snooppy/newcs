@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111228203960) do
+ActiveRecord::Schema.define(:version => 20111228203961) do
 
   create_table "documents", :force => true do |t|
     t.string   "path"
@@ -118,6 +118,7 @@ ActiveRecord::Schema.define(:version => 20111228203960) do
     t.text     "article"
     t.text     "prolog"
     t.integer  "level"
+    t.integer  "not_validated"
     t.text     "photo"
     t.integer  "publication_type_id"
     t.integer  "publication_cat_id"
