@@ -34,7 +34,7 @@
     <div class="type">Тип: <a href="#"><%=@publication.publication_type.name%></a></div>
     <br />
     <div class="cat">Категория: <a href=""><%=@publication.publication_cat.name%></a></div>
-    <%if session[:user].role == ROLE_MODERATOR%>
+    <%if ! session[:user].nil? && session[:user].role == ROLE_MODERATOR%>
       <%=link_to "Модерато Одобряме!", {:controller=>"publications",:action=>"make_valid",:id=>@publication.id}%>
     <%end%>
   </div>

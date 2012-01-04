@@ -27,8 +27,8 @@ describe UsersController do
       put("/users/1").should route_to("users#update", :id => "1")
     end
 
-    it "routes to #destroy" do
-      delete("/users/1").should route_to("users#destroy", :id => "1")
+    it "routes to #sign_in" do
+      get("/users/sign_in").should route_to("users#sign_in")
     end
 
   end
