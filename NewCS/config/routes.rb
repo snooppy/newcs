@@ -15,6 +15,7 @@ NewCS::Application.routes.draw do
   # messages 
   match 'messages/get_new_message' => 'messages#get_new_message', :via=>[:get]
   match 'messages/get_new_dialog/:user_from' => 'messages#get_new_dialog', :via=>[:get]
+  match 'messages/get_my_dialog/:user_to' => 'messages#get_my_dialog', :via=>[:get]
   match 'messages/read/:id' => 'messages#read', :via=>[:get]  
   match 'messages/dialog/:id' => 'messages#dialog', :via=>[:get], :as=>"dialog"
   match 'messages/dialogs' => 'messages#dialogs', :via=>[:get]

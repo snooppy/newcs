@@ -5,37 +5,39 @@ class UsersController < ApplicationController
   
   def sign_in
         
-    ldap = Net::LDAP.new(
-      host: LDAP_SERVER,
-      :auth => {
-        :method => :simple,
-        :username => LDAP_ROOT,
-        :password => LDAP_ROOT_PASSWORD
-      }
-    )        
-
-    @user = User.find_all_by_login(params[:user][:login])[0]
+#    ldap = Net::LDAP.new(
+#      host: LDAP_SERVER,
+#      :auth => {
+#        :method => :simple,
+#        :username => LDAP_ROOT,
+#        :password => LDAP_ROOT_PASSWORD
+#      }
+#    )        
+#
+#    @user = User.find_all_by_login(params[:user][:login])[0]
+#    
+#    if ! @user.nil?   
+#      if (@user[:role] == ROLE_ADMIN ) 
+#        result = ldap.bind_as(:base => LDAP_ADMIN_BASE,
+#          :filter => "(cn="+params[:user][:login]+")",
+#          :password => params[:user][:password])
+#      elsif (@user[:role] == ROLE_MODERATOR )
+#        result = ldap.bind_as(:base => LDAP_MODERATOR_BASE,
+#          :filter => "(cn="+params[:user][:login]+")",
+#          :password => params[:user][:password])      
+#      elsif (@user[:role] == ROLE_PREPOD )
+#        result = ldap.bind_as(:base => LDAP_PREPOD_BASE,
+#          :filter => "(cn="+params[:user][:login]+")",
+#          :password => params[:user][:password])       
+#      elsif (@user[:role] == ROLE_STUDENT )
+#        result = ldap.bind_as(:base => LDAP_STUDENT_BASE,
+#          :filter => "(cn="+params[:user][:login]+")",
+#          :password => params[:user][:password])
+#      end           
+#    end    
     
-    if ! @user.nil?   
-      if (@user[:role] == ROLE_ADMIN ) 
-        result = ldap.bind_as(:base => LDAP_ADMIN_BASE,
-          :filter => "(cn="+params[:user][:login]+")",
-          :password => params[:user][:password])
-      elsif (@user[:role] == ROLE_MODERATOR )
-        result = ldap.bind_as(:base => LDAP_MODERATOR_BASE,
-          :filter => "(cn="+params[:user][:login]+")",
-          :password => params[:user][:password])      
-      elsif (@user[:role] == ROLE_PREPOD )
-        result = ldap.bind_as(:base => LDAP_PREPOD_BASE,
-          :filter => "(cn="+params[:user][:login]+")",
-          :password => params[:user][:password])       
-      elsif (@user[:role] == ROLE_STUDENT )
-        result = ldap.bind_as(:base => LDAP_STUDENT_BASE,
-          :filter => "(cn="+params[:user][:login]+")",
-          :password => params[:user][:password])
-      end           
-    end    
-    
+    @user = User.find_by_login_and_password(params[:user][:login],params[:user][:password])
+    result = true
     respond_to do |format|
       if result && ! @user.nil?
         session[:user] = @user           
@@ -86,6 +88,7 @@ class UsersController < ApplicationController
   # GET /users/new
   # GET /users/new.json
   def new
+    p session
     if session[:user].nil? 
       @user = User.new
     

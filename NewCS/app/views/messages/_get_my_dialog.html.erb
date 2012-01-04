@@ -8,7 +8,7 @@
      dialog_message  rounded" onmouseover="show_dm_checkmark('mess<%=@message.id%>');"
      onmouseout="hide_dm_checkmark('mess<%=@message.id%>');">
   <span class="dialog_message_avatar">
-    <%=  image_tag "face.png" ,:class=> "dialog_message_img rounded"%>
+    <%=  image_tag @message.userfrom.photo ,:class=> "dialog_message_img rounded"%>
   </span>
   <div>
     <a href="#" class="dialog_message_author"><%= User.find(@message.userfrom_id).login%></a>

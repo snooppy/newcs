@@ -3,7 +3,7 @@
   $(document).ready(
   function(){
     $('#login_input_fake').keyup(function (e) { 
-      
+      $('#login_input').val("");
       switch (e.keyCode) {
         // User pressed "up" arrow
         case 38:
@@ -48,6 +48,10 @@
               dataType: "html",
               success: function (data){
                 $('#users_list').html(data)
+                var array = $('#autocomplete_query .selected').attr('id').split('_split_');
+                if ($("#login_input_fake").val()== array[1]){
+                  $('#login_input').val(array[0]);
+                }
               } 
             });
           }else{
@@ -55,11 +59,31 @@
           }
           break;
       }
-    });               
+    }); 
+    $('#new_message').submit(function(){
+      var error="";
+      if ($('#login_input').val()==""){
+        error="Please specify valid user`s login<br>";
+      }
+      if ( $('#message_text').val()==""){
+        error +="Please specify message body";
+      }
+      if (error!=""){
+        $('#notification_area').html(error);
+        $('#notification_area').addClass("notif_error");
+        $("#notification_area").slideDown("slow");
+        $("#notification_area").delay(2000);
+        $("#notification_area").slideUp("slow");
+        return false;
+      }
+    
+    })
   });
+  
+  
 </script>
 <%@message = Message.new%>
-<%= form_for(@message, :remote => true, :url => "/messages/create") do |f| %>
+<%= form_for(@message, :remote => true, :url => "/messages/create" ) do |f| %>
   <strong>Кому:</strong>
   <div>
     <%=f.hidden_field :userto_id, :style=>"width:90%;", :id=>"login_input"  %>

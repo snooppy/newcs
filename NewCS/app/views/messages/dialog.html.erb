@@ -1,13 +1,10 @@
 <script type="text/javascript">
+  EVENTS = "dialog";
   function get_dialog(){
     $.ajax({
       type: 'GET',
       url: '/messages/get_new_dialog/<%=@info[:user_from]%>',
       dataType: "html",
-      //        error: function(request,error) 
-      //        {
-      //            alert ( " Can't do because: " + error );
-      //        },
       success: function (data){
         $("#dialog_container").append(data);
         $("#dialog_container.dialog_message_from").last().show(1000);
@@ -26,6 +23,21 @@
   function hide_dm_checkmark(divid){
     document.getElementById(divid).getElementsByTagName('IMG')[1].style.display="none";
   }
+  $(document).ready(
+  function(){
+    $('#new_message').submit(function(){
+      $.ajax({
+      type: 'GET',
+      url: '/messages/get_my_dialog/<%=@info[:user_from]%>',
+      dataType: "html",
+      success: function (data){
+        $("#dialog_container").append(data);
+        $("#dialog_container.dialog_message_from").last().show(1000);
+        $("#dialog_container").scrollTop($("#dialog_container").height()+1000);
+      } 
+    });
+    });
+  });
 </script>
 
 <%  @messages = @dialog_info[:messages] %>
@@ -77,22 +89,27 @@
 
   <div id="dialog_bottom_bar" class="rounded">
     <div class="tip"></div>
-    <table cellpadding="0" cellspacing="0">
-      <tbody>
-        <tr>
-          <td id="im_user_holder">
-            <%=  image_tag "face.png" ,:width=>"60px", :height=>"60px",:class=> "rounded"%>
-          </td>
-          <td class="dialog_write_form">
-            <div>
-              <textarea id="dialog_wr_txt_to<%=@info[:user_from]%>" name="dialog_write_text" class="dialog_my_text"></textarea>
+    <%@message = Message.new%>
+    <%= form_for(@message, :remote => true, :url => "/messages/create" ) do |f| %>
+      <table cellpadding="0" cellspacing="0">
+        <tbody>
+          <tr>
+            <td id="im_user_holder">
+              <%=f.hidden_field :userto_id, :style=>"width:90%;", :value=>@info[:user_from] %>
+              <%=  image_tag "face.png" ,:width=>"60px", :height=>"60px",:class=> "rounded"%>
+            </td>
+            <td class="dialog_write_form">
               <div>
-                <input type="submit" name="dialog_send_massage" value="Отправить" class="button_send_message button_blue"/>
-              </div>
-            </div>          
-          </td>
-        </tr>
-      </tbody>
-    </table>           
+                <%=f.text_area :text, :class=>"send_msg_text", :class=>"dialog_my_text"%>
+                <div>
+                  <%= f.submit :Отправить, :class=>"button_send_message button_blue", :style=>"margin-left: 0px;"%>
+
+                </div>
+              </div>          
+            </td>
+          </tr>
+        </tbody>
+      </table> 
+    <% end %>
   </div>
 </div>

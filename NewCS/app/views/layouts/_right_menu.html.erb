@@ -33,7 +33,7 @@ if !session[:user].nil?
         <li ><%= link_to "Оценки", '#' %></li>  
       <%end%>
 
-      <li ><%= link_to "Сообщения", '/messages' %></li>
+      <li ><%= link_to "Сообщения", '/messages/dialogs' %></li>
       <li >        
         <% if ! session[:user][:settings_id].nil? %>
           <%= link_to "Настройки", '/settings/'+session[:user][:settings_id].to_s+'/edit' %>

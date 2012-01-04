@@ -63,7 +63,17 @@
           hideDuration: 300
         });
       });
-        
+      <%if !session[:user].nil?%>     
+        $(document).ready(
+        function(){
+          event_scan();
+          setInterval(function (){
+            event_scan();
+          }, 1000);
+          
+          //$("#new_message").draggable();  
+        });
+    <%end%>  
     </script>
 
     <title>Главная - Кафедра ИКС</title>

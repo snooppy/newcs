@@ -12,6 +12,7 @@ class MessagesController < ApplicationController
     if !session[:user].nil?
       @messages = Message.find(:all,
         :select => "*", 
+        :include => :user,
         :group => "userfrom_id, userto_id", 
         :having => ["userfrom_id = (?) or userto_id = (?)",
           session[:user], 
@@ -100,6 +101,29 @@ class MessagesController < ApplicationController
       if !@message.nil? 
         render :partial =>"get_new_dialog"
         @message.update_attribute("showed_dialog",true)
+      else 
+        render :nothing => true
+      end   
+    else 
+      render :nothing => true
+    end
+  end
+  
+  def get_my_dialog
+    user_to = params[:user_to]
+    if !session[:user].nil?
+      @message = Message.find(
+        :last,
+        :select=>"*",
+        :order => "created_at",
+        :conditions => [
+          "userfrom_id = (?) and userto_id = (?)",
+          session[:user].id,
+          user_to
+        ]
+      )   
+      if !@message.nil? 
+        render :partial =>"get_new_dialog"
       else 
         render :nothing => true
       end   

@@ -50,8 +50,6 @@ function get_message(){
     });
 }
 
-
-
 function event_success(data){
     var datas = data.split(";");
     for (var i=0; i<=datas.length-1;i++){

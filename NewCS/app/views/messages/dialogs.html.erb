@@ -1,12 +1,12 @@
 <h1>Dialogs</h1>
-
-<!--% @dialog_info.each do |di| %>
+<br>  
+<h4><%=link_to "Send message","/messages"  %></h4><br>
+<% @dialog_info.each do |di| %>
   <%  message = di[:message] %>
   <%  @info = di[:info] %>
   <div class = "dialogs_dialog">
-    <%=link_to "open dialog", dialog_path(@info[:user_from])%>
-    <p> <%=User.find(@info[:user_from]).login%></p>
-    <p> <%=message.text%></p>
+   <%=link_to "open dialog with " + User.find(@info[:user_from]).login, "/messages/dialog/"+@info[:user_from].to_s()%>
+    <p> <%=message.text.slice(0..150)+"..."%></p>
     <p> <%=message.created_at%></p>
   </div>
-<% end %-->
+<% end %>

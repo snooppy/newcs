@@ -10,7 +10,7 @@
 </div-->
 
 
-<div id="popup_message" onclick="location.href='/messages';" style="cursor: pointer;">
+<div id="popup_message" onclick="location.href='/messages/dialog/'+<%=@message.userfrom_id%>"  style="cursor: pointer;">
   <%=  image_tag "notice.png" , :class=> "img_popup_message_new_info", :alt => "test"%>
   <div >
     <div style="float:left;">
