@@ -79,6 +79,7 @@
     <%session[:login_success] = ""%>
   <%end%>
   <div id="container_singin">
-    <%=link_to "sign out", {:controller=>"users",:action=>"sign_out"}%>
+    <%=link_to "sign out", {:controller=>"users",:action=>"sign_out"}%><br>
+    <%=link_to "Home", "/home"%>
   </div>
 <%end%>
