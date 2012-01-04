@@ -55,7 +55,7 @@ NewCS::Application.routes.draw do
   match 'users/register_users' => 'not_validated_users#index', :as => :not_validated_users  
   match 'users/registration' => 'not_validated_users#new'
   match 'not_validated_users/create' => 'not_validated_users#create', :via=>[:post] 
-  #match 'users/:id' => 'users#show', :via=>[:get]  
+  match 'users/:id' => 'users#show', :via=>[:get]  
   #  resources :not_validated_users
   
   

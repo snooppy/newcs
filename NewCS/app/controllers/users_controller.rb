@@ -36,8 +36,6 @@ class UsersController < ApplicationController
       end           
     end    
     
-    @user = User.find_by_login_and_password(params[:user][:login],params[:user][:password])
-    result = true
     respond_to do |format|
       if result && ! @user.nil?
         session[:user] = @user           
