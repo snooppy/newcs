@@ -1,0 +1,62 @@
+<%  next_hour = 1 %>
+<%  current_day = 0 %>
+<%@shedules.each do |shedule|%>
+
+  <%  if current_day != shedule[:day] %>
+    <%  current_day = shedule[:day] %>
+    <%  next_hour = 1 %>
+    <%if current_day !=0 %>
+      </div>
+    <%end%>
+      <div class="day day<%=current_day%>"><input type="hidden" value="0" id ="normal_height">
+  <%end%>
+
+  <% unless shedule[:hour] == 9999 %>
+      <% next_hour = shedule[:hour] + 1 %>
+
+      <div tag="complite" class="shedule shedule<%="_"+shedule[:groups].to_s+"_"+shedule[:day].to_s+"_"+shedule[:hour].to_s%>" day="<%=shedule[:day].to_s%>" hour="<%=shedule[:hour].to_s%>" group="<%=shedule[:groups].to_s%>" shedule_id="<%=shedule[:id]%>" >
+        <div class="label" style="width:100%;" onclick="show_shedule_form($(this).parent());">
+          <label style="padding-right: 10px;"><%=shedule[:hour].to_s() %></label>
+          <p>
+            <%unless shedule.subject.nil?%>
+              <%=shedule.subject.name%>
+            <%end%>
+          </p>
+          <p><%=shedule[:prepod]%></p>
+          <p><%=shedule[:type]%></p>
+          <p><%=shedule[:corpus]%> </p><b><%=shedule[:classroom]%></b>
+        </div>
+        <%= form_for(shedule, :remote=>true) do |f| %> 
+          
+          <p style="width:100%;background-color: coral" onclick="$(this).parent().hide(100);">X</p><br>
+          
+          <%= f.hidden_field :week %>
+          <%= f.hidden_field :group_ids %>
+          <%= f.hidden_field :day %>
+          <%= f.hidden_field :hour %>
+          <%= f.label :calssroom %>
+          <%= f.text_field :classroom %>
+          <%= f.label :subject %>
+          <%=f.select :subject_id, Subject.all.collect {|s| [ s.name, s.id ] }, {:include_blank => 'None'}%><br>
+          <%= f.label :type %>
+          <%= f.text_field :type %>
+          <%= f.label :corpus %>
+          <%= f.text_field :corpus %>
+          <%= f.hidden_field :sub_group2 %>
+          <%= f.hidden_field :sub_group3 %>
+          <%= f.submit :submit %>
+          <%= link_to 'Destroy', shedule, confirm: 'Are you sure?', method: :delete %>
+        <% end %>
+      </div>
+    <%else%>
+      <div class = "shedule shedule_<%=shedule[:groups].to_s%>_<%=current_day.to_s+"_"+next_hour.to_s%> add_shedule" tag ="add_shedule" day="<%=current_day.to_s%>" hour="<%=next_hour.to_s%>" group="<%=shedule[:groups].to_s%>" shedule_id="<%=shedule[:id]%>">
+        <div class="label" style="width:100%; " onclick="add_new_shedule($(this).parent());">+add hour+</div>
+        <%= form_for(shedule) do |f| %> 
+          <%= f.hidden_field :group_ids %>
+          <%= f.hidden_field :day %>
+          <%= hidden_field_tag "shedule[hour]", next_hour %>
+          <% p next_hour  %>
+        <% end %>
+      </div>
+    <%end%>
+  <%end%>

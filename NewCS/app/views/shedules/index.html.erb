@@ -1,108 +1,367 @@
+///////// TODO fix height of days while shedule removed ////////////////////
+
 <script type="text/javascript">
   var days = ["mon","tue","wen","thu","fri","sat"];
   var lock=false;
   function create_days(){
+    var days_heads = '';
+    var num = 0;
     for (var i in days){
-      var day = '<div id=\"'+days[i] +'1\" class=\"day\">'+
-        '<div class=\"day_head\"><b>'+days[i] + '</b>'+
-        '<%=number_field_tag "hours_count","1",:class=>'hours_count', :onclick=>'add_hour(this);'%>'+              
-        '</div></div>';
-      $('#shedules_table').append(day);
+      num ++ ;
+      days_heads += '<b class="day'+ num +'">'+days[i] + '</b>'; //ugly
     }
+    $('#days_heads').append(days_heads);
   
   }
   
-  function add_group(){
-    var count = $('#group_count').val(); 
-    var count2 = $("#groups .count").val();
-    for (var i=count2;i<count;i++){
-      create_group_col(i);
-    }
-    $("#groups .count").val(count);
+  function fill_group(parent_block, group_id){
+    parent_block.attr('group',group_id);
+    $.ajax({
+      async:false,
+      type: 'GET',
+      url: '/shedules/get_group/'+group_id,
+      dataType: "html",
+      success: function (data){
+        parent_block.html(data);
+        for (var i = 1; i < 7; i++){
+          parent_block.children(".day"+i).children('#normal_height').val(parent_block.children(".day"+i).css('height'));
+        }
+        fix_height_all();
+      } 
+    });
   }
   
-  function fill_group(group_num, group_id){
-    for (var day in days){
-      hours = $("#"+days[day]+"1 .hours_count").val()
-      $("#"+days[day] + "1  .day_group"+group_num).html("");
-      for (var i=1;i<=hours;i++){
-        $.ajax({
-          async:false,
-          type: 'GET',
-          url: 'get_one_shedule_form/'+day+"/"+i+"/"+group_id,
-          dataType: "html",
-          success: function (data){
-            $("#"+days[day]+'1 .day_group'+group_num).append(data);
-          } 
-        });
+  function create_group_col(id){
+    // TODO add checking for group count overload
+    $("#groups .count").val($("#groups .count").val()-0+1);
+    var group_list='<select>';
+<%Group.all.each do |group|%>
+      if ( "<%=group[:id]%>" == id){
+        group_list+='<option selected value="<%=group[:id]%>"><%=group[:name]%></option>';
+      }else{
+        group_list+='<option value="<%=group[:id]%>"><%=group[:name]%></option>';
       }
-    }
-  }
-  
-  function create_group_col(group_num){
-    var group_list='<%=render :partial=>"/groups/group_list"%>' // DON`T CHANge name of this class!!!!!
-    $('#groups_head').append(group_list);
-    $('#groups_head select').last().addClass("group_select"+group_num);
-    $('#groups_head select').last().click(function(){
+<%end%>
+    group_list +="</select>";
+    $('#groups_block').append('<div class = "one_group_block"> </div>');
+    $('#groups_block .one_group_block').last().append(group_list);
+    $('#groups_block .one_group_block').last().append('<div class = "group_forms"> </div>');
+    $('#groups_block .one_group_block').last().children('select').val(id);
+    $('#groups_block .one_group_block').last().children('select').click(function(){
       var id = this.value;
-      if (id != "" && id!= ""){
-        fill_group(this.className[12],id);
-      }
-      for (var i=0;i<5;i++){
-        $('.day_group' + this.className[12]+" #shedule_group_ids").val(id);
+      if (id != ""){
+        fill_group($(this).parent().children('.group_forms'),id);
+        $("#shedule_block_groups").val($("#shedule_block_groups").val()+" " + id);
       }
     });
-    
-    for (var day in days){
-      hours = $("#"+days[day]+"1 .hours_count").val()
-      $("#"+days[day] + "1").append("<div class='day_group_div day_group"+group_num+"'></div>");
-      for (var i=1;i<=hours;i++){
-        $.ajax({
-          async:false,
-          type: 'GET',
-          url: 'get_one_shedule_form/'+day+"/"+i,
-          dataType: "html",
-          success: function (data){
-            $("#"+days[day]+'1 .day_group'+group_num).append(data);
-          } 
+    return  $('#groups_block .one_group_block').last().children('.group_forms');
+  }
+
+  function add_new_shedule(p_this){
+    var hour   = p_this.attr('hour');
+    var day    = p_this.attr('day');
+    p_this.attr('hour', parseInt(p_this.attr('hour'))+1);
+    $('.day'+day).each(function(){
+      var parent_id =  $(this).parent().attr("id");
+      var current_group = $(this).parent().attr('group');
+      if ( parent_id != "days_heads"){
+        $("<div tag='new' day='"+ day +"' group='"+ current_group +"' hour='"+ hour +"'></div>").insertBefore($(this).children('.add_shedule'));
+        $.get("/shedules/get_shedule/"+current_group+"/"+day+"/"+hour,function(data){
+          $('div[tag="new"][group="'+current_group+'"][day="'+day+'"][hour="'+hour+'"]').replaceWith(data);
+          var p_this = $('div[tag="complite"][group="'+current_group+'"][day="'+day+'"][hour="'+hour+'"]');
+          p_this.parent().height(p_this.height() + p_this.parent().height());
         });
       }
-    }
+    });
+    fix_merged_pos(parseInt(day,10),parseInt(hour,10),p_this.parent().children('div[tag="complite"]').last().height());
+    $('#days_heads .day'+day).height(p_this.parent().height()+p_this.parent().children('div[tag="complite"]').last().height());
   }
   
-  function add_hour(p_this){  
-    var group_count = $('#group_count').val(); 
-    var new_count = $(p_this).val();
-    var day = $(p_this).parent().parent().attr('id');
-    for (var i=0;i<=group_count;i++){
-      $.ajax({
-        async:false,
-        type: 'GET',
-        url: 'get_one_shedule_form/'+day[3]+"/"+new_count,
-        dataType: "html",
-        success: function (data){
-          $("#"+day+' .day_group'+i).append(data);
-        } 
-      });
-    }
-    
+  function fix_merged_pos(day, hour, new_top){
+    $('.merged').each(function(){
+      if ( (parseInt($(this).attr('day'),10) > day) || (parseInt($(this).attr('hour'),10) > hour && parseInt($(this).attr('hour'),10) == day)){
+        $(this).offset({top : $(this).offset().top+parseInt(new_top,10)});
+      }
+    })
   }
   
   function show_shedule_form(p_this){
     $(p_this).children(" .new_shedule").show();
     $(p_this).children(" .edit_shedule").show();
   }
+  
+  function fix_height_all(){
+    for (var i = 1; i < 7; i++){
+      $('#days_heads .day'+i).height($('.group_forms').first().children('.day'+i).height());
+    }
+  }
+  
+  
+  function show_connect(group1, group2, day, hour){
+    var block = $('#connector_block').children('#labels');
+    block.html("");
+    $('#connector_block #button').hide();
+    block.append("<p>Realy Marge?</p>")
+    if  ($(".shedule_"+group1+"_"+day+"_"+hour).attr('tag') == 'add_shedule' && $(".shedule_"+group2+"_"+day+"_"+hour).attr('tag') != 'add_shedule' ){
+      block.append("<p>New Schedule becomes:</p>")
+      block.append("<div id ='group2_label'>"+$(".shedule_"+group2+"_"+day+"_"+hour).children(".label").html()+"</div>");
+      $('#merge_data').val(group2+" "+group1+" "+day +" "+ hour);
+      $('#connector_block #button').show();
+      $('#group2_label').css('background-color','blue');
+    }
+    else if  ($(".shedule_"+group2+"_"+day+"_"+hour).attr('tag') == 'add_shedule' ){
+      block.append("<p>New Schedule becomes:</p>")
+      block.append("<div id ='group1_label'>"+$(".shedule_"+group1+"_"+day+"_"+hour).children(".label").html()+"</div>");
+      $('#merge_data').val(group1+" "+group2+" "+day +" "+ hour);
+      $('#connector_block #button').show();
+      $('#group1_label').css('background-color','blue');
+    }
+    else {
+      block.append("<p>Choose what should New Schedule becomes:</p>")
+      block.append("<div id ='group1_label' onclick='choose_group1_label(\""+group1+"\",\""+group2+"\",\""+day+"\",\""+hour+"\")'>"+$(".shedule_"+group1+"_"+day+"_"+hour).children(".label").html()+"</div>");
+      block.append("<div id ='group2_label' onclick='choose_group2_label(\""+group2+"\",\""+group1+"\",\""+day+"\",\""+hour+"\")'>"+$(".shedule_"+group2+"_"+day+"_"+hour).children(".label").html()+"</div>");
+    }
+
+    block.parent().show("fast");
+  }
+  
+  function choose_group1_label(group1, group2, day, hour){
+    $('#group1_label').css('background-color','blue');
+    $('#group2_label').css('background-color','white');
+    $('#merge_data').val(group1+" "+group2+" "+day +" "+ hour);
+    $('#connector_block #button').show('fast');
+  }
+  function choose_group2_label(group1, group2, day, hour){
+    $('#group2_label').css('background-color','blue');
+    $('#group1_label').css('background-color','white');
+    $('#merge_data').val(group1+" "+group2+" "+day +" "+ hour);
+    $('#connector_block #button').show('fast');
+  }
+  
+  
+  
+  function add_conectors(){
+    var group_list = $('#shedule_block_groups').val().replace(/^\s/,'').split(/\s/);
+    $('div[tag="complite"][group!="'+group_list[0]+'"]').each(function(){
+      $(this).css('color','red');
+      var day = $(this).attr('day');
+      var hour = $(this).attr('hour');
+      var group = $(this).attr('group');
+      var real_prev_group = group_list[group_list.indexOf($(this).attr('group'))-1];
+      
+      for(var i = group_list.indexOf($(this).attr('group'))-1; i>=0; i--){
+        if ($('div[tag="complite"][group="'+group_list[i]+'"][day="'+day+'"][hour="'+hour+'"]').attr('shedule_id')!= undefined){
+          real_prev_group = $('div[tag="complite"][group="'+group_list[i]+'"][day="'+day+'"][hour="'+hour+'"]').attr('group');
+          break;
+        }
+      }
+      var prev_el = $('div[tag="complite"][group="'+real_prev_group+'"][day="'+day+'"][hour="'+hour+'"]');
+      if ( prev_el.attr('shedule_id') == $(this).attr('shedule_id') ){
+        if ($('div[tag="merged"][group="'+real_prev_group+'"][day="'+day+'"][hour="'+hour+'"]').attr('tag') != undefined){
+          $('div[tag="merged"][group="'+real_prev_group+'"][day="'+day+'"][hour="'+hour+'"]').width($('div[tag="merged"][group="'+real_prev_group+'"][day="'+day+'"][hour="'+hour+'"]').width()+$(this).width()+45);
+        }else{
+          var prev_el_html = prev_el.html();
+          prev_el.children('.connector').remove();
+          $('#shedules_widget_root').append("<div class='shedule merged' tag='merged' group='"+real_prev_group+"' day='"+day+"' hour='"+hour+"' >"+prev_el.html()+"</div>");
+          prev_el.html(prev_el_html);
+          $('div[tag="merged"][group="'+real_prev_group+'"][day="'+day+'"][hour="'+hour+'"]').last().offset(prev_el.offset()); 
+          $(this).attr('group',real_prev_group);
+        }
+      }
+      $(this).html("<div onclick='show_connect(\"" + real_prev_group +"\",\""+ group +"\",\""+ day +"\",\""+hour+"\")' class='connector'>&&</div>"+$(this).html());
+      
+    })
+  }
+  
+  function merge_schedules(){
+    var merge_data = $('#merge_data').val().toString().replace(/\s/g,"/",'g');
+    $.post('/shedules/merge_shedules/'+merge_data,function(data){
+      if (data == "ok"){
+        $('#connector_block').hide();
+        var arr = $('#merge_data').val().toString().split(/\s/);
+        $.get("/shedules/get_shedule/"+arr[0]+"/"+arr[2]+"/"+arr[3],
+        function(data){
+          $(".shedule_"+arr[0]+"_"+arr[2]+"_"+arr[3]).replaceWith(data);
+          $(".shedule_"+arr[1]+"_"+arr[2]+"_"+arr[3]).replaceWith(data);
+        }
+      );
+        $('.merged').remove();
+        $('#groups_block').html("");
+        load_groups();
+        add_conectors();
+      }
+    });
+  }
+  
+  function load_groups (){
+<%@shedule_block[:groups].split(/\s+/).each do |g_id|%>
+  <%if g_id != ""%>
+        fill_group( create_group_col("<%= p  g_id%>"), "<%= p  g_id%>");
+
+  <%end%>
+<%end%>
+  }
+  
+  $(document).ready(function() { // TODO choose block	
+    create_days();
+    load_groups();
+    add_conectors();
+  });
 </script>
 <div id="shedules_widget">
   <div id="shedules_widget_root">
-    <div id="groups_head">
-      <div style="width:100px;"><%=number_field_tag "group_count","1", :id=>"group_count", :onclick=>"add_group();"%></div>
+    <div id='connector_block'>
+      <div id = "close" onclick="$(this).parent().hide('fast')">close</div>
+      <div id="labels"></div>
+      <div id ="button"><input type="hidden" value="" id ="merge_data"><p onclick="merge_schedules();">Merge</p></div>
     </div>
+    <div>
+      <%= form_for(@shedule_block, :remote=>true) do |f|  %>
+        <%=f.text_field :week%>
+        <%=f.text_field :cours%>
+        <%=f.text_field :groups%>
+        <%=f.submit%>
+      <%end%>
+    </div>
+    <div id = "days_heads">  
+      <p onclick="create_group_col();">Add group</p>
+    </div>
+    <div id="groups_block">
+
+    </div>
+
     <div id="shedules_table">
       <div id="groups"><input type="hidden" class="count" value="0"></div>
-      <script type="text/javascript">
-        create_days();
-      </script>
     </div>
   </div>
 </div>
+
+
+
+
+
+<%#*if (data == "ok"){%>
+<%#*$('#connector_block').hide();%>
+<%#*var arr = $('#merge_data').val().toString().split(/\s/);%>
+<%#*var top%>
+<%#*var left;%>
+
+<%#*var curr_el = $('.shedule_'+arr[1]+"_"+arr[2]+'_'+arr[3]);%>
+<%#*var this_id  = curr_el.children('form').attr('id');%>
+<%#*$('.merged').each(function(){%>
+<%#*if ($(this).children('form').attr('id') == this_id ){%>
+<%#*curr_el.addClass("was_merged");%>
+<%#*$(this).width($(this).width()+curr_el.width()+50);%>
+<%#*}%>
+<%#*})%>
+<%#*if ( curr_el.attr('class').indexOf("was_merged") == -1){%>
+<%#*if ($(".shedule_"+arr[0]+"_"+arr[2]+"_"+arr[3]).attr('class') != undefined && $(".shedule_"+arr[1]+"_"+arr[2]+"_"+arr[3]).attr('class') != undefined){%>
+<%#*top = $(".shedule_"+arr[0]+"_"+arr[2]+"_"+arr[3]).offset().top;%>
+<%#*left = $(".shedule_"+arr[0]+"_"+arr[2]+"_"+arr[3]).offset().left;%>
+<%#*if ($(".shedule_"+arr[0]+"_"+arr[2]+"_"+arr[3]).offset().left > $(".shedule_"+arr[1]+"_"+arr[2]+"_"+arr[3]).offset().left){%>
+<%#*left = $(".shedule_"+arr[1]+"_"+arr[2]+"_"+arr[3]).offset().left;%>
+<%#*}%>
+<%#*}else if ( $(".shedule_"+arr[0]+"_"+arr[2]+"_"+arr[3]).attr('class') != undefined){%>
+<%#*top = $(".shedule_0_"+arr[2]+"_"+arr[3]).offset().top;%>
+<%#*left = $(".shedule_0_"+arr[2]+"_"+arr[3]).offset().left;%>
+<%#*if ($(".shedule_0_"+arr[2]+"_"+arr[3]).offset().left > $(".shedule_"+arr[0]+"_"+arr[2]+"_"+arr[3]).offset().left){%>
+<%#*left = $(".shedule_"+arr[0]+"_"+arr[2]+"_"+arr[3]).offset().left;%>
+<%#*}%>
+<%#*}else if ( $(".shedule_"+arr[1]+"_"+arr[2]+"_"+arr[3]).attr('class') != undefined){%>
+<%#*top = $(".shedule_"+arr[0]+"_"+arr[2]+"_"+arr[3]).offset().top;%>
+<%#*left = $(".shedule_0_"+arr[2]+"_"+arr[3]).offset().left;%>
+<%#*if ($(".shedule_0_"+arr[2]+"_"+arr[3]).offset().left > $(".shedule_"+arr[1]+"_"+arr[2]+"_"+arr[3]).offset().left){%>
+<%#*left = $(".shedule_"+arr[1]+"_"+arr[2]+"_"+arr[3]).offset().left;%>
+<%#*}%>
+<%#*}%> 
+<%#*////////%>
+<%#*$(".shedule_"+arr[0]+"_"+arr[1]+"_"+arr[2]+" .connector").remove();%>
+<%#*//fixing connection's groups%>
+<%#*var groups_arr = $("#shedule_block_groups").val().split(/s/)  //get the next group%>
+<%#*var next_group_id = groups_arr.indexOf(arr[1])+1;%>
+<%#*var curr_group_id = arr[1];%>
+<%#*var prev_group_id = groups_arr.indexOf(arr[1])-1;%>
+<%#*console.log('.connector_'+curr_group_id+'_'+next_group_id+'_'+ arr[2]+'_'+arr[3]);%>
+<%#*$('.connector_'+curr_group_id+'_'+next_group_id+'_'+ arr[2]+'_'+arr[3]).removeClass('connector_'+prev_group_id+'_'+next_group_id+'_'+ arr[2]+'_'+arr[3]);%>
+<%#*$('.merged').each(function(){%>
+<%#*if ( $(this).attr('class').indexOf(arr[0]+"_"+arr[2]+"_"+arr[3]) != -1 ){%>
+
+<%#*}%>
+<%#*});%>
+<%#*$('#shedules_widget_root').append("<div day='"+arr[2]+"' class='shedule merged shedule_"+arr[0]+"_"+arr[2]+"_"+arr[3]+"'>"+$('.shedule_'+arr[0]+"_"+arr[2]+"_"+arr[3]).html()+"</div>");%>
+<%#*$(".shedule_"+arr[0]+"_"+arr[2]+"_"+arr[3]).offset({ top: top, left: left });%>
+<%#*}else{%>
+<%#*$(this).removeClass("was_merged");%>
+<%#*}%>
+<%#*}%>
+
+
+
+
+
+
+
+
+<%#*$('#groups_block').children('.one_group_block').each(function(){%>
+<%#*var prev_col = $(this).prev();%>
+<%#*var prev_col_group = $(this).prev().children("select").val();%>
+<%#*var curr_col_group = $(this).children("select").val();%>
+<%#*if ( prev_col.attr('class') == "one_group_block" ){%>
+<%#*$(this).children(".group_forms").children(".day").each(function(){%>
+<%#*$(this).children('.shedule').each(function(){%>
+<%#*var class_name = $(this).attr("class");%>
+<%#*var this_id = $(this).children("form").attr('id');%>
+<%#*var arr = class_name.replace(/.*?(\d+)_(\d+)_(\d+)/,"$1 $2 $3").split(/\s/);%>
+<%#*var curr_group_id = arr[0];%>
+<%#*var groups_arr = $("#shedule_block_groups").val().split(/\s/);%>
+<%#*var prev_el = undefined;%>
+<%#*for ( var i = groups_arr.indexOf(curr_col_group)-1 ; i>=0; i-- ){%>
+<%#*var el = $('.shedule_'+groups_arr[i]+"_"+arr[1]+"_"+arr[2]);%>
+<%#*if (el.attr('class') != undefined){%>
+<%#*prev_el = el;%>
+<%#*}%>
+<%#*}%>
+<%#*var prev_group_id =prev_col_group;%>
+<%#*console.log(prev_group_id);%>
+<%#*if (prev_el != undefined){%>
+<%#*prev_group_id = prev_el.attr('class').replace(/.*?(\d+)_(\d+)_(\d+)/,"$1 $2 $3").split(/\s/)[0];%>   
+<%#*}%>
+
+<%#*if (prev_el != undefined || curr_group_id !=0 ){%>
+<%#*$(this).html("<div class='connector' id = 'connector_" + prev_group_id +"_"+ curr_col_group +"_"+arr[1] +"_"+arr[2]+"' onclick='show_connect(\"" + prev_group_id +"\",\""+ curr_col_group +"\",\""+arr[1] +"\",\""+arr[2]+"\")' >&&</div>"+$(this).html());%>
+<%#*}%>
+<%#*if ( prev_el != undefined && prev_el.children("form").attr('id') == this_id ){%>
+<%#*var curr_el = $(this);%>
+<%#*$('.merged').each(function(){%>
+<%#*if ($(this).children('form').attr('id') == this_id ){%>
+<%#*curr_el.addClass("was_merged");%>
+<%#*$(this).width($(this).width()+curr_el.width()+50);%>
+<%#*}%>
+<%#*//fix connector%>           
+<%#*var groups_arr = $("#shedule_block_groups").val().split(/\s/); //get the next group%>
+<%#*prev_group_id = groups_arr[groups_arr.indexOf(curr_group_id)-2];%>
+
+<%#*})%>
+
+<%#*if ( $(this).attr('class').indexOf("was_merged") == -1){%>
+<%#*var left = prev_el.offset().left;%>
+<%#*var top  = prev_el.offset().top;%>
+<%#*$('#shedules_widget_root').append("<div day='"+arr[1]+"' class='shedule merged shedule_"+prev_group_id+"_"+arr[1]+"_"+arr[2]+"'>"+$('.shedule_'+curr_group_id+"_"+arr[1]+"_"+arr[2]).html()+"</div>");%>
+
+<%#*// TODO add checking for prev elements%>
+<%#*$(".shedule_"+prev_group_id+"_"+arr[1]+"_"+arr[2]+" .connector").remove();%>
+
+<%#*$(".shedule_"+prev_group_id+"_"+arr[1]+"_"+arr[2]).offset({ top: top, left: left });%>
+
+<%#*//fix connectors%> 
+<%#*$(this).removeClass().addClass('shedule').addClass("shedule_"+prev_group_id+"_"+arr[1]+"_"+arr[2]);%>
+<%#*// TODO fix connectiors%>
+<%#*}else{%>
+<%#*$(this).removeClass("was_merged");%>
+<%#*}%>
+
+<%#*}%>
+<%#*})%>
+<%#*})%>
+<%#*}%>
+<%#*})%>

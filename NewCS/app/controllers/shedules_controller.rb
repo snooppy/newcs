@@ -1,25 +1,39 @@
 class ShedulesController < ApplicationController
   # GET /shedules
   # GET /shedules.json
-  def get_one_shedule_form
-    @shedule =nil
+  def get_group 
+    @shedules = nil
     unless params[:groups_id].nil?
-      @shedule = Shedule.find(:first,:conditions=>{:groups=>{:id=>params[:groups_id]},:hour=>params[:hour], :day=>params[:day]},:include=>[:groups,:subject])
+      @shedules = Shedule.find(:all,:conditions=>{:groups=>{:id=>params[:groups_id]}},:include=>[:groups,:subject],:order=>[:day,:hour])
+      @shedules.each do |s|
+        s[:groups] = params[:groups_id];
+      end
     end
+    render "get_group", :layout=>false
+  end
+  
+  def get_shedule 
+    # TODO add supporting multi groups
+    @shedule= Shedule.find(:all,:conditions=>{:groups=>{:id=>params[:groups_id]},:day=>params[:day],:hour=>params[:hour]},:include=>[:groups,:subject],:order=>[:day,:hour])[0]
     if @shedule.nil?
-      @shedule = Shedule.new
-      @shedule[:hour] = params[:hour]
-      @shedule[:day]  = params[:day]
+      new_shedule = {}
+      new_shedule[:group_ids] = [params[:groups_id]]
+      new_shedule[:day] = params[:day]
+      new_shedule[:hour] = params[:hour]
+      p new_shedule
+      @shedule = Shedule.new(new_shedule)
+      @shedule.save
     end
-    render "get_one_shedule_form", :layout=>false
+    @shedule[:groups] = params[:groups_id]
+    render "get_shedule", :layout=>false
   end
   
   def index
-    @shedules = Shedule.all
+    @shedule_block = SheduleBlock.all[0]
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @shedules }
+      format.json { render json: @shedule_block }
     end
   end
 
@@ -53,14 +67,19 @@ class ShedulesController < ApplicationController
   # POST /shedules
   # POST /shedules.json
   def create
-    p params[:shedule]
-    p params[:shedule][:subject_id]
+    ################ shit ################
+    groups = params[:shedule][:group_ids].gsub(/(\[|\])/,"") # shit
+    groups_arr = [] # shit
+    groups.split(/\s*,\s*/).each do |g|   # shit
+      groups_arr << g.to_i # shit
+    end # shit
+    params[:shedule][:group_ids] =groups_arr # shit
+    ################
     @shedule = Shedule.new(params[:shedule])
-
     respond_to do |format|
       if @shedule.save
-        format.html { redirect_to @shedule, notice: 'Shedule was successfully created.' }
-        format.json { render json: @shedule, status: :created, location: @shedule }
+        @new_shedule = params[:shedule]
+        format.js
       else
         format.html { render action: "new" }
         format.json { render json: @shedule.errors, status: :unprocessable_entity }
@@ -72,15 +91,33 @@ class ShedulesController < ApplicationController
   # PUT /shedules/1.json
   def update
     @shedule = Shedule.find(params[:id])
-
+    ################ shit ################
+    groups = params[:shedule][:group_ids].gsub(/(\[|\])/,"") # shit
+    groups_arr = [] # shit
+    groups.split(/\s*,\s*/).each do |g|   # shit
+      groups_arr << g.to_i # shit
+    end # shit
+    params[:shedule][:group_ids] =groups_arr # shit
+    ################
     respond_to do |format|
       if @shedule.update_attributes(params[:shedule])
-        render :inline => "ok"
-        format.json { head :ok }
+        @shedule[:groups] = params[:shedule][:group_ids][0]
+        format.js
       else
-        format.html { render action: "edit" }
-        format.json { render json: @shedule.errors, status: :unprocessable_entity }
+        render :inline => "fail"
       end
+    end
+  end
+  
+  def merge_shedules
+    shedule_del = Shedule.find(:all,:conditions=>{:groups=>{:id=>params[:group2_id]},:day=>params[:day],:hour=>params[:hour]},:include=>[:groups])[0] # this group should be removed
+    shedule_del.destroy unless shedule_del.nil?
+    shedule = Shedule.find(:all,:conditions=>{:groups=>{:id=>params[:group1_id]},:day=>params[:day],:hour=>params[:hour]},:include=>[:groups])[0] # this group is present 100%
+    shedule.group_ids = [params[:group1_id],params[:group2_id]]
+    if shedule.save
+      render :inline => "ok"
+    else
+      render :inline => "fail"
     end
   end
 

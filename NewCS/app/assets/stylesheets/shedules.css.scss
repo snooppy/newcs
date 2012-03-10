@@ -10,102 +10,152 @@
 }
 
 #shedules_table{
-    width:100%;
+    width:90%;
     float:left;
 }
 
-#shedules_table .day .hours_count{
-    width:40px;
+#days_heads{
+    width:100px;
+    float:left;
 }
-
-#shedules_table .day {
-    width:100%;
-    min-width:100%;
+#days_heads b{
+    width:100px;
     float:left;
     margin-bottom:10px;
-    background-color: #eeeeee;
-}
-#shedules_table .day b{
-    width:30px;
-}
-#shedules_table .day .day_head{
-    width:100px;
 }
 
-#shedules_table .day * {
+#groups_block *{
     float:left;
 }
-
-
-#shedules_table .day .day_group_div{
-    width:120px;
-    float:left; 
-    background-color:#d0d0d0;
-    padding-left:5px;
-    padding-right:5px;
-    margin:3px;
-}
-
-#groups_head #group_count  {
-    width:50px;
-}
-
-#groups_head *{
-    float:left;
-}
-#groups_head select{
+#groups_block select{
     width:126px;
     margin-right:7px;
     margin-left: 3px;
 }
 
+#groups_block .one_group_block{
+    width:125px;
+    margin:10px;
+}
 
+.group_forms .day{
+    background-color: #aaaaaa;
+    margin-bottom: 10px;
+}
 
-#shedules_table .day .shedule{
+.shedule{
+    width:100px;
+}
+
+ .shedule .label{
     width:100px;
     float:left;
 }
-
-#shedules_table .day .shedule .label{
-    width:100px;
+ .shedule label{
     float:left;
+}
+.add_shedule{
+    width:100px;
+}
+
+ .add_shedule .label{
+    width:100px;
 }
 
 
-#shedules_table .shedule .new_shedule {
+ .shedule .new_shedule {
+    display:none;
+    width:200px;
+    position:static;
+    background-color: #c0bbff;
+    margin: -20px;
+    z-index:4;
+    
+}
+
+.shedule .new_shedule *{
+    float:left;
+}
+
+.new_shedule input{
+    width:90px;
+}
+.new_shedule label{
+    width:90px;
+}
+
+.shedule .edit_shedule {
     display:none;
     float:left;
     width:200px;
     position:absolute;
     background-color: #c0bbff;
     margin: -20px;
+    z-index:4;
 }
 
-#shedules_table .shedule .new_shedule *{
+ .shedule .edit_shedule *{
     float:left;
 }
-#shedules_table  .new_shedule input{
+  .edit_shedule input{
     width:90px;
 }
-#shedules_table  .new_shedule label{
+  .edit_shedule label{
     width:90px;
 }
 
-#shedules_table .shedule .edit_shedule {
-    display:none;
-    float:left;
-    width:200px;
+.shedule .connector{
+    margin-bottom:-10px;
+    margin-left: -20px;
+}
+
+.merged{
+    z-index:2;
+    width: 270px;
     position:absolute;
-    background-color: #c0bbff;
-    margin: -20px;
+    background-color:grey;
+    text-align:center;
 }
 
-#shedules_table .shedule .edit_shedule *{
+
+#connector_block{
+    position: absolute;
+    top:150px;
+    left:300px;
+    padding:10px;
+    border: 2px black solid;
+    width:250px;
+    background-color:white;
+    display : none;
+    float:left;
+    z-index:3;
+}
+
+#connector_block #close{
+    width:250px;
+    float:left;
+    background-color:red;
+    margin:-10px;
+    margin-bottom:10px;
+}
+#connector_block #labels{
+    width:250px;
     float:left;
 }
-#shedules_table  .edit_shedule input{
-    width:90px;
+
+#connector_block #button{
+    display: none;
+    float:left;
 }
-#shedules_table  .edit_shedule label{
-    width:90px;
+
+#connector_block #group1_label{
+    width:100px;
+    float:left;
+    background-color:yellow;
+}
+
+#connector_block #group2_label{
+    width:100px;
+    float:left;
+    background-color:yellow;
 }

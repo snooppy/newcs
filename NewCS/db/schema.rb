@@ -163,6 +163,14 @@ ActiveRecord::Schema.define(:version => 20120103202634) do
     t.datetime "updated_at"
   end
 
+  create_table "shedule_blocks", :force => true do |t|
+    t.integer  "week"
+    t.integer  "cours"
+    t.string   "groups"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "shedules", :force => true do |t|
     t.integer  "week"
     t.integer  "day"

@@ -10,7 +10,7 @@ NewCS::Application.routes.draw do
     
   match 'folders/create' => 'folders#create', :via=>[:post]
   match 'folders/:id'    => 'folders#destroy', :via=>[:delete]
-  match 'folders/show'    => 'folders#index', :via =>[:get]
+  match 'folders/show'   => 'folders#index', :via =>[:get]
 
   # messages 
   match 'messages/get_new_message' => 'messages#get_new_message', :via=>[:get]
@@ -37,8 +37,11 @@ NewCS::Application.routes.draw do
 
   resources :publications_types
   
-  match 'shedules/get_one_shedule_form/:day/:hour/(:groups_id)' => 'shedules#get_one_shedule_form', :via=>[:get]
+  match 'shedules/get_group/:groups_id' => 'shedules#get_group', :via=>[:get]
+  match 'shedules/get_shedule/:groups_id/:day/:hour' => 'shedules#get_shedule', :via=>[:get]
+  match 'shedules/merge_shedules/:group1_id/:group2_id/:day/:hour' => 'shedules#merge_shedules', :via=>[:post]
   resources :shedules
+  resources :shedule_blocks
 
   resources :publication_cats
 

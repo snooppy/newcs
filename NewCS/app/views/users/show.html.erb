@@ -5,6 +5,7 @@
   <%= @user[:second_name] %>
   <%= @user[:first_name] %>
   <%= @user[:last_name] %>
+  <%=link_to "Send message", "/messages/dialog/"+@user[:id].to_s()  %>
   <br/>
   <b>Role:</b>
   <%= @user[:role] %>

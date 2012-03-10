@@ -10,23 +10,11 @@ class MessagesController < ApplicationController
   def dialogs
     # TODO add if users send mess to smb and havn`t ask
     if !session[:user].nil?
-      @messages = Message.find(:all,
-        :select => "*", 
-        :include => :user,
-        :group => "userfrom_id, userto_id", 
-        :having => ["userfrom_id = (?) or userto_id = (?)",
-          session[:user], 
-          session[:user]
-        ]
-      )   
+      @messages = Message.find_by_sql("select * from (select userto_id,created_at,text from messages where userfrom_id = "+session[:user].id.to_s()+" union all select userfrom_id,created_at,text from messages where userto_id = "+session[:user].id.to_s()+" ) as aa group by userto_id order by created_at")   
+      p @messages
       @dialog_info = []
       @messages.each do |m|
-        if m.userfrom_id != session[:user].id
-          user_from = m.userfrom_id
-        else
-          user_from = m.userto_id
-        end
-        @info = {:user_from => user_from, :user_to => session[:user].id }
+        @info = {:user_from => m.userto_id, :user_to => session[:user].id }
         @dialog_info << {:message => m, :info => @info}
       end
       respond_to do |format|

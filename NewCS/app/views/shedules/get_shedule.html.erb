@@ -1,8 +1,9 @@
-<div class="shedule" onclick="show_shedule_form(this);">
-  <label><%=@shedule[:hour].to_s() %></label>
 
-  <div class="label" style="width:100%; background-color: white">
-    
+<div tag="complite" class="shedule shedule<%="_"+@shedule[:groups].to_s+"_"+@shedule[:day].to_s+"_"+@shedule[:hour].to_s%>" day="<%=@shedule[:day].to_s%>" hour="<%=@shedule[:hour].to_s%>" group="<%=@shedule[:groups].to_s%>" shedule_id="<%=@shedule[:id]%>">
+
+
+  <div class="label" onclick="show_shedule_form($(this).parent());" style="width:100%;  ">
+    <label style="padding-right: 10px;"><%=@shedule[:hour].to_s() %></label>
     <p>
       <%unless @shedule.subject.nil?%>
         <%=@shedule.subject.name%>
@@ -29,5 +30,6 @@
     <%= f.hidden_field :sub_group2 %>
     <%= f.hidden_field :sub_group3 %>
     <%= f.submit :submit %>
+    <%= link_to 'Destroy', @shedule, confirm: 'Are you sure?', method: :delete %>
   <% end %>
 </div>

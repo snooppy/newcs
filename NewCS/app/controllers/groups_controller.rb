@@ -41,9 +41,13 @@ class GroupsController < ApplicationController
   # POST /groups.json
   def create
     @group = Group.new(params[:group])
-
     respond_to do |format|
       if @group.save
+        g = Group.limit(1).order('created_at desc')[0]
+        for day in (1..6)
+          shedule = Shedule.new({:day=>day,:hour=>9999,:group_ids=>[g[:id]]})
+          shedule.save
+        end
         format.html { redirect_to @group, notice: 'Group was successfully created.' }
         format.json { render json: @group, status: :created, location: @group }
       else
