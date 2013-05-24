@@ -36,5 +36,7 @@ gem install rails
 
 
 svn checkout http://newcs.googlecode.com/svn/trunk/trunk/NewCS/ ~/newcs
+#or download from git repo:
+#git checkout https://github.com/snooppy/newcs.git ~/newcs
 cd ~/newcs/ && bundle install
 
